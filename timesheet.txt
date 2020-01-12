@@ -2,3 +2,4 @@
 2019-11-30: 1 heure: Prototype onClick callback en tant que propriété.
 2019-12-02: 1 heure: Prototype render function en tant que methode d'état.
 2019-12-07: 2 heures: Formulaire creation de projet.
+2019-12-18: 4 heures: Migration du projet sous Electron en utilisant Electron-React boiler plate.
