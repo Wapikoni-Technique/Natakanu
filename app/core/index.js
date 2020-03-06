@@ -4,7 +4,7 @@ import levelup from 'levelup';
 import EventEmitter from 'events';
 import path from 'path';
 
-import { APPLICATION_NAME } from './constants';
+import { APPLICATION_NAME } from '../constants/core';
 
 import Database from './Database';
 import ProjectStore from './ProjectStore';

@@ -1,4 +1,4 @@
-import { PROJECT_INFO_FILE } from './constants';
+import { PROJECT_INFO_FILE } from '../constants/core';
 import { encodeProject } from './urlParser';
 
 export default class Project {

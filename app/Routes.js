@@ -6,6 +6,7 @@ import HomePage from './containers/HomePage';
 import NewProjectContainer from './containers/NewProjectContainer';
 import OpenProjectContainer from './containers/OpenProjectContainer';
 import OpenLibraryContainer from './containers/OpenLibraryContainer';
+import TestPage from './containers/TestPage';
 
 export default () => (
   <App>
@@ -14,6 +15,7 @@ export default () => (
       <Route path={routes.NEW_PROJECT} component={NewProjectContainer} />
       <Route path={routes.OPEN_PROJECT} component={OpenProjectContainer} />
       <Route path={routes.OPEN_LIBRARY} component={OpenLibraryContainer} />
+      <Route path={routes.TEST} component={TestPage} />
     </Switch>
   </App>
 );

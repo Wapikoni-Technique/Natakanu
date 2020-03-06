@@ -12,6 +12,9 @@ class MainMenu extends React.Component {
     return (
       <header className="App-header">
         <p>
+          <Link to={routes.TEST}>Test Loading Core</Link>
+        </p>
+        <p>
           <Link to={routes.NEW_PROJECT}>Nouveau projet</Link>
         </p>
         <p>

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
+import promiseMiddleware from 'redux-promise';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/types';
@@ -33,6 +34,9 @@ const configureStore = (initialState?: counterStateType) => {
   // Router Middleware
   const router = routerMiddleware(history);
   middleware.push(router);
+
+  // Promise middleware
+  middleware.push(promiseMiddleware);
 
   // Redux DevTools Configuration
   const actionCreators = {

@@ -3,7 +3,7 @@ import path from 'path';
 
 import { encodeAccount } from './urlParser';
 
-import { PROJECT_FOLDER, ACCOUNT_INFO_FILE } from './constants';
+import { PROJECT_FOLDER, ACCOUNT_INFO_FILE } from '../constants/core';
 
 const posixPath = path.posix;
 
