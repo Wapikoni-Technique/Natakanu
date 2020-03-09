@@ -14,5 +14,8 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "dat-sdk": "^2.0.0-4",
+    "leveldown": "^5.5.1"
+  }
 }

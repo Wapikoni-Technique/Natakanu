@@ -1,4 +1,4 @@
-import createAction from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { remote } from 'electron';
 
 export const CORE_LOADED = 'CORE_LOADED';

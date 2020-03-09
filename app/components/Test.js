@@ -24,8 +24,9 @@ export default class Test extends Component<Props> {
 
     return (
       <div className={styles.container} data-tid="container">
-        <h2>Home</h2>
-        <Link to={routes.COUNTER}>to Counter</Link>
+        <h2>Test Page</h2>
+        <p>Open the console to check if it loaded</p>
+        <Link to={routes.HOME}>Home</Link>
       </div>
     );
   }

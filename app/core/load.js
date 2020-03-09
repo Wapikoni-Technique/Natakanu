@@ -7,13 +7,18 @@ async function loadCore() {
   if (coreInstance) return coreInstance;
   if (coreLoading) return coreLoading;
 
-  coreLoading = NatakanuCore.create();
+  try {
+    coreLoading = NatakanuCore.create();
 
-  coreInstance = await coreLoading;
+    coreInstance = await coreLoading;
 
-  coreLoading = null;
+    coreLoading = null;
 
-  return coreInstance;
+    return coreInstance;
+  } catch (e) {
+    coreLoading = null;
+    throw e;
+  }
 }
 
 global.loadCore = loadCore;

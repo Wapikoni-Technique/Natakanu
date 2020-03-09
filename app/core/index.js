@@ -1,6 +1,7 @@
 import SDK from 'dat-sdk';
 import envPaths from 'env-paths';
 import levelup from 'levelup';
+import leveldown from 'leveldown'
 import EventEmitter from 'events';
 import path from 'path';
 
@@ -15,16 +16,19 @@ export default class NatakanuCore extends EventEmitter {
     super();
     this.sdk = sdk;
     this.db = db;
-    this.applicationName = applicationName;
+    this.applicationName = applicationName || APPLICATION_NAME;
   }
 
   async init() {
     const { applicationName } = this;
     const dataPath = envPaths(applicationName).data;
-    if (!this.db)
-      this.db = levelup(path.join(dataPath, 'levelup'), {
+    if (!this.db) {
+      const dbPath = path.join(dataPath, 'levelup')
+      const dbOptions = {
         valueEncoding: 'json'
-      });
+      }
+      this.db = levelup(leveldown(dbPath), dbOptions)
+    }
     if (!this.sdk) {
       this.sdk = await SDK({
         applicationName
@@ -42,7 +46,7 @@ export default class NatakanuCore extends EventEmitter {
   }
 
   static async create(opts) {
-    const core = new NatakanuCore(opts);
+    const core = new NatakanuCore(opts || {});
 
     await core.init();
 
