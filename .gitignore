@@ -26,3 +26,6 @@ yarn-error.log*
 package-lock.json
 .eslint-cache
 yarn.lock
+
+dist/
+app/main.prod.**
