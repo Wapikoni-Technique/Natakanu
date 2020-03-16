@@ -3,12 +3,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
 
+import Login from './Login'
+
 class MainMenu extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+	const defaultAccount = {
+		name: 'Username',
+		description: 'Example User'
+	}
+  
+	return (
+		<Login accountInfo={defaultAccount}></Login>
+	);
+  	/**
     return (
       <header className="App-header">
         <p>
@@ -25,6 +36,7 @@ class MainMenu extends React.Component {
         </p>
       </header>
     );
+    **/
   }
 }
 

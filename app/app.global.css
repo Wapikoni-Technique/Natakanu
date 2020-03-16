@@ -4,44 +4,33 @@
  */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+:root {
+  --t-color-green: #5dba86;
+  --t-color-red: #ff443a;
+  --t-color-yellow: #f4d30b;
+  --t-color-greygreen: #9ec77b;
+  --t-color-lightgreen: #a9cc41;
+  --t-radius: 8px;
+  --t-content-size: 666px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background-color: #232c39;
-  background-image: linear-gradient(
-    45deg,
-    rgba(0, 216, 255, 0.5) 10%,
-    rgba(0, 1, 127, 0.7)
-  );
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
-  overflow-y: hidden;
-}
-
-h2 {
   margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -0.025em;
-  color: #fff;
+  padding: 0;
 }
 
-p {
-  font-size: 24px;
+body {
+  height: 100vh;
+  font-family: Arial, Helvetica, Helvetica Neue, serif;
 }
 
-li {
-  list-style: none;
-}
-
-a {
-  color: white;
-  opacity: 0.75;
-  text-decoration: none;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
+input,
+button {
+  font-family: inherit;
+  font-size: inherit;
 }
