@@ -1,0 +1,16 @@
+.wrapper {
+	height: 100vh;
+	overflow: auto;
+}
+
+.header {
+	min-height: 3em;
+	background: var(--t-color-yellow);
+}
+
+.content {
+	max-width: var(--t-content-size);
+	margin: 0px auto;
+	padding: 1em;
+}
+

@@ -29,3 +29,4 @@ yarn.lock
 
 dist/
 app/main.prod.**
+release/
