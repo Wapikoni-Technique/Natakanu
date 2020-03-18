@@ -270,6 +270,7 @@
     "electron-log": "^4.0.0",
     "electron-updater": "^4.2.0",
     "env-path": "^1.0.7",
+    "formik": "^2.1.4",
     "history": "^4.10.1",
     "levelup": "^4.3.2",
     "react": "^16.12.0",

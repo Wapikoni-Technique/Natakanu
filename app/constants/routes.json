@@ -3,5 +3,8 @@
   "NEW_PROJECT": "/new_project",
   "OPEN_PROJECT": "/open_project",
   "OPEN_LIBRARY": "/open_library",
-  "TEST": "/test"
+  "TEST": "/test",
+  "LOGIN": "/login",
+  "PROJECT": "/project/:project/",
+  "ACCOUNT": "/account/:account/"
 }

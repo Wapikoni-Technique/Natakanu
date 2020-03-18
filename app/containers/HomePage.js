@@ -1,13 +1,16 @@
-// @flow
-import React, { Component } from 'react';
-import MainMenu from '../components/MainMenu';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as CoreActions from '../actions/core';
+import {push} from 'connected-react-router';
 
-type Props = {};
+import Home from '../components/Home'
 
-export default class HomePage extends Component<Props> {
-  props: Props;
-
-  render() {
-    return <MainMenu />;
-  }
+function mapStateToProps(state) {
+  return state.core;
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({...CoreActions, push}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

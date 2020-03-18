@@ -1,14 +1,7 @@
 .container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
-}
-
-.container h2 {
-  font-size: 5rem;
-}
-
-.container a {
-  font-size: 1.4rem;
+  font-size: 50vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
