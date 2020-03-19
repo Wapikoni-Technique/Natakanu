@@ -9,6 +9,7 @@ import OpenLibraryContainer from './containers/OpenLibraryContainer';
 import TestPage from './containers/TestPage';
 import LoginPage from './containers/LoginPage';
 import AccountPage from './containers/AccountPage';
+import ProjectViewPage from './containers/ProjectViewPage'
 
 export default () => (
   <App>
@@ -20,6 +21,7 @@ export default () => (
       <Route path={routes.TEST} component={TestPage} />
       <Route path={routes.LOGIN} component={LoginPage} />
       <Route path={routes.ACCOUNT} component={AccountPage} />
+      <Route path={routes.PROJECT} component={ProjectViewPage} />
     </Switch>
   </App>
 );

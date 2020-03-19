@@ -1,43 +1,38 @@
 /* eslint-disable no-useless-constructor */
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+
+import PageContainer from './PageContainer'
 
 export default class ProjectView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+	componentDidMount() {
+		console.log(this.props)
+		const {match, loadProject} = this.props;
+		const {project} = match.params;
+
+		loadProject(project)
+	}
 
   render() {
+	const {projectInfo, files=[]} = this.props
+  	console.log(projectInfo, files)
+
+	if(!projectInfo) return (
+		<i class="fa fa-spinner fa-pulse"></i>
+	)
+
+  	const {title, author, community, nation} = projectInfo
+
     return (
-      <header className="App-header">
-        <p>
-          <Form>
-            <Form.Group controlId="formProjectTitle">
-              <Form.Control
-                type="project_title"
-                placeholder="Titre du projet"
-              />
-            </Form.Group>
-            <Form.Group controlId="formProjectAuthor">
-              <Form.Control type="project_author" placeholder="Auteur" />
-            </Form.Group>
-            <Form.Group controlId="formProjectCredits">
-              <Form.Control
-                type="project_credits"
-                placeholder="Credits..."
-                as="textarea"
-              />
-            </Form.Group>
-            <Form.Group controlId="formProjectPublic">
-              <Form.Check type="checkbox" label="Publique" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Créer
-            </Button>
-          </Form>
-        </p>
-      </header>
+    	<PageContainer>
+    		<div>
+				{title} by {author}
+			</div>
+			<ul>
+				{files.map(({stat, name}) => (
+					<li>{`/${name}${stat.isDirectory() ? '/' : '' }`}</li>
+				))}
+			</ul>
+    	</PageContainer>
     );
   }
 }

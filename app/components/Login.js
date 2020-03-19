@@ -8,6 +8,7 @@ import {Field, Formik, Form} from 'formik';
 import PageContainer from './PageContainer'
 import AccountIcon from './AccountIcon'
 import Button from './Button'
+import logoSrc from '../Natakanu.svg';
 
 type Props = {
 	accountInfo: {
@@ -37,7 +38,7 @@ export default class Login extends Component<Props> {
 		<input className={styles.urlbar} type="text" value="natakanu://" />
 		<div className={styles.row}>
 			<div className={styles.column}>
-				<img className={styles.logo}/>
+				<img className={styles.logo} src={logoSrc}/>
 			</div>
 			<div className={styles.column}>
 				<AccountIcon image={image} />

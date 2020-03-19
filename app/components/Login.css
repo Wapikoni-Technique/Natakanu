@@ -27,15 +27,13 @@
 .urlbar {
 	display: block;
 	width: 100%;
-	margin: 0.5em 0px;
+	margin: 0.5em 0;
 	margin-bottom: 1em;
 }
 
 .logo {
 	width: 14em;
 	height: 14em;
-	border-radius: 50%;
-	background: var(--t-color-lightgreen);
 	align-self: flex-start;
 }
 

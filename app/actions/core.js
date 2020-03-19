@@ -40,13 +40,15 @@ export const createProject = createAction(CREATED_PROJECT, async (username, info
 	}
 })
 
-export const loadProject = createAction(LOADED_PROJECT, async (key) => {
+export const loadProject = createAction(LOADED_PROJECT, async (key, path="/") => {
 	const core = await getCore()
 	const project = await core.projects.get(key)
 	const projectInfo = await project.getInfo()
+	const files = await project.archive.readdir(path, {includeStats: true})
 
 	return {
 		project,
-		projectInfo
+		projectInfo,
+		files,
 	}
 })

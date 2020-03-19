@@ -40,7 +40,7 @@ export default class Account extends Component {
 				</div>
 				<div className={styles.projects}>
 					{projects.map(({key, title}) => (
-						<Link className={styles.project} to={`/project/${key}/`} key={key}>{title}</Link>
+						<Link className={styles.project} to={`/project/${key}/view/`} key={key}>{title}</Link>
 					))}
 				</div>
 			</PageContainer>
