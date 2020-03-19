@@ -61,9 +61,9 @@ export default class Account {
   async createProject(info) {
     const projects = await this.getProjects();
 
-    const { name } = info;
+    const { title } = info;
     // Slugify the name
-    const key = slugify(name);
+    const key = slugify(`${this.key}  ${title}`);
 
     // Initialize an archive using it as a namespace
     const archive = await this.Hyperdrive(key);
@@ -86,14 +86,14 @@ export default class Account {
   }
 
   async getInfo() {
-      const name = this.key.toString('hex')
+      const key = this.key.toString('hex')
     try {
       const raw = await this.archive.readFile(ACCOUNT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
 
-      return {name, ...parsed}
+      return {name: key, ...parsed, key}
     } catch (e) {
-      return {name};
+      return {name: key, key};
     }
   }
 

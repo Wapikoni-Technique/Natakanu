@@ -7,6 +7,7 @@ import {Field, Formik, Form} from 'formik';
 
 import PageContainer from './PageContainer'
 import AccountIcon from './AccountIcon'
+import Button from './Button'
 
 type Props = {
 	accountInfo: {
@@ -28,7 +29,7 @@ export default class Login extends Component<Props> {
 	const {name, image} = accountInfo
 	const initialValues = {username: name}
 	const onLogin = ({username}) => {
-		push(`/account/${username}/`)
+		push(`/account/${username}/projects/`)
 	}
 
     return (
@@ -44,7 +45,7 @@ export default class Login extends Component<Props> {
 					<Form className={styles.userform}>
 						<Field className={styles.userinput} name="username" type="text" placeholder="Enter Username" />
 						<div className={styles.buttonContainer}>
-							<button type="submit" className={`${styles.button} ${styles.red}`}>enter</button>
+							<Button type="submit" className={styles.red}>enter</Button>
 						</div>
 					</Form>
 				)}

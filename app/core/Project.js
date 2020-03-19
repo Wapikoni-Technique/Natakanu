@@ -27,18 +27,19 @@ export default class Project {
   }
 
   async getInfo() {
-    const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
-    const parsed = JSON.parse(raw);
-    return parsed;
+  	const key = this.key.toString('hex')
+  	try {
+      const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      const final = {title: key, ...parsed, key}
+      return parsed;
+	} catch(e) {
+		return {title: key, key}
+	}
   }
 
   async updateInfo(info) {
-    let existing = {};
-    try {
-      existing = await this.getInfo();
-    } catch {
-      // Whatever
-    }
+    const existing = await this.getInfo();
 
     const updated = { ...existing, ...info };
 

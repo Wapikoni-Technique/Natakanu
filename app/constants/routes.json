@@ -1,10 +1,10 @@
 {
   "HOME": "/",
-  "NEW_PROJECT": "/new_project",
   "OPEN_PROJECT": "/open_project",
   "OPEN_LIBRARY": "/open_library",
   "TEST": "/test",
   "LOGIN": "/login",
+  "NEW_PROJECT": "/account/:account/projects/new/",
   "PROJECT": "/project/:project/",
-  "ACCOUNT": "/account/:account/"
+  "ACCOUNT": "/account/:account/projects/"
 }

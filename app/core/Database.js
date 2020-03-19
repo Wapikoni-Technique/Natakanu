@@ -46,6 +46,8 @@ export default class Database {
   async addRecentProjectName(name) {
     const names = await this.getRecentProjectNames();
 
+	console.log('loaded names', names)
+
     names.unshift(name);
 
     while (names.length > MAX_RECENT_PROJECTS) names.pop();

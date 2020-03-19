@@ -3,6 +3,8 @@ import { remote } from 'electron';
 
 export const CORE_LOADED = 'CORE_LOADED';
 export const ACCOUNT_LOADED = 'ACCOUNT_LOADED';
+export const CREATED_PROJECT = 'CREATED_PROJECT';
+export const LOADED_PROJECT = 'LOADED_PROJECT';
 
 const getCore = () => remote.getGlobal('loadCore')();
 
@@ -24,4 +26,27 @@ export const loadAccount = createAction(ACCOUNT_LOADED, async (username) => {
 		accountInfo,
 		projects
 	};
+})
+
+export const createProject = createAction(CREATED_PROJECT, async (username, info) => {
+	const core = await getCore()
+	const account = await core.accounts.get(username)
+	const project = await account.createProject(info)
+	const projectInfo = await project.getInfo()
+
+	return {
+		project,
+		projectInfo
+	}
+})
+
+export const loadProject = createAction(LOADED_PROJECT, async (key) => {
+	const core = await getCore()
+	const project = await core.projects.get(key)
+	const projectInfo = await project.getInfo()
+
+	return {
+		project,
+		projectInfo
+	}
 })

@@ -21,9 +21,11 @@ export default class ProjectStore {
     this.projects.set(project.url, project);
     this.projects.set(key, project);
 
-    await this.database.addRecentProjectName(key);
-
     return project;
+  }
+
+  async addRecent(key) {
+	return this.database.addRecentProjectName(key);
   }
 
   async getRecent() {
