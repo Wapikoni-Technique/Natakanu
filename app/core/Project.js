@@ -1,5 +1,10 @@
 import { PROJECT_INFO_FILE } from '../constants/core';
 import { encodeProject } from './urlParser';
+import { dialog } from 'electron';
+import { parse as parsePath, join as joinPaths } from 'path';
+import fs from 'fs';
+import eosp from 'end-of-stream-promise';
+import pumpify from 'pumpify';
 
 export default class Project {
   static async load(key, Hyperdrive, db) {
@@ -48,5 +53,45 @@ export default class Project {
     await this.archive.writeFile(PROJECT_INFO_FILE, stringified);
 
     return updated;
+  }
+
+  async showSaveFile(path) {
+		const {base : defaultPath} = parsePath(path)
+		const {canceled, filePath} = await dalog.showSaveDialog({
+			defaultPath
+		})
+
+		if(canceled) throw new Error('Cancelled file save')
+
+		const readStream = this.archive.createReadStream(path)
+		const writeStream = fs.createWriteStream(filePath)
+
+		await eosp(pumpify(readStream, writeStream))
+
+		return {
+			filePath
+		}
+  }
+
+  async showLoadFile(basePath='/') {
+		const {cancelled, filePaths} = await dialog.showOpenDialog()
+
+		// If they cancelled, whatever
+		if(canceled) return {filePaths: []}
+
+		for(let filePath of filePaths) {
+			const {base: fileName} = parsePath(filePath)
+
+			const destination = joinPaths(basePath, fileName)
+
+			const writeStream = this.archive.createWriteStream(destination)
+			const readStream = fs.createReadStream(filePath)
+
+			await eosp(pumpify(readStream, writeStream))
+		}
+
+		return {
+			filePaths
+		}
   }
 }

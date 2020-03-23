@@ -1,0 +1,29 @@
+.background {
+	background: var(--t-color-lightgreen);
+}
+
+.content {
+	display: flex;
+	flex-direction: row;
+}
+
+.info {
+	background: var(--t-color-red);
+	flex: 1;
+	margin: 0.5em;
+	border-radius: var(--t-radius);
+	padding: var(--t-radius);
+}
+
+.files {
+	background: var(--t-color-green);
+	flex: 1;
+	margin: 0.5em;
+	border-radius: var(--t-radius);
+	padding: var(--t-radius);
+}
+
+.file {
+	background: none;
+	border: none;
+}
