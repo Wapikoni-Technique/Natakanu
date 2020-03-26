@@ -1,9 +1,11 @@
 .button {
-    padding: 0.5em;
-    min-width: 8em;
-    font-weight: bold;
-    border: none;
-    border-radius: var(--t-radius);
-    font-size: 1.2em;
+  padding: 0.5em;
+  min-width: 8em;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--t-radius);
 }
 
+.big {
+  font-size: 1.2em;
+}

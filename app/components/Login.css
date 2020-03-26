@@ -1,84 +1,84 @@
 .container {
-	background: var(--t-color-green);
+  background: var(--t-color-green);
 }
 
 .column {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
-	justify-content: stretch;
-	flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  flex: 1;
 }
 
 .header {
-	height: 3em;
-	background: var(--t-color-yellow);
+  height: 3em;
+  background: var(--t-color-yellow);
 }
 
 .content {
-	flex: 1;
+  flex: 1;
 }
 
 .urlbar {
-	display: block;
-	width: 100%;
-	margin: 0.5em 0;
-	margin-bottom: 1em;
+  display: block;
+  width: 100%;
+  margin: 0.5em 0;
+  margin-bottom: 1em;
 }
 
 .logo {
-	width: 14em;
-	height: 14em;
-	align-self: flex-start;
+  width: 14em;
+  height: 14em;
+  align-self: flex-start;
 }
 
 .usericon {
-	width: 3em;
-	height: 3em;
-	border-radius: 3em;
-	background: magenta;
-	align-self: center;
-	margin-bottom: 1em;
+  width: 3em;
+  height: 3em;
+  border-radius: 3em;
+  background: magenta;
+  align-self: center;
+  margin-bottom: 1em;
 }
 
 .userform {
-	display: flex;
-	flex-direction: column;
-	align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
 }
 
 .userinput {
-	text-align: center;
-	color: white;
-	font-size: 1.5em;
-	background: none;
-	border: none;
-	border-bottom: 2px solid white;
-	margin-bottom: 2em;
-	max-width: 10em;
-	align-self: center;
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  border-bottom: 2px solid white;
+  margin-bottom: 2em;
+  max-width: 10em;
+  align-self: center;
 }
 
 .buttonContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button {
-	padding: 0.5em;
-	min-width: 8em;
-	font-weight: bold;
-	border: none;
-	border-radius: var(--t-radius);
-	font-size: 1.2em;
+  padding: 0.5em;
+  min-width: 8em;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--t-radius);
+  font-size: 1.2em;
 }
 
 .red {
-	background: var(--t-color-red);
+  background: var(--t-color-red);
 }

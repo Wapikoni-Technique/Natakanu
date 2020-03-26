@@ -1,29 +1,45 @@
 .background {
-	background: var(--t-color-lightgreen);
+  background: var(--t-color-lightgreen);
 }
 
 .content {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .info {
-	background: var(--t-color-red);
-	flex: 1;
-	margin: 0.5em;
-	border-radius: var(--t-radius);
-	padding: var(--t-radius);
+  background: var(--t-color-red);
+  flex: 1;
+  margin: 0.5em;
+  border-radius: var(--t-radius);
+  padding: var(--t-radius);
 }
 
 .files {
-	background: var(--t-color-green);
-	flex: 1;
-	margin: 0.5em;
-	border-radius: var(--t-radius);
-	padding: var(--t-radius);
+  background: var(--t-color-green);
+  flex: 1;
+  margin: 0.5em;
+  border-radius: var(--t-radius);
+  padding: var(--t-radius);
+}
+
+.filecontainer {
+	display: flex;
+	flex-direction: row;
+  margin: 0.5em 0;
 }
 
 .file {
+  background: none;
+  border: none;
+  display: block;
+  flex: 1;
+  text-align: start;
+}
+
+.filedelete {
 	background: none;
 	border: none;
+	display: block;
+	color: var(--t-color-red);
 }

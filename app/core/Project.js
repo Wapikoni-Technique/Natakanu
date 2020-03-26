@@ -1,10 +1,9 @@
-import { PROJECT_INFO_FILE } from '../constants/core';
-import { encodeProject } from './urlParser';
 import { dialog } from 'electron';
 import { parse as parsePath, join as joinPaths } from 'path';
 import fs from 'fs';
-import eosp from 'end-of-stream-promise';
-import pumpify from 'pumpify';
+import { encodeProject } from './urlParser';
+import { PROJECT_INFO_FILE } from '../constants/core';
+import pump from 'pump-promise';
 
 export default class Project {
   static async load(key, Hyperdrive, db) {
@@ -32,15 +31,17 @@ export default class Project {
   }
 
   async getInfo() {
-  	const key = this.key.toString('hex')
-  	try {
+    const key = this.key.toString('hex');
+    const url = this.url
+    const writable = this.archive.writable
+    try {
       const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      const final = {title: key, ...parsed, key}
-      return parsed;
-	} catch(e) {
-		return {title: key, key}
-	}
+      const final = { title: key, ...parsed, key, url, writable };
+      return final;
+    } catch (e) {
+      return { title: key, key, url, writable };
+    }
   }
 
   async updateInfo(info) {
@@ -55,43 +56,51 @@ export default class Project {
     return updated;
   }
 
-  async showSaveFile(path) {
-		const {base : defaultPath} = parsePath(path)
-		const {canceled, filePath} = await dalog.showSaveDialog({
-			defaultPath
-		})
-
-		if(canceled) throw new Error('Cancelled file save')
-
-		const readStream = this.archive.createReadStream(path)
-		const writeStream = fs.createWriteStream(filePath)
-
-		await eosp(pumpify(readStream, writeStream))
-
-		return {
-			filePath
-		}
+  async getFileList(path='/') {
+		return this.archive.readdir(path, { includeStats: true});
   }
 
-  async showLoadFile(basePath='/') {
-		const {cancelled, filePaths} = await dialog.showOpenDialog()
+  async deleteFile(path) {
+		return this.archive.unlink(path);
+  }
 
-		// If they cancelled, whatever
-		if(canceled) return {filePaths: []}
+  async showSaveFile(path) {
+    const { base: defaultPath } = parsePath(path);
+    const { canceled, filePath } = await dialog.showSaveDialog({
+      defaultPath
+    });
 
-		for(let filePath of filePaths) {
-			const {base: fileName} = parsePath(filePath)
+    if (canceled) throw new Error('Canceled file save');
 
-			const destination = joinPaths(basePath, fileName)
+    const readStream = this.archive.createReadStream(path);
+    const writeStream = fs.createWriteStream(filePath);
 
-			const writeStream = this.archive.createWriteStream(destination)
-			const readStream = fs.createReadStream(filePath)
+    await pump(readStream, writeStream)
 
-			await eosp(pumpify(readStream, writeStream))
-		}
+    return {
+      filePath
+    };
+  }
 
-		return {
-			filePaths
-		}
+  async showLoadFile(basePath = '/') {
+    const { canceled, filePaths } = await dialog.showOpenDialog();
+
+    // If they cancelled, whatever
+    if (canceled) return { filePaths: [] };
+
+    for (const filePath of filePaths) {
+      const { base: fileName } = parsePath(filePath);
+
+      const destination = joinPaths(basePath, fileName);
+
+      const writeStream = this.archive.createWriteStream(destination);
+      const readStream = fs.createReadStream(filePath);
+
+      await pump(readStream, writeStream)
+    }
+
+    return {
+      filePaths
+    };
   }
 }

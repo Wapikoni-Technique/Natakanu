@@ -9,7 +9,7 @@ import OpenLibraryContainer from './containers/OpenLibraryContainer';
 import TestPage from './containers/TestPage';
 import LoginPage from './containers/LoginPage';
 import AccountPage from './containers/AccountPage';
-import ProjectViewPage from './containers/ProjectViewPage'
+import ProjectViewPage from './containers/ProjectViewPage';
 
 export default () => (
   <App>

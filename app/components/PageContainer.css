@@ -1,17 +1,34 @@
 .wrapper {
-	height: 100vh;
-	overflow: auto;
+  height: 100vh;
+  overflow: auto;
 }
 
 .header {
-	padding: 0.5em;
-	min-height: 3em;
-	background: var(--t-color-yellow);
+  padding: 0.5em;
+  min-height: 3em;
+  background: var(--t-color-yellow);
 }
 
 .content {
-	max-width: var(--t-content-size);
-	margin: 0 auto;
-	padding: 1em;
+  max-width: var(--t-content-size);
+  margin: 0 auto;
+  padding: 1em;
 }
 
+.urlbar {
+	max-width: var(--t-content-size);
+	margin: 0.5em auto;
+	margin-bottom: 1em;
+	display: flex;
+}
+
+.urlbarinput {
+	flex: 1;
+	display: block;
+}
+
+.backbutton {
+	background: none;
+	display: block;
+	border: none;
+}

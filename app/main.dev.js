@@ -97,6 +97,11 @@ const createWindow = async () => {
  * Add event listeners...
  */
 
+app.on('open-url', (event, data) => {
+	event.preventDefault()
+	console.log('Opened URL', data)
+})
+
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -105,7 +110,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+	app.setAsDefaultProtocolClient('natakanu')
+	createWindow()
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the

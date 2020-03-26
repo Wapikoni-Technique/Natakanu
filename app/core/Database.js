@@ -46,7 +46,7 @@ export default class Database {
   async addRecentProjectName(name) {
     const names = await this.getRecentProjectNames();
 
-	console.log('loaded names', names)
+    console.log('loaded names', names);
 
     names.unshift(name);
 

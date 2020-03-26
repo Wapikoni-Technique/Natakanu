@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
 
-import Login from './Login'
+import Login from './Login';
 
 class MainMenu extends React.Component {
   constructor(props) {
@@ -11,15 +11,13 @@ class MainMenu extends React.Component {
   }
 
   render() {
-	const defaultAccount = {
-		name: 'Username',
-		description: 'Example User'
-	}
-  
-	return (
-		<Login accountInfo={defaultAccount}></Login>
-	);
-  	/**
+    const defaultAccount = {
+      name: 'Username',
+      description: 'Example User'
+    };
+
+    return <Login accountInfo={defaultAccount} />;
+    /**
     return (
       <header className="App-header">
         <p>
@@ -36,7 +34,7 @@ class MainMenu extends React.Component {
         </p>
       </header>
     );
-    **/
+    * */
   }
 }
 

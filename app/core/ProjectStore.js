@@ -25,7 +25,7 @@ export default class ProjectStore {
   }
 
   async addRecent(key) {
-	return this.database.addRecentProjectName(key);
+    return this.database.addRecentProjectName(key);
   }
 
   async getRecent() {

@@ -58,6 +58,10 @@
   "build": {
     "productName": "Natakanu",
     "appId": "ca.wapikoni.Natakanu",
+    "protocols": {
+			"name": "natakanu-protocol",
+			"schemes": ["natakanu"]
+    },
     "files": [
       "dist/",
       "node_modules/",
@@ -276,7 +280,7 @@
     "fs-extra": "^8.1.0",
     "history": "^4.10.1",
     "levelup": "^4.3.2",
-    "pumpify": "^2.0.1",
+    "pump-promise": "^1.0.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",

@@ -46,16 +46,18 @@ export default class Account {
     return this.projects;
   }
 
-  async getProjectsInfo () {
-	const projects = await this.getProjects()
+  async getProjectsInfo() {
+    const projects = await this.getProjects();
 
-	return Promise.all(projects.map(async (project) => {
-		const info = await project.getInfo()
+    return Promise.all(
+      projects.map(async project => {
+        const info = await project.getInfo();
 
-		const url = project.url
+        const { url } = project;
 
-		return {...info, url}
-	}))
+        return { ...info, url };
+      })
+    );
   }
 
   async createProject(info) {
@@ -86,14 +88,14 @@ export default class Account {
   }
 
   async getInfo() {
-      const key = this.key.toString('hex')
+    const key = this.key.toString('hex');
     try {
       const raw = await this.archive.readFile(ACCOUNT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
 
-      return {name: key, ...parsed, key}
+      return { name: key, ...parsed, key };
     } catch (e) {
-      return {name: key, key};
+      return { name: key, key };
     }
   }
 

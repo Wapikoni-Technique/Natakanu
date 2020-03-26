@@ -1,35 +1,35 @@
 .background {
-	background: var(--t-color-red);
+  background: var(--t-color-red);
 }
 
 .label {
-	display: flex;
-	flex-direction: row;
-	margin: 1em 0;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 1em 0;
+  align-items: center;
 }
 
 .input {
-	flex: 1;
-	margin-left: 0.5em;
+  flex: 1;
+  margin-left: 0.5em;
 }
 
 .form {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .inputs {
-	flex: 1;
-	background: var(--t-color-yellow);
-	border-radius: var(--t-radius);
-	padding: 0.5em;
+  flex: 1;
+  background: var(--t-color-yellow);
+  border-radius: var(--t-radius);
+  padding: 0.5em;
 }
 
 .sharecontainer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2em;
 }

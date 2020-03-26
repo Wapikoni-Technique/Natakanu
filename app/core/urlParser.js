@@ -1,6 +1,6 @@
-const PROTOCOL_SCHEME = 'natakanu://';
-const PROJECT_PATH = new RegExp(`^${PROTOCOL_SCHEME}project/([^/]+)(.*)`);
-const ACCOUNT_PATH = new RegExp(`^${PROTOCOL_SCHEME}account/([^/]+)(.*)`);
+export const PROTOCOL_SCHEME = 'natakanu://';
+export const PROJECT_PATH = new RegExp(`^${PROTOCOL_SCHEME}project/([^/]+)(.*)`);
+export const ACCOUNT_PATH = new RegExp(`^${PROTOCOL_SCHEME}account/([^/]+)(.*)`);
 
 export function parseURL(url) {
   let match = null;

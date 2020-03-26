@@ -1,11 +1,11 @@
 import SDK from 'dat-sdk';
 import envPaths from 'env-paths';
 import levelup from 'levelup';
-import leveldown from 'leveldown'
+import leveldown from 'leveldown';
 import encodingdown from 'encoding-down';
 import EventEmitter from 'events';
 import path from 'path';
-import fs from 'fs-extra'
+import fs from 'fs-extra';
 
 import { APPLICATION_NAME } from '../constants/core';
 
@@ -25,13 +25,13 @@ export default class NatakanuCore extends EventEmitter {
     const { applicationName } = this;
     const dataPath = envPaths(applicationName).data;
     if (!this.db) {
-      const dbPath = path.join(dataPath, 'levelup')
+      const dbPath = path.join(dataPath, 'levelup');
       const dbOptions = {
         valueEncoding: 'json'
-      }
+      };
 
-      await fs.ensureDir(dbPath)
-      this.db = levelup(encodingdown(leveldown(dbPath), dbOptions))
+      await fs.ensureDir(dbPath);
+      this.db = levelup(encodingdown(leveldown(dbPath), dbOptions));
     }
     if (!this.sdk) {
       this.sdk = await SDK({
