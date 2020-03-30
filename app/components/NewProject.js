@@ -57,6 +57,7 @@ class NewProject extends Component<Props> {
       <PageContainer
         backgroundClass={styles.background}
         headerContent={headerContent}
+        {...this.props}
       >
         <Formik onSubmit={onGotProjectInfo} initialValues={initialValues}>
           {props => (

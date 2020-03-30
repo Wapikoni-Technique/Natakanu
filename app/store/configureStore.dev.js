@@ -6,7 +6,10 @@ import { createLogger } from 'redux-logger';
 import promiseMiddleware from 'redux-promise';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
+import * as coreActions from '../actions/core';
 import type { counterStateType } from '../reducers/types';
+import { syncTranslationWithStore, loadTranslations, setLocale } from 'react-redux-i18n';
+import localizations from '../localization'
 
 const history = createHashHistory();
 
@@ -41,7 +44,8 @@ const configureStore = (initialState?: counterStateType) => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...counterActions,
-    ...routerActions
+    ...routerActions,
+    ...coreActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
@@ -67,6 +71,10 @@ const configureStore = (initialState?: counterStateType) => {
       () => store.replaceReducer(require('../reducers').default)
     );
   }
+
+  syncTranslationWithStore(store)
+  store.dispatch(loadTranslations(localizations))
+  store.dispatch(setLocale(navigator.language))
 
   return store;
 };

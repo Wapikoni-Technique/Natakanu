@@ -1,7 +1,7 @@
 {
   "name": "natakanu-desktop",
   "productName": "Natakanu",
-  "version": "0.18.1",
+  "version": "0.0.2",
   "description": "Desktop application for Natakanu - A local file transfer program",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -59,8 +59,10 @@
     "productName": "Natakanu",
     "appId": "ca.wapikoni.Natakanu",
     "protocols": {
-			"name": "natakanu-protocol",
-			"schemes": ["natakanu"]
+      "name": "natakanu-protocol",
+      "schemes": [
+        "natakanu"
+      ]
     },
     "files": [
       "dist/",
@@ -286,6 +288,7 @@
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.18",
     "react-redux": "^7.1.3",
+    "react-redux-i18n": "^1.9.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-spring-3d-carousel": "^1.2.0",
