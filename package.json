@@ -281,6 +281,7 @@
     "formik": "^2.1.4",
     "fs-extra": "^8.1.0",
     "history": "^4.10.1",
+    "hypercore-really-ready": "^1.0.0",
     "levelup": "^4.3.2",
     "pump-promise": "^1.0.0",
     "react": "^16.12.0",

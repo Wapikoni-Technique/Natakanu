@@ -4,6 +4,7 @@ import fs from 'fs';
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE } from '../constants/core';
 import pump from 'pump-promise';
+import reallyReady from 'hypercore-really-ready'
 
 export default class Project {
   static async load(key, Hyperdrive, db) {
@@ -28,6 +29,8 @@ export default class Project {
     this.archive = this.Hyperdrive(this.key);
 
     await this.archive.ready();
+
+    await reallyReady(this.archive.metadata)
   }
 
   async getInfo() {
