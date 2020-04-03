@@ -6,11 +6,14 @@ import * as CoreActions from '../actions/core';
 import ProjectView from '../components/ProjectView';
 
 function mapStateToProps(state) {
-	return state.core;
+  return state.core;
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = bindActionCreators({ ...CoreActions, push, goBack }, dispatch);
+  const actions = bindActionCreators(
+    { ...CoreActions, push, goBack },
+    dispatch
+  );
   const {
     loadProject,
     deleteFile,
@@ -31,7 +34,7 @@ function mapDispatchToProps(dispatch) {
   }
 
   async function onDeleteFile(project, path) {
-		return deleteFile(project, path);
+    return deleteFile(project, path);
   }
 
   return {
@@ -39,15 +42,19 @@ function mapDispatchToProps(dispatch) {
     onDownloadFile,
     onAddFiles,
     onLoadProject,
-    onDeleteFile,
+    onDeleteFile
   };
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-	const {match} = ownProps
-	const {params} = match
+  const { match } = ownProps;
+  const { params } = match;
 
-	return {...stateProps, ...dispatchProps, ...ownProps, ...params}
+  return { ...stateProps, ...dispatchProps, ...ownProps, ...params };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ProjectView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(ProjectView);

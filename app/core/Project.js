@@ -1,10 +1,10 @@
 import { dialog } from 'electron';
 import { parse as parsePath, join as joinPaths } from 'path';
 import fs from 'fs';
+import pump from 'pump-promise';
+import reallyReady from 'hypercore-really-ready';
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE } from '../constants/core';
-import pump from 'pump-promise';
-import reallyReady from 'hypercore-really-ready'
 
 export default class Project {
   static async load(key, Hyperdrive, db) {
@@ -30,13 +30,13 @@ export default class Project {
 
     await this.archive.ready();
 
-    await reallyReady(this.archive.metadata)
+    await reallyReady(this.archive.metadata);
   }
 
   async getInfo() {
     const key = this.key.toString('hex');
-    const url = this.url
-    const writable = this.archive.writable
+    const { url } = this;
+    const { writable } = this.archive;
     try {
       const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
@@ -59,12 +59,12 @@ export default class Project {
     return updated;
   }
 
-  async getFileList(path='/') {
-		return this.archive.readdir(path, { includeStats: true});
+  async getFileList(path = '/') {
+    return this.archive.readdir(path, { includeStats: true });
   }
 
   async deleteFile(path) {
-		return this.archive.unlink(path);
+    return this.archive.unlink(path);
   }
 
   async showSaveFile(path) {
@@ -78,7 +78,7 @@ export default class Project {
     const readStream = this.archive.createReadStream(path);
     const writeStream = fs.createWriteStream(filePath);
 
-    await pump(readStream, writeStream)
+    await pump(readStream, writeStream);
 
     return {
       filePath
@@ -99,7 +99,7 @@ export default class Project {
       const writeStream = this.archive.createWriteStream(destination);
       const readStream = fs.createReadStream(filePath);
 
-      await pump(readStream, writeStream)
+      await pump(readStream, writeStream);
     }
 
     return {

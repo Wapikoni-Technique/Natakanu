@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
 import styles from './Home.css';
 
@@ -14,8 +13,8 @@ export default class Home extends Component<Props> {
   componentDidMount() {
     const { push, loadCore } = this.props;
 
-    loadCore().then(() => {
-      push(routes.LOGIN);
+    return loadCore().then(() => {
+      return push(routes.LOGIN);
     });
   }
 

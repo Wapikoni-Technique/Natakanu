@@ -68,7 +68,7 @@ export const addFilesToProjectFolderWithDialog = createAction(
     const core = await getCore();
     const project = await core.projects.get(projectKey);
     const { filePaths } = await project.showLoadFile(path);
-		const files = await project.getFileList(path)
+    const files = await project.getFileList(path);
 
     return {
       filePaths,
@@ -89,13 +89,16 @@ export const downloadFileFromProjectWithDialog = createAction(
   }
 );
 
-export const deleteFile = createAction(DELETED_FILE, async (projectKey, path) => {
-	const core = await getCore();
-	const project = await core.projects.get(projectKey)
+export const deleteFile = createAction(
+  DELETED_FILE,
+  async (projectKey, path) => {
+    const core = await getCore();
+    const project = await core.projects.get(projectKey);
 
-	await project.deleteFile(path)
+    await project.deleteFile(path);
 
-  const files = await project.getFileList('/')
+    const files = await project.getFileList('/');
 
-	return {files}
-})
+    return { files };
+  }
+);

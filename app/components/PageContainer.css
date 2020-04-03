@@ -16,24 +16,24 @@
 }
 
 .urlbar {
-	max-width: var(--t-content-size);
-	margin: 0.5em auto;
-	margin-bottom: 1em;
-	display: flex;
+  max-width: var(--t-content-size);
+  margin: 0.5em auto;
+  margin-bottom: 1em;
+  display: flex;
 }
 
 .urlbarform {
-	flex: 1;
-	display: flex;
+  flex: 1;
+  display: flex;
 }
 
 .urlbarinput {
-	flex: 1;
-	display: block;
+  flex: 1;
+  display: block;
 }
 
 .backbutton {
-	background: none;
-	display: block;
-	border: none;
+  background: none;
+  display: block;
+  border: none;
 }

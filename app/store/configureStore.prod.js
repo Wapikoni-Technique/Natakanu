@@ -3,10 +3,14 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
+import promiseMiddleware from 'redux-promise';
+import {
+  syncTranslationWithStore,
+  setLocale,
+  loadTranslations
+} from 'react-redux-i18n';
 import createRootReducer from '../reducers';
 import type { counterStateType } from '../reducers/types';
-import promiseMiddleware from 'redux-promise';
-import { syncTranslationWithStore} from 'react-redux-i18n';
 import localizations from '../localization';
 
 const history = createHashHistory();
@@ -21,11 +25,11 @@ function configureStore(initialState?: counterStateType) {
     enhancer
   );
 
-  syncTranslationWithStore(store)
-  store.dispatch(loadTranslations(localizations))
-  store.dispatch(setLocale(navigator.language))
+  syncTranslationWithStore(store);
+  store.dispatch(loadTranslations(localizations));
+  store.dispatch(setLocale(navigator.language));
 
-  return store
+  return store;
 }
 
 export default { configureStore, history };

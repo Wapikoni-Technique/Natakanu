@@ -1,9 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Field, Formik, Form } from 'formik';
 import styles from './Login.css';
-import routes from '../constants/routes.json';
 
 import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
@@ -34,12 +32,12 @@ export default class Login extends Component<Props> {
       <PageContainer backgroundClass={styles.container} {...this.props}>
         <div className={styles.row}>
           <div className={styles.column}>
-            <img className={styles.logo} src={logoSrc} />
+            <img alt="Natakanu" className={styles.logo} src={logoSrc} />
           </div>
           <div className={styles.column}>
             <AccountIcon image={image} />
             <Formik onSubmit={onLogin} initialValues={initialValues}>
-              {({ props }) => (
+              {() => (
                 <Form className={styles.userform}>
                   <Field
                     className={styles.userinput}

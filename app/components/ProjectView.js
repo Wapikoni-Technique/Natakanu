@@ -15,21 +15,28 @@ export default class ProjectView extends React.Component {
 
   render() {
     const {
-    	projectInfo,
-    	files = [],
-    	project,
-    	onDownloadFile,
-    	onAddFiles,
-    	onDeleteFile,
+      projectInfo,
+      files = [],
+      project,
+      onDownloadFile,
+      onAddFiles,
+      onDeleteFile
     } = this.props;
 
     if (!projectInfo) return <i className="fa fa-spinner fa-pulse" />;
 
-    const { title, description, author, community, nation, writable } = projectInfo;
+    const {
+      title,
+      description,
+      author,
+      community,
+      nation,
+      writable
+    } = projectInfo;
 
-		const addButton = writable ? (
+    const addButton = writable ? (
       <Button onClick={() => onAddFiles(project)}>Add File</Button>
-		) : null
+    ) : null;
 
     return (
       <PageContainer
@@ -46,20 +53,20 @@ export default class ProjectView extends React.Component {
             const onClick = isDirectory
               ? () => false
               : () => onDownloadFile(project, name);
-            const onClickDelete = () => onDeleteFile(project, name)
-						const deleteButton = (!isDirectory && writable) ? (
-							<button
-								className={styles.filedelete}
-								onClick={onClickDelete}
-							>🗑</button>
-						) : null
+            const onClickDelete = () => onDeleteFile(project, name);
+            const deleteButton =
+              !isDirectory && writable ? (
+                <button className={styles.filedelete} onClick={onClickDelete}>
+                  🗑
+                </button>
+              ) : null;
             return (
-            	<div key={name} className={styles.filecontainer}>
-	              <button
-	                className={styles.file}
-	                onClick={onClick}
-	              >{`${icon} /${name}${endSlash}`}</button>
-	              {deleteButton}
+              <div key={name} className={styles.filecontainer}>
+                <button
+                  className={styles.file}
+                  onClick={onClick}
+                >{`${icon} /${name}${endSlash}`}</button>
+                {deleteButton}
               </div>
             );
           })}

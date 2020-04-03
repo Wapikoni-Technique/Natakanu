@@ -9,33 +9,35 @@ import styles from './Account.css';
 
 export default class Account extends Component {
   componentDidMount() {
-    const { account } = this.props.match.params;
-    this.props.loadAccount(account);
+    const { match, loadAccount } = this.props;
+    const { params } = match;
+    const { account } = params;
+    loadAccount(account);
   }
 
   async loadIfWrong() {
-		const {accountInfo, match, loadAccount} = this.props;
-		const {account: urlAccount} = match.params
+    const { accountInfo, match, loadAccount } = this.props;
+    const { params } = match;
+    const { account: urlAccount } = params;
 
-		if(this._isReloading === urlAccount) return
+    if (this.isReloading === urlAccount) return;
 
+    const { key } = accountInfo;
 
-    const { key } = this.props.accountInfo;
+    if (urlAccount === key) return;
 
-		if(urlAccount === key) return
+    console.log('Rendering wrong account');
 
-		console.log('Rendering wrong account')
-
-		try {
-			this._isReloading = urlAccount
-			await loadAccount(urlAccount)
-		} finally {
-			this._isReloading = null
-		}
+    try {
+      this.isReloading = urlAccount;
+      await loadAccount(urlAccount);
+    } finally {
+      this.isReloading = null;
+    }
   }
 
   render() {
-    const { accountInfo, projects, match, loadAccount } = this.props;
+    const { accountInfo, projects, push } = this.props;
 
     if (!accountInfo)
       return (
@@ -46,11 +48,11 @@ export default class Account extends Component {
 
     const { name, image, key } = accountInfo;
 
-    const goToCreate = () => this.props.push(`/account/${key}/projects/new/`);
+    const goToCreate = () => push(`/account/${key}/projects/new/`);
 
     const headerContent = <Button onClick={goToCreate}>New Project</Button>;
 
-		this.loadIfWrong()
+    this.loadIfWrong();
 
     return (
       <PageContainer
@@ -63,11 +65,11 @@ export default class Account extends Component {
           <div className={styles.accountName}>{name}</div>
         </div>
         <div className={styles.projects}>
-          {projects.map(({ key, url, title }) => (
+          {projects.map(({ key: projectKey, url, title }) => (
             <Link
               className={styles.project}
               to={`${url}view/`}
-              key={key}
+              key={projectKey}
             >
               {title}
             </Link>

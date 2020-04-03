@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Field, Formik, Form } from 'formik';
-
-import routes from '../constants/routes.json';
 
 import PageContainer from './PageContainer';
 import Button from './Button';
@@ -60,7 +57,7 @@ class NewProject extends Component<Props> {
         {...this.props}
       >
         <Formik onSubmit={onGotProjectInfo} initialValues={initialValues}>
-          {props => (
+          {() => (
             <Form className={styles.form}>
               <div className={styles.inputs}>
                 <Item label="Title" required name="title" />

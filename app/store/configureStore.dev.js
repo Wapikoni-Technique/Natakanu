@@ -4,12 +4,16 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import promiseMiddleware from 'redux-promise';
+import {
+  syncTranslationWithStore,
+  loadTranslations,
+  setLocale
+} from 'react-redux-i18n';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import * as coreActions from '../actions/core';
 import type { counterStateType } from '../reducers/types';
-import { syncTranslationWithStore, loadTranslations, setLocale } from 'react-redux-i18n';
-import localizations from '../localization'
+import localizations from '../localization';
 
 const history = createHashHistory();
 
@@ -72,9 +76,9 @@ const configureStore = (initialState?: counterStateType) => {
     );
   }
 
-  syncTranslationWithStore(store)
-  store.dispatch(loadTranslations(localizations))
-  store.dispatch(setLocale(navigator.language))
+  syncTranslationWithStore(store);
+  store.dispatch(loadTranslations(localizations));
+  store.dispatch(setLocale(navigator.language));
 
   return store;
 };

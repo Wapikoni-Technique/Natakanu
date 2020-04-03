@@ -24,8 +24,8 @@
 }
 
 .filecontainer {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
   margin: 0.5em 0;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .filedelete {
-	background: none;
-	border: none;
-	display: block;
-	color: var(--t-color-red);
+  background: none;
+  border: none;
+  display: block;
+  color: var(--t-color-red);
 }

@@ -98,9 +98,9 @@ const createWindow = async () => {
  */
 
 app.on('open-url', (event, data) => {
-	event.preventDefault()
-	console.log('Opened URL', data)
-})
+  event.preventDefault();
+  console.log('Opened URL', data);
+});
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
@@ -111,8 +111,8 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-	app.setAsDefaultProtocolClient('natakanu')
-	createWindow()
+  app.setAsDefaultProtocolClient('natakanu');
+  createWindow();
 });
 
 app.on('activate', () => {

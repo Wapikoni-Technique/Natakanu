@@ -6,8 +6,8 @@ import * as CoreActions from '../actions/core';
 import Account from '../components/Account';
 
 function mapStateToProps(state) {
-	const key = state.router.location.pathname
-  return {...state.core, key};
+  const key = state.router.location.pathname;
+  return { ...state.core, key };
 }
 
 function mapDispatchToProps(dispatch) {
