@@ -22,6 +22,11 @@
 	display: flex;
 }
 
+.urlbarform {
+	flex: 1;
+	display: flex;
+}
+
 .urlbarinput {
 	flex: 1;
 	display: block;

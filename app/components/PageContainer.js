@@ -32,12 +32,14 @@ export default class PageContainer extends Component<Props> {
     return (
       <div className={`${styles.wrapper} ${backgroundClass}`}>
         <header className={styles.header}>{headerContent}</header>
-        <Formik onSubmit={navigateTo} initialValues={initialValues}>{(props) => (
-					<Form className={styles.urlbar}>
-						<button className={styles.backbutton} onClick={goBack}>🔙</button>
-						<Field className={styles.urlbarinput} type="text" name="url" placholder="natakanu://" />
-					</Form>
-        )}</Formik>
+        <section className={styles.urlbar}>
+					<button className={styles.backbutton} onClick={() => console.log('Going back', goBack())}>🔙</button>
+	        <Formik onSubmit={navigateTo} initialValues={initialValues}>{(props) => (
+						<Form className={styles.urlbarform}>
+							<Field className={styles.urlbarinput} type="text" name="url" placholder="natakanu://" />
+						</Form>
+	        )}</Formik>
+        </section>
         <main className={`${styles.content} ${contentClass}`}>{children}</main>
       </div>
     );

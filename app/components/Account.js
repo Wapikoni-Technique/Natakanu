@@ -13,8 +13,29 @@ export default class Account extends Component {
     this.props.loadAccount(account);
   }
 
+  async loadIfWrong() {
+		const {accountInfo, match, loadAccount} = this.props;
+		const {account: urlAccount} = match.params
+
+		if(this._isReloading === urlAccount) return
+
+
+    const { key } = this.props.accountInfo;
+
+		if(urlAccount === key) return
+
+		console.log('Rendering wrong account')
+
+		try {
+			this._isReloading = urlAccount
+			await loadAccount(urlAccount)
+		} finally {
+			this._isReloading = null
+		}
+  }
+
   render() {
-    const { accountInfo, projects } = this.props;
+    const { accountInfo, projects, match, loadAccount } = this.props;
 
     if (!accountInfo)
       return (
@@ -23,10 +44,13 @@ export default class Account extends Component {
         </PageContainer>
       );
 
-    const { name, image, key } = this.props.accountInfo;
+    const { name, image, key } = accountInfo;
+
     const goToCreate = () => this.props.push(`/account/${key}/projects/new/`);
 
     const headerContent = <Button onClick={goToCreate}>New Project</Button>;
+
+		this.loadIfWrong()
 
     return (
       <PageContainer
