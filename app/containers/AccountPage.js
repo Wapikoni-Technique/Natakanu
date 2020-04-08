@@ -1,17 +1,35 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push, goBack } from 'connected-react-router';
-import * as CoreActions from '../actions/core';
+import React, {Component} from "react"
+import {useHistory, useParams} from "react-router-dom"
+import getCore from '../core/get'
 
 import Account from '../components/Account';
+import AsyncPage from './AsyncPage'
 
-function mapStateToProps(state) {
-  const key = state.router.location.pathname;
-  return { ...state.core, key };
+export default function AccountPage(props) {
+	const {account} = useParams()
+	const {push} = useHistory()
+
+	function onGoCreate() {
+		push(`/account/${account}/projects/new`)
+	}
+
+	return (
+		<AsyncPage promiseFn={loadAccountInfo} account={account} watch={account}>
+			{({accountInfo, projects}) => (
+				<Account account={account} accountInfo={accountInfo} projects={projects} onGoCreate={onGoCreate} />
+			)}
+		</AsyncPage>
+	)
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...CoreActions, push, goBack }, dispatch);
-}
+async function loadAccountInfo({account}) {
+	const core = await getCore()
+	const accountInstance = await core.accounts.get(account)
+	const accountInfo = await accountInstance.getInfo();
+	const projects = await accountInstance.getProjectsInfo();
 
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+	return {
+		accountInfo,
+		projects
+	}
+}

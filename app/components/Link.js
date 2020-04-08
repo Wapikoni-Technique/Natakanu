@@ -17,5 +17,5 @@ export default function Link({ to = '', children, ...props }) {
       </a>
     );
 
-  return <RouterLink to={href} {...props} />;
+  return <RouterLink to={href} {...props} children={children} />;
 }
