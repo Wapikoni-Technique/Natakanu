@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, Formik, Form } from 'formik';
 import styles from './Login.css';
 
@@ -7,7 +7,7 @@ import AccountIcon from './AccountIcon';
 import Button from './Button';
 import logoSrc from '../Natakanu.svg';
 
-export default function Login({onLogin, accountInfo={}}) {
+export default function Login({ onLogin, accountInfo = {} }) {
   const { name, image } = accountInfo;
   const initialValues = { username: name };
 

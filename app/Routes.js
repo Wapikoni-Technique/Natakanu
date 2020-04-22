@@ -17,11 +17,11 @@ import NewProjectContainer from './containers/NewProjectContainer';
 export default () => (
   <App>
     <Switch>
-      <Route path={routes.LOGIN} component={LoginPage} />
+      <Route path={routes.NEW_PROJECT} component={NewProjectContainer} />
       <Route path={routes.ACCOUNT} component={AccountPage} />
-		  <Route path={routes.PROJECT} component={ProjectViewPage} />
-			<Route path={routes.NEW_PROJECT} component={NewProjectContainer} />
-      <Route exact path={routes.HOME} component={HomePage} />
+      <Route path={routes.PROJECT} component={ProjectViewPage} />
+      <Route path={routes.LOGIN} component={LoginPage} />
+      <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>
 );

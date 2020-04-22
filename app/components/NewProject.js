@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, Formik, Form } from 'formik';
 
 import PageContainer from './PageContainer';
@@ -14,16 +14,13 @@ const INITIAL_VALUES = {
   description: ''
 };
 
-export default function NewProject({accountInfo,onCreate}) {
-
+export default function NewProject({ accountInfo, onCreate }) {
   const { name: author } = accountInfo;
 
   const initialValues = { ...INITIAL_VALUES, author };
 
   return (
-    <PageContainer
-      backgroundClass={styles.background}
-    >
+    <PageContainer backgroundClass={styles.background}>
       <Formik onSubmit={onCreate} initialValues={initialValues}>
         {() => (
           <Form className={styles.form}>

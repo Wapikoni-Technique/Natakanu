@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Link from './Link';
 
 import PageContainer from './PageContainer';
@@ -7,8 +7,8 @@ import Button from './Button';
 
 import styles from './Account.css';
 
-export default function Account({accountInfo, projects, onGoCreate}) {
-  const { name, image, key } = accountInfo;
+export default function Account({ accountInfo, projects, onGoCreate }) {
+  const { name, image } = accountInfo;
 
   const headerContent = <Button onClick={onGoCreate}>New Project</Button>;
 
@@ -23,11 +23,7 @@ export default function Account({accountInfo, projects, onGoCreate}) {
       </div>
       <div className={styles.projects}>
         {projects.map(({ key: projectKey, url, title }) => (
-          <Link
-            className={styles.project}
-            to={`${url}view/`}
-            key={projectKey}
-          >
+          <Link className={styles.project} to={`${url}view/`} key={projectKey}>
             {title}
           </Link>
         ))}

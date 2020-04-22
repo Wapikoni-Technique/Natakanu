@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './PageContainer.css';
 
 import UrlBar from './UrlBar';
@@ -8,7 +8,7 @@ export default function PageContainer(props) {
     contentClass = '',
     backgroundClass = '',
     headerContent,
-    children,
+    children
   } = props;
 
   return (
