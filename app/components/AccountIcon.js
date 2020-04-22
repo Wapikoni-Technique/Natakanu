@@ -1,6 +1,14 @@
 import React from 'react';
 import styles from './AccountIcon.css';
 
-export default ({ image }) => {
-  return <img alt="AccountIcon" className={styles.accounticon} src={image} />;
+import DEFAULT_IMAGE from '../Natakanu.svg';
+
+export default ({ image, name }) => {
+  return (
+    <img
+      alt={name}
+      className={styles.accounticon}
+      src={image || DEFAULT_IMAGE}
+    />
+  );
 };

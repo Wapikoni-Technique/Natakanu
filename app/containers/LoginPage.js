@@ -1,16 +1,20 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push, goBack } from 'connected-react-router';
-import * as CoreActions from '../actions/core';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Login from '../components/Login';
 
-function mapStateToProps(state) {
-  return state.core;
-}
+const DEFAULT_ACCOUNT_INFO = {
+  name: undefined,
+  image: undefined
+};
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...CoreActions, push, goBack }, dispatch);
-}
+export default function LoginPage() {
+  const { push } = useHistory();
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+  function onLogin({ username }) {
+    console.log('Navigating to username', username);
+    push(`/account/${username}/projects/`);
+  }
+
+  return <Login onLogin={onLogin} accountInfo={DEFAULT_ACCOUNT_INFO} />;
+}

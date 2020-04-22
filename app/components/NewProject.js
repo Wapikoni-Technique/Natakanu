@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, Formik, Form } from 'formik';
 
 import PageContainer from './PageContainer';
 import Button from './Button';
 
 import styles from './NewProject.css';
-
-type Props = {
-  onFolderSelected: () => void
-};
 
 const INITIAL_VALUES = {
   title: '',
@@ -18,63 +14,31 @@ const INITIAL_VALUES = {
   description: ''
 };
 
-const DEFAULT_INFO = {
-  name: ''
-};
+export default function NewProject({ accountInfo, onCreate }) {
+  const { name: author } = accountInfo;
 
-class NewProject extends Component<Props> {
-  render() {
-    const {
-      accountInfo = DEFAULT_INFO,
-      match,
-      push,
-      createProject
-    } = this.props;
+  const initialValues = { ...INITIAL_VALUES, author };
 
-    const onGotProjectInfo = async info => {
-      const { account } = match.params;
-
-      await createProject(account, info);
-      onGoBack();
-    };
-
-    const onGoBack = () => {
-      const { account } = match.params;
-
-      push(`/account/${account}/projects/`);
-    };
-
-    const { name: author } = accountInfo;
-
-    const initialValues = { ...INITIAL_VALUES, author };
-
-    const headerContent = <Button onClick={onGoBack}>Cancel</Button>;
-
-    return (
-      <PageContainer
-        backgroundClass={styles.background}
-        headerContent={headerContent}
-        {...this.props}
-      >
-        <Formik onSubmit={onGotProjectInfo} initialValues={initialValues}>
-          {() => (
-            <Form className={styles.form}>
-              <div className={styles.inputs}>
-                <Item label="Title" required name="title" />
-                <Item label="Author" name="author" />
-                <Item label="Nation" name="nation" />
-                <Item label="Community" name="community" />
-                <Item label="Credits" name="description" />
-              </div>
-              <div className={styles.sharecontainer}>
-                <Button type="submit">Share</Button>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </PageContainer>
-    );
-  }
+  return (
+    <PageContainer backgroundClass={styles.background}>
+      <Formik onSubmit={onCreate} initialValues={initialValues}>
+        {() => (
+          <Form className={styles.form}>
+            <div className={styles.inputs}>
+              <Item label="Title" required name="title" />
+              <Item label="Author" name="author" />
+              <Item label="Nation" name="nation" />
+              <Item label="Community" name="community" />
+              <Item label="Credits" name="description" />
+            </div>
+            <div className={styles.sharecontainer}>
+              <Button type="submit">Share</Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </PageContainer>
+  );
 }
 
 function Item({ children, label, ...props }) {
@@ -85,5 +49,3 @@ function Item({ children, label, ...props }) {
     </label>
   );
 }
-
-export default NewProject;

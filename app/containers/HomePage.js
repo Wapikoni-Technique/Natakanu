@@ -1,16 +1,26 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import * as CoreActions from '../actions/core';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import Async from 'react-async';
 
+import getCore from '../core/get';
+
+import routes from '../constants/routes.json';
 import Home from '../components/Home';
 
-function mapStateToProps(state) {
-  return state.core;
+export default function HomePage() {
+  const { push } = useHistory();
+
+  return (
+    <Async promiseFn={load} push={push}>
+      <Async.Pending>
+        <Home />
+      </Async.Pending>
+      <Async.Rejected>{error => <div>{error.stack}</div>}</Async.Rejected>
+    </Async>
+  );
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...CoreActions, push }, dispatch);
+async function load({ push }) {
+  await getCore();
+  push(routes.LOGIN);
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);

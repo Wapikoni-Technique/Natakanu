@@ -1,60 +1,57 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push, goBack } from 'connected-react-router';
-import * as CoreActions from '../actions/core';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import getCore from '../core/get';
 
 import ProjectView from '../components/ProjectView';
+import AsyncPage from './AsyncPage';
 
-function mapStateToProps(state) {
-  return state.core;
+export default function ProjectViewPage() {
+  const { project } = useParams();
+
+  async function onDownloadFile(name) {
+    const core = await getCore();
+    const projectInstance = await core.projects.get(project);
+
+    return projectInstance.showSaveFIle(name);
+  }
+
+  async function onAddFiles() {
+    const core = await getCore();
+    const projectInstance = await core.projects.get(project);
+
+    return projectInstance.showLoadFile();
+  }
+
+  async function onDeleteFile(name) {
+    const core = await getCore();
+    const projectInstance = await core.projects.get(project);
+
+    return projectInstance.deleteFile(name);
+  }
+
+  return (
+    <AsyncPage promiseFn={loadProjectInfo} project={project} watch={project}>
+      {({ projectInfo, files }) => (
+        <ProjectView
+          projectInfo={projectInfo}
+          files={files}
+          onDownloadFile={onDownloadFile}
+          onAddFiles={onAddFiles}
+          onDeleteFile={onDeleteFile}
+        />
+      )}
+    </AsyncPage>
+  );
 }
 
-function mapDispatchToProps(dispatch) {
-  const actions = bindActionCreators(
-    { ...CoreActions, push, goBack },
-    dispatch
-  );
-  const {
-    loadProject,
-    deleteFile,
-    addFilesToProjectFolderWithDialog,
-    downloadFileFromProjectWithDialog
-  } = actions;
-
-  async function onDownloadFile(project, path) {
-    await downloadFileFromProjectWithDialog(project, path);
-  }
-
-  async function onAddFiles(project, path) {
-    await addFilesToProjectFolderWithDialog(project, path);
-  }
-
-  async function onLoadProject(project) {
-    return loadProject(project);
-  }
-
-  async function onDeleteFile(project, path) {
-    return deleteFile(project, path);
-  }
+async function loadProjectInfo({ project, path }) {
+  const core = await getCore();
+  const projectInstance = await core.projects.get(project);
+  const projectInfo = await projectInstance.getInfo();
+  const files = await projectInstance.getFileList(path);
 
   return {
-    ...actions,
-    onDownloadFile,
-    onAddFiles,
-    onLoadProject,
-    onDeleteFile
+    projectInfo,
+    files
   };
 }
-
-function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { match } = ownProps;
-  const { params } = match;
-
-  return { ...stateProps, ...dispatchProps, ...ownProps, ...params };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(ProjectView);
