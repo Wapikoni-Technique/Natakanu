@@ -12,6 +12,10 @@
   --t-color-lightgreen: #a9cc41;
   --t-radius: 8px;
   --t-content-size: 666px;
+  --t-colorgradientgreen: linear-gradient(to right, #256d44, #7bd685);
+  --t-colorgradientcentergreen: radial-gradient(circle, #b8e085, #71875c);
+  --t-colorgradientredyellow: linear-gradient(to right, #fe8373, #fab363);
+  --t-colorgradientlightgreen: linear-gradient(to right, #b4e283, #85af54);
 }
 
 * {
