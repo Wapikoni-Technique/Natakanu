@@ -1,9 +1,9 @@
 import React from 'react';
+
 import { useHistory, useParams } from 'react-router-dom';
 import getCore from '../core/get';
-
-import NewProject from '../components/NewProject';
 import AsyncPage from './AsyncPage';
+import NewProject from '../components/NewProject';
 
 export default function NewProjectContainer() {
   const { account } = useParams();

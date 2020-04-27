@@ -1,11 +1,8 @@
 import React from 'react';
 import Async from 'react-async';
 
-import routes from '../constants/routes.json';
-
-import Loader from '../components/Loader';
-import PageContainer from '../components/PageContainer';
-import Link from '../components/Link';
+import LoaderPage from '../components/LoaderPage';
+import ErrorPage from '../components/ErrorPage';
 
 export default function AsyncPage(props) {
   const {
@@ -25,25 +22,9 @@ export default function AsyncPage(props) {
   return (
     <Async {...asyncProps}>
       {({ data, error, isPending }) => {
-        if (isPending)
-          return (
-            <PageContainer {...pageProps}>
-              <Loader />
-            </PageContainer>
-          );
+        if (isPending) return <LoaderPage {...pageProps} />;
 
-        if (error)
-          return (
-            <PageContainer {...pageProps}>
-              <h1>Error:</h1>
-              <p>
-                <i className="fas fa-spinner fa-pulse" />
-              </p>
-              <p>
-                <Link to={routes.HOME}>Go Back</Link>
-              </p>
-            </PageContainer>
-          );
+        if (error) return <ErrorPage error={error} {...pageProps} />;
 
         return children(data);
       }}

@@ -301,7 +301,8 @@
     "redux-actions": "^2.6.5",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "^0.5.16",
+    "use-async-generator": "^0.2.4"
   },
   "devEngines": {
     "node": ">=7.x",
