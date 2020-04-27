@@ -6,19 +6,27 @@ import encodingdown from 'encoding-down';
 import EventEmitter from 'events';
 import path from 'path';
 import fs from 'fs-extra';
+import datGossip from 'dat-gossip';
+import hasha from 'hasha';
 
-import { APPLICATION_NAME } from '../constants/core';
+import { APPLICATION_NAME, GOSSIP_KEY } from '../constants/core';
 
 import Database from './Database';
 import ProjectStore from './ProjectStore';
 import AccountStore from './AccountStore';
 
 export default class NatakanuCore extends EventEmitter {
-  constructor({ applicationName = APPLICATION_NAME, db, sdk }) {
+  constructor({
+    applicationName = APPLICATION_NAME,
+    gossipKey = GOSSIP_KEY,
+    db,
+    sdk
+  }) {
     super();
     this.sdk = sdk;
     this.db = db;
     this.applicationName = applicationName || APPLICATION_NAME;
+    this.gossipKey = gossipKey || GOSSIP_KEY;
   }
 
   async init() {
@@ -46,7 +54,29 @@ export default class NatakanuCore extends EventEmitter {
       this.database,
       this.projects
     );
-    // TODO: Start peer discovery
+
+    const gossipCoreKey = hasha(this.gossipKey).slice(0, 64);
+
+    this.gossipCore = this.sdk.Hypercore(gossipCoreKey);
+    this.gossip = datGossip(this.gossipCore);
+
+    const existing = await this.accounts.list();
+
+    // Start advertising all our known keys
+    for (const account of existing) {
+      this.gossip.advertise(account.archive.key);
+    }
+
+    this.gossip.broadcast();
+
+    // Whenever we see a new account, advertise it
+    this.accounts.on('account', account => {
+      this.gossip.advertising(account.archive.key, true);
+    });
+  }
+
+  async close() {
+    await Promise.all([this.sdk.close(), this.db.close()]);
   }
 
   static async create(opts) {

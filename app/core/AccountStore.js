@@ -1,3 +1,5 @@
+import EventEmitter from 'events';
+
 import { parseURL } from './urlParser';
 import Account from './Account';
 
@@ -5,8 +7,9 @@ import { ACCOUNT_ARCHIVE_NAME } from '../constants/core';
 
 // This ensures a project doesn't get initialized more than once
 
-export default class AccountStore {
+export default class AccountStore extends EventEmitter {
   constructor(Hyperdrive, database, projectStore) {
+    super();
     this.Hyperdrive = Hyperdrive;
     this.database = database;
     this.projectStore = projectStore;
@@ -45,6 +48,8 @@ export default class AccountStore {
     this.accounts.set(name, account);
     this.accounts.set(account.url, account);
     this.accounts.set(key, account);
+
+    this.emit('account', account);
 
     return account;
   }
