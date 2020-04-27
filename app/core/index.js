@@ -71,7 +71,7 @@ export default class NatakanuCore extends EventEmitter {
 
     // Whenever we see a new account, advertise it
     this.accounts.on('account', account => {
-      this.gossip.advertising(account.archive.key, true);
+      this.gossip.advertise(account.archive.key, true);
     });
   }
 

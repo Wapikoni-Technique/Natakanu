@@ -58,7 +58,7 @@ describe('Basic natakanu core tests', () => {
     if (existing.length) expect(existing.length).toBe(1);
     else {
       // Must be the archive, woot!
-      const data = await once(natakanu.gossip, 'found');
+      const data = await once(natakanu2.gossip, 'found');
       expect(data).toBeTruthy();
     }
   });
