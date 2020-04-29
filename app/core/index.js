@@ -47,32 +47,21 @@ export default class NatakanuCore extends EventEmitter {
       });
     }
 
-    this.database = new Database(this.db);
-    this.projects = new ProjectStore(this.sdk.Hyperdrive, this.database);
-    this.accounts = new AccountStore(
-      this.sdk.Hyperdrive,
-      this.database,
-      this.projects
-    );
-
     const gossipCoreKey = hasha(this.gossipKey).slice(0, 64);
 
     this.gossipCore = this.sdk.Hypercore(gossipCoreKey);
     this.gossip = datGossip(this.gossipCore);
 
-    const existing = await this.accounts.list();
+    this.database = new Database(this.db);
+    this.projects = new ProjectStore(this.sdk.Hyperdrive, this.database);
+    this.accounts = new AccountStore(
+      this.sdk.Hyperdrive,
+      this.database,
+      this.projects,
+      this.gossip
+    );
 
-    // Start advertising all our known keys
-    for (const account of existing) {
-      this.gossip.advertise(account.archive.key);
-    }
-
-    this.gossip.broadcast();
-
-    // Whenever we see a new account, advertise it
-    this.accounts.on('account', account => {
-      this.gossip.advertise(account.archive.key, true);
-    });
+    await this.accounts.startGossip();
   }
 
   async close() {
