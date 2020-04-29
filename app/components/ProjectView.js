@@ -9,9 +9,11 @@ import styles from './ProjectView.css';
 export default function ProjectView({
   projectInfo,
   files,
+  subpath,
   onDownloadFile,
   onAddFiles,
-  onDeleteFile
+  onDeleteFile,
+  onNavigateTo
 }) {
   const {
     title,
@@ -26,19 +28,34 @@ export default function ProjectView({
     <Button onClick={() => onAddFiles()}>Add File</Button>
   ) : null;
 
+  function goUp() {
+    onNavigateTo('..');
+  }
+
+  const upButton = subpath ? (
+    <div className={styles.filecontainer}>
+      <button className={styles.file} onClick={goUp}>
+        📁 ../
+      </button>
+    </div>
+  ) : null;
+
   return (
     <PageContainer
       backgroundClass={styles.background}
       contentClass={styles.content}
     >
       <div className={styles.files}>
-        <h3>{title}</h3>
+        <h3>
+          {title} /{subpath}
+        </h3>
+        {upButton}
         {files.map(({ stat, name }) => {
           const isDirectory = stat.isDirectory();
           const endSlash = isDirectory ? '/' : '';
           const icon = isDirectory ? '📁' : '📃';
           const onClick = isDirectory
-            ? () => false
+            ? () => onNavigateTo(name)
             : () => onDownloadFile(name);
           const onClickDelete = () => onDeleteFile(name);
           const deleteButton =

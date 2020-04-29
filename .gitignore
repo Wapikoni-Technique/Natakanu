@@ -25,7 +25,7 @@ yarn-error.log*
 /flow-typed
 package-lock.json
 .eslint-cache
-.eslintcache/
+.eslintcache
 yarn.lock
 
 dist/

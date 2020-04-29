@@ -5,6 +5,6 @@
   "TEST": "/test",
   "LOGIN": "/login",
   "NEW_PROJECT": "/account/:account/projects/new/",
-  "PROJECT": "/project/:project/view/",
+  "PROJECT": "/project/:project/view/:subpath*",
   "ACCOUNT": "/account/:account/projects/"
 }

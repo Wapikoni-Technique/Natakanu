@@ -1,8 +1,14 @@
 import { dialog } from 'electron';
-import { parse as parsePath, join as joinPaths } from 'path';
-import fs from 'fs';
+import {
+  parse as parsePath,
+  join as joinPaths,
+  basename as pathBasename
+} from 'path';
+import fs from 'fs-extra';
 import pump from 'pump-promise';
 import reallyReady from 'hypercore-really-ready';
+import readdir from 'readdir-enhanced';
+
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE } from '../constants/core';
 
@@ -86,24 +92,44 @@ export default class Project {
   }
 
   async showLoadFile(basePath = '/') {
-    const { canceled, filePaths } = await dialog.showOpenDialog();
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+      properties: ['openFile', 'openDirectory', 'multiSelections']
+    });
 
     // If they cancelled, whatever
     if (canceled) return { filePaths: [] };
 
     for (const filePath of filePaths) {
-      const { base: fileName } = parsePath(filePath);
+      const stat = await fs.stat(filePath);
 
-      const destination = joinPaths(basePath, fileName);
+      if (stat.isDirectory()) {
+        const folderName = pathBasename(filePath);
+        const searchOpts = {
+          deep: true,
+          filter: stats => stats.isFile()
+        };
+        for await (const subpath of readdir.iterator(filePath, searchOpts)) {
+          const destination = joinPaths(basePath, folderName, subpath);
+          const source = joinPaths(filePath, subpath);
 
-      const writeStream = this.archive.createWriteStream(destination);
-      const readStream = fs.createReadStream(filePath);
-
-      await pump(readStream, writeStream);
+          await this.saveFromFS(source, destination);
+        }
+      } else {
+        const { base: fileName } = parsePath(filePath);
+        const destination = joinPaths(basePath, fileName);
+        await this.saveFromFS(filePath, destination);
+      }
     }
 
     return {
       filePaths
     };
+  }
+
+  async saveFromFS(fsFile, destinationFile) {
+    const writeStream = this.archive.createWriteStream(destinationFile);
+    const readStream = fs.createReadStream(fsFile);
+
+    await pump(readStream, writeStream);
   }
 }

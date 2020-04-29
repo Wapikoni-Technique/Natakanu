@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 import { parseURL } from './urlParser';
 import Account from './Account';
 
-import { ACCOUNT_ARCHIVE_NAME } from '../constants/core';
+import { ACCOUNT_ARCHIVE_NAME, ACCOUNT_INFO_FILE } from '../constants/core';
 
 // This ensures a project doesn't get initialized more than once
 
@@ -51,6 +51,18 @@ export default class AccountStore extends EventEmitter {
       this.database,
       this.projectStore
     );
+
+    // Check if the account is local
+    if (account.writable) {
+      try {
+        // Check if this account was properly initialized
+        await account.archive.stat(ACCOUNT_INFO_FILE);
+      } catch (e) {
+        // We don't have a dat.json so we should make one
+        await account.updateInfo({ name: key });
+        await this.database.addAccountName(key);
+      }
+    }
 
     this.accounts.set(name, account);
     this.accounts.set(account.url, account);
