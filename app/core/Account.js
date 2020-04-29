@@ -27,6 +27,10 @@ export default class Account {
     return encodeAccount(this.archive.key);
   }
 
+  get writable() {
+    return this.archive.writable;
+  }
+
   async init() {
     this.archive = this.Hyperdrive(this.key);
 
@@ -92,9 +96,9 @@ export default class Account {
     try {
       const raw = await this.archive.readFile(ACCOUNT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-
       return { name: key, ...parsed, key };
     } catch (e) {
+      console.error(e);
       return { name: key, key };
     }
   }

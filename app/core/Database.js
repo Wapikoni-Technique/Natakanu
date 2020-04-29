@@ -13,6 +13,7 @@ export default class Database {
     try {
       await this.db.get(ACCOUNT_DB_PREFIX);
     } catch (e) {
+      console.log('Account names error', e);
       return [];
     }
   }

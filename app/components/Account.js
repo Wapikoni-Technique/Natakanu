@@ -1,16 +1,40 @@
 import React from 'react';
-import Link from './Link';
+import ColorHash from 'color-hash';
 
+import Link from './Link';
 import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
 
 import styles from './Account.css';
 
-export default function Account({ accountInfo, projects, onGoCreate }) {
+const colorHash = new ColorHash();
+
+export default function Account({
+  accountInfo,
+  projects,
+  gossiped,
+  onGoCreate,
+  onGoAccount
+}) {
   const { name, image } = accountInfo;
 
-  const headerContent = <Button onClick={onGoCreate}>New Project</Button>;
+  const gossipedAccounts = gossiped.map(({ key, name: foundName }) => (
+    <Button
+      key={key}
+      onClick={() => onGoAccount(key)}
+      style={{ background: colorHash.hex(key) }}
+    >
+      {foundName}
+    </Button>
+  ));
+  const newProjectButton = <Button onClick={onGoCreate}>New Project</Button>;
+  const headerContent = (
+    <div>
+      {newProjectButton}
+      {gossipedAccounts}
+    </div>
+  );
 
   return (
     <PageContainer

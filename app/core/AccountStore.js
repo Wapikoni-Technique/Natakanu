@@ -8,12 +8,19 @@ import { ACCOUNT_ARCHIVE_NAME } from '../constants/core';
 // This ensures a project doesn't get initialized more than once
 
 export default class AccountStore extends EventEmitter {
-  constructor(Hyperdrive, database, projectStore) {
+  constructor(Hyperdrive, database, projectStore, gossip) {
     super();
     this.Hyperdrive = Hyperdrive;
     this.database = database;
     this.projectStore = projectStore;
     this.accounts = new Map();
+    this.gossip = gossip;
+  }
+
+  async startGossip() {
+    // Whenever we load an account we start advertising it
+    // Listing our existing accounts should be enough?
+    await this.list();
   }
 
   async create(...args) {
@@ -47,15 +54,30 @@ export default class AccountStore extends EventEmitter {
 
     this.accounts.set(name, account);
     this.accounts.set(account.url, account);
+    this.accounts.set(account.archive.key.toString('hex'), account);
     this.accounts.set(key, account);
 
-    this.emit('account', account);
+    if (account.writable) this.gossip.advertise(account.archive.key, true);
 
     return account;
   }
 
+  async listGossipedInfo() {
+    const keys = this.gossip.list();
+
+    return Promise.all(
+      keys.map(async key => {
+        const account = await this.get(key.toString('hex'));
+        const info = await account.getInfo();
+
+        return info;
+      })
+    );
+  }
+
   async list() {
     const names = await this.listNames();
+    console.log('Local account names', names);
     return Promise.all(names.map(name => this.get(name)));
   }
 
