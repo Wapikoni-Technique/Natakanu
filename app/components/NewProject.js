@@ -5,6 +5,7 @@ import PageContainer from './PageContainer';
 import Button from './Button';
 
 import styles from './NewProject.css';
+import localization from '../localization';
 
 const INITIAL_VALUES = {
   title: '',
@@ -25,14 +26,24 @@ export default function NewProject({ accountInfo, onCreate }) {
         {() => (
           <Form className={styles.form}>
             <div className={styles.inputs}>
-              <Item label="Title" required name="title" />
-              <Item label="Author" name="author" />
-              <Item label="Nation" name="nation" />
-              <Item label="Community" name="community" />
-              <Item label="Credits" name="description" />
+              <Item
+                label={localization.new_project_title}
+                required
+                name="title"
+              />
+              <Item label={localization.new_project_author} name="author" />
+              <Item label={localization.new_project_nation} name="nation" />
+              <Item
+                label={localization.new_project_community}
+                name="community"
+              />
+              <Item
+                label={localization.new_project_credits}
+                name="description"
+              />
             </div>
             <div className={styles.sharecontainer}>
-              <Button type="submit">Share</Button>
+              <Button type="submit">{localization.new_project_share}</Button>
             </div>
           </Form>
         )}

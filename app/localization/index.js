@@ -1,5 +1,7 @@
+import LocalizedStrings from 'react-localization';
+
 import en from './en.json';
 
-export default {
+export default new LocalizedStrings({
   en
-};
+});

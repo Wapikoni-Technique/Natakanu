@@ -5,6 +5,7 @@ import PageContainer from './PageContainer';
 import Button from './Button';
 
 import styles from './ProjectView.css';
+import localization from '../localization';
 
 export default function ProjectView({
   projectInfo,
@@ -25,7 +26,9 @@ export default function ProjectView({
   } = projectInfo;
 
   const addButton = writable ? (
-    <Button onClick={() => onAddFiles()}>Add File</Button>
+    <Button onClick={() => onAddFiles()}>
+      {localization.project_view_add_files}
+    </Button>
   ) : null;
 
   function goUp() {
@@ -78,13 +81,13 @@ export default function ProjectView({
       </div>
       <div className={styles.info}>
         <dl>
-          <dt>Author</dt>
+          <dt>{localization.new_project_author}</dt>
           <dd>{author}</dd>
-          <dt>Community</dt>
+          <dt>{localization.new_project_community}</dt>
           <dd>{community}</dd>
-          <dt>Nation</dt>
+          <dt>{localization.new_project_nation}</dt>
           <dd>{nation}</dd>
-          <dt>Credits</dt>
+          <dt>{localization.new_project_credits}</dt>
           <dd>{description}</dd>
         </dl>
       </div>

@@ -6,6 +6,7 @@ import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
 import logoSrc from '../Natakanu.svg';
+import localization from '../localization';
 
 export default function Login({ onLogin, accountInfo = {} }) {
   const { name, image } = accountInfo;
@@ -26,11 +27,11 @@ export default function Login({ onLogin, accountInfo = {} }) {
                   className={styles.userinput}
                   name="username"
                   type="text"
-                  placeholder="Enter Username"
+                  placeholder={localization.login_username}
                 />
                 <div className={styles.buttonContainer}>
                   <Button type="submit" className={styles.red}>
-                    enter
+                    {localization.login_enter}
                   </Button>
                 </div>
               </Form>

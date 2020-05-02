@@ -11,9 +11,6 @@ import AccountPage from './containers/AccountPage';
 import ProjectViewPage from './containers/ProjectViewPage';
 import NewProjectContainer from './containers/NewProjectContainer';
 
-// import OpenProjectContainer from './containers/OpenProjectContainer';
-// import OpenLibraryContainer from './containers/OpenLibraryContainer';
-
 export default () => (
   <App>
     <Switch>
@@ -25,8 +22,3 @@ export default () => (
     </Switch>
   </App>
 );
-
-/*
-  <Route path={routes.OPEN_PROJECT} component={OpenProjectContainer} />
-  <Route path={routes.OPEN_LIBRARY} component={OpenLibraryContainer} />
-*/

@@ -1,3 +1,20 @@
 {
-  "example": "Hello World!"
+  "example": "Hello World!",
+
+  "login_enter": "Enter",
+  "login_username": "Enter Username",
+
+  "account_new_project": "New Project",
+
+  "error_page_error": "Error:",
+  "error_page_go_back": "Go Back",
+
+  "new_project_share": "Share",
+  "new_project_title": "Title",
+  "new_project_author": "Author",
+  "new_project_nation": "Nation",
+  "new_project_community": "Community",
+  "new_project_credits": "Credits",
+
+  "project_view_add_files": "Add Files"
 }

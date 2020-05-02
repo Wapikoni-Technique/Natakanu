@@ -6,6 +6,8 @@ import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
 
+import localization from '../localization';
+
 import styles from './Account.css';
 
 const colorHash = new ColorHash();
@@ -28,7 +30,9 @@ export default function Account({
       {foundName}
     </Button>
   ));
-  const newProjectButton = <Button onClick={onGoCreate}>New Project</Button>;
+  const newProjectButton = (
+    <Button onClick={onGoCreate}>{localization.account_new_project}</Button>
+  );
   const headerContent = (
     <div>
       {newProjectButton}
