@@ -10,6 +10,7 @@ import LoginPage from './containers/LoginPage';
 import AccountPage from './containers/AccountPage';
 import ProjectViewPage from './containers/ProjectViewPage';
 import NewProjectContainer from './containers/NewProjectContainer';
+import LoaderPage from './components/LoaderPage';
 
 export default () => (
   <App>
@@ -18,6 +19,7 @@ export default () => (
       <Route path={routes.ACCOUNT} component={AccountPage} />
       <Route path={routes.PROJECT} component={ProjectViewPage} />
       <Route path={routes.LOGIN} component={LoginPage} />
+      <Route path="/loading" component={LoaderPage} />
       <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>

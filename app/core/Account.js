@@ -112,13 +112,14 @@ export default class Account {
 
   async getInfo() {
     const key = this.key.toString('hex');
+    const { writable } = this;
     try {
       const raw = await this.archive.readFile(ACCOUNT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      return { name: key, ...parsed, key };
+      return { name: key, ...parsed, key, writable };
     } catch (e) {
       console.error(e);
-      return { name: key, key };
+      return { name: key, key, writable };
     }
   }
 

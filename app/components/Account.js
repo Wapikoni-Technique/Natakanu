@@ -19,7 +19,7 @@ export default function Account({
   onGoCreate,
   onGoAccount
 }) {
-  const { name, image } = accountInfo;
+  const { name, image, writable } = accountInfo;
 
   const gossipedAccounts = gossiped.map(({ key, name: foundName }) => (
     <Button
@@ -30,9 +30,9 @@ export default function Account({
       {foundName}
     </Button>
   ));
-  const newProjectButton = (
+  const newProjectButton = writable ? (
     <Button onClick={onGoCreate}>{localization.account_new_project}</Button>
-  );
+  ) : null;
   const headerContent = (
     <div>
       {newProjectButton}
