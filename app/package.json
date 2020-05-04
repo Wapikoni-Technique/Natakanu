@@ -1,7 +1,7 @@
 {
   "name": "Natakanu",
   "productName": "Natakanu",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Local-first file transfer app for indigenous communities.",
   "main": "./main.prod.js",
   "author": {
