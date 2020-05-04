@@ -4,6 +4,7 @@ import { once } from 'events';
 
 import getCore from '../core/get';
 import Account from '../components/Account';
+import LoaderPage from '../components/LoaderPage';
 
 import AsyncGeneratorPage from './AsyncGeneratorPage';
 
@@ -26,12 +27,16 @@ export default function AccountPage() {
         const accountInstance = await core.accounts.get(account);
 
         while (true) {
+          yield (<LoaderPage />);
+
           const accountInfo = await accountInstance.getInfo();
           const projects = await accountInstance.getProjectsInfo();
           const gossiped = await core.accounts.listGossipedInfo();
           const filtered = gossiped.filter(({ key }) => {
             return key !== account;
           });
+
+          console.log({ projects });
 
           yield (
             <Account

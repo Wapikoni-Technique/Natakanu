@@ -39,15 +39,31 @@ export default class Account {
 
   async getProjects() {
     if (this.projects) return this.projects;
-    const projectNames = await this.archive.readdir(PROJECT_FOLDER);
 
-    this.projects = await Promise.all(
-      projectNames.map(async name => {
-        return this.projectStore.get(name);
+    if (this.writable) {
+      const projectNames = await this.archive.readdir(PROJECT_FOLDER);
+
+      this.projects = await Promise.all(
+        projectNames.map(async name => {
+          return this.projectStore.get(name);
+        })
+      );
+
+      return this.projects;
+    }
+
+    // This must be a remotely loaded archive
+    // Get the stats for all the subfolders
+    const stats = await this.archive.readdir(PROJECT_FOLDER, {
+      includeStats: true
+    });
+
+    // Get the keys from the mount info and init the projects
+    return Promise.all(
+      stats.map(({ stat }) => {
+        return this.projectStore.get(stat.mount.key.toString('hex'));
       })
     );
-
-    return this.projects;
   }
 
   async getProjectsInfo() {
@@ -65,6 +81,9 @@ export default class Account {
   }
 
   async createProject(info) {
+    if (!this.writable)
+      throw new Error('Unable to create project: Not Writable');
+
     const projects = await this.getProjects();
 
     const { title } = info;
