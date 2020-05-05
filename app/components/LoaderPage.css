@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4em;
+}
+
+.background {
+  background: var(--t-colorgradientcentergreen);
+}
