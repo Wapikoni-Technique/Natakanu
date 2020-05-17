@@ -8,28 +8,31 @@ export const ACCOUNT_PATH = new RegExp(
 
 export function parseURL(url) {
   let match = null;
-  if (!url.startsWith(PROTOCOL_SCHEME))
+  if (!url.startsWith(PROTOCOL_SCHEME)) {
     return {
       type: 'name',
       key: url,
       path: '/'
     };
+  }
 
   match = url.match(PROJECT_PATH);
-  if (match)
+  if (match) {
     return {
       type: 'project',
       key: match[1],
       path: match[2] || '/'
     };
+  }
 
   match = url.match(ACCOUNT_PATH);
-  if (match)
+  if (match) {
     return {
       type: 'account',
       key: match[1],
       path: match[2] || '/'
     };
+  }
 }
 
 export function encodeProject(key, path = '/') {

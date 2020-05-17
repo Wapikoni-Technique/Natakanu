@@ -1,5 +1,6 @@
 .container {
   background: var(--t-colorgradientgreen);
+  background: purple;
 }
 
 .column {
@@ -81,4 +82,20 @@
 
 .red {
   background: var(--t-color-red);
+}
+
+.accounts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.account {
+  text-align: center;
+  margin: 0.5em;
+  padding: 0.5em;
+  background: var(--t-color-yellow);
+  border: none;
+  border-radius: var(--t-radius);
 }

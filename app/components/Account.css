@@ -28,9 +28,19 @@
 }
 
 .projects {
+  height: 155px;
+}
+
+.newProjectButton {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 1em;
+}
+
+.noProjects {
+  padding: 0 20%;
+  margin-top: 0.5em;
+  text-align: center;
 }

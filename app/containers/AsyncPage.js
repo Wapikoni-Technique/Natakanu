@@ -22,6 +22,7 @@ export default function AsyncPage(props) {
   return (
     <Async {...asyncProps}>
       {({ data, error, isPending }) => {
+        console.log('Async loading', data, error, isPending);
         if (isPending) return <LoaderPage {...pageProps} />;
 
         if (error) return <ErrorPage error={error} {...pageProps} />;

@@ -93,7 +93,7 @@ export default class Project {
 
   async showLoadFile(basePath = '/') {
     const { canceled, filePaths } = await dialog.showOpenDialog({
-      properties: ['openFile', 'openDirectory', 'multiSelections']
+      // properties: ['openFile', 'openDirectory', 'multiSelections']
     });
 
     // If they cancelled, whatever

@@ -81,8 +81,9 @@ export default class Account {
   }
 
   async createProject(info) {
-    if (!this.writable)
+    if (!this.writable) {
       throw new Error('Unable to create project: Not Writable');
+    }
 
     const projects = await this.getProjects();
 

@@ -4,7 +4,7 @@ import Async from 'react-async';
 
 import getCore from '../core/get';
 
-import routes from '../constants/routes.json';
+import { LOGIN, REGISTER } from '../constants/routes.json';
 import Home from '../components/Home';
 
 export default function HomePage() {
@@ -21,6 +21,14 @@ export default function HomePage() {
 }
 
 async function load({ push }) {
-  await getCore();
-  push(routes.LOGIN);
+  const core = await getCore();
+
+  const accountNames = await core.accounts.listNames();
+  const hasAccounts = !!accountNames.length;
+
+  if (hasAccounts) {
+    push(LOGIN);
+  } else {
+    push(REGISTER);
+  }
 }

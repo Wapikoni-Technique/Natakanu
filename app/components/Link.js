@@ -10,12 +10,13 @@ export default function Link({ to = '', children, ...props }) {
     href = to.slice(PROTOCOL_SCHEME.length - 1);
   }
 
-  if (href.match(HAS_PROTOCOL))
+  if (href.match(HAS_PROTOCOL)) {
     return (
       <a href={href} {...props}>
         {children}
       </a>
     );
+  }
 
   return (
     <RouterLink to={href} {...props}>

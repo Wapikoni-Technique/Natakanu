@@ -1,10 +1,12 @@
 {
   "example": "Hello World!",
 
-  "login_enter": "Enter",
-  "login_username": "Enter Username",
+  "login_add": "Add",
 
   "account_new_project": "New Project",
+  "account_no_projects_self_1": "Natakanu helps you share files with your community. This is where you'll be able to see all the projects you have been working on.",
+  "account_no_projects_self_2": "Click the New Project button below to create your first project.",
+  "account_no_projects_other": "This person has not shared any projects yet.",
 
   "error_page_error": "Error:",
   "error_page_go_back": "Go Back",
@@ -16,5 +18,12 @@
   "new_project_community": "Community",
   "new_project_credits": "Credits",
 
-  "project_view_add_files": "Add Files"
+  "project_view_add_files": "Add Files",
+
+  "register_title": "Natakanu",
+  "register_intro_1": "Please enter some basic information about yourself to get started",
+  "register_intro_2": "This will be seen by other people as they discover your projects",
+  "register_name": "Name",
+  "register_about": "About",
+  "register_button": "Register"
 }

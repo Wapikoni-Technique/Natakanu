@@ -16,7 +16,10 @@ module.exports = {
     'react/button-has-type': 'warn',
     'react/jsx-no-literals': [
       'warn',
-      { ignoreProps: true, allowedStrings: ['/', '📁', '📁 ../', '🔙', '🗑'] }
+      {
+        ignoreProps: true,
+        allowedStrings: ['/', '📁', '📁 ../', '🔙', '🗑', '➕']
+      }
     ],
     'jsx-a11y/label-has-associated-control': 'warn',
     'jsx-a11y/accessible-emoji': 'warn'

@@ -69,10 +69,9 @@ export default function ProjectView({
             ) : null;
           return (
             <div key={name} className={styles.filecontainer}>
-              <button
-                className={styles.file}
-                onClick={onClick}
-              >{`${icon} /${name}${endSlash}`}</button>
+              <button className={styles.file} onClick={onClick}>
+                {`${icon} /${name}${endSlash}`}
+              </button>
               {deleteButton}
             </div>
           );

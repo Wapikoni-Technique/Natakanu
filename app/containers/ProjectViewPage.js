@@ -1,13 +1,14 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { once } from 'events';
+import { join } from 'path';
 
 import getCore from '../core/get';
 import ProjectView from '../components/ProjectView';
 import AsyncGeneratorPage from './AsyncGeneratorPage';
 
 export default function ProjectViewPage() {
-  const { project, subpath } = useParams();
+  const { project, subpath = '/' } = useParams();
   const { push } = useHistory();
 
   async function onDownloadFile(name) {
@@ -21,14 +22,14 @@ export default function ProjectViewPage() {
     const core = await getCore();
     const projectInstance = await core.projects.get(project);
 
-    return projectInstance.showLoadFile();
+    return projectInstance.showLoadFile(subpath);
   }
 
   async function onDeleteFile(name) {
     const core = await getCore();
     const projectInstance = await core.projects.get(project);
 
-    return projectInstance.deleteFile(name);
+    return projectInstance.deleteFile(join(subpath, name));
   }
 
   function onNavigateTo(folder) {
