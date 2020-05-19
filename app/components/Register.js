@@ -8,7 +8,7 @@ import FormItem from './FormItem';
 import localization from '../localization';
 
 export default function Register({ onRegister }) {
-  const initialValues = { title: '', description: '' };
+  const initialValues = { title: '', description: '', image: '' };
 
   return (
     <PageContainer backgroundClass={styles.container}>
@@ -23,6 +23,11 @@ export default function Register({ onRegister }) {
             {() => (
               <Form className={styles.userform}>
                 <FormItem name="title" label={localization.register_name} />
+                <FormItem
+                  name="image"
+                  type="file"
+                  label={localization.register_image}
+                />
                 <FormItem
                   name="description"
                   label={localization.register_about}

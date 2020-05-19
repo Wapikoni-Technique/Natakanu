@@ -1,11 +1,11 @@
 import slugify from '@sindresorhus/slugify';
-import path from 'path';
+import { parse as parsePath, posix as posixPath } from 'path';
+import fs from 'fs';
+import pump from 'pump';
 
 import { encodeAccount } from './urlParser';
 
 import { PROJECT_FOLDER, ACCOUNT_INFO_FILE } from '../constants/core';
-
-const posixPath = path.posix;
 
 export default class Account {
   static async load(key, Hyperdrive, database, projectStore) {
@@ -139,5 +139,18 @@ export default class Account {
     await this.archive.writeFile(ACCOUNT_INFO_FILE, stringified);
 
     return updated;
+  }
+
+  async saveFromFS(filePath) {
+    const { base: fileName } = parsePath(filePath);
+
+    const destination = `/${fileName}`;
+
+    const writeStream = this.archive.createWriteStream(destination);
+    const readStream = fs.createReadStream(filePath);
+
+    await pump(readStream, writeStream);
+
+    return fileName;
   }
 }

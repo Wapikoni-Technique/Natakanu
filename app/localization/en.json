@@ -25,5 +25,6 @@
   "register_intro_2": "This will be seen by other people as they discover your projects",
   "register_name": "Name",
   "register_about": "About",
-  "register_button": "Register"
+  "register_button": "Register",
+  "register_image": "Picture"
 }
