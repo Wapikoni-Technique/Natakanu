@@ -10,11 +10,12 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import './core/load';
+import protocolHandler from './core/protocolHandler';
 
 export default class AppUpdater {
   constructor() {
@@ -112,6 +113,7 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   app.setAsDefaultProtocolClient('natakanu');
+  protocol.registerStreamProtocol('hyper', protocolHandler);
   createWindow();
 });
 
