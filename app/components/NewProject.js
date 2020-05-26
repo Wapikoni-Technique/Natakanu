@@ -1,8 +1,9 @@
 import React from 'react';
-import { Field, Formik, Form } from 'formik';
+import { Formik, Form } from 'formik';
 
 import PageContainer from './PageContainer';
 import Button from './Button';
+import FormItem from './FormItem';
 
 import styles from './NewProject.css';
 import localization from '../localization';
@@ -26,18 +27,23 @@ export default function NewProject({ accountInfo, onCreate }) {
         {() => (
           <Form className={styles.form}>
             <div className={styles.inputs}>
-              <Item
+              <FormItem
                 label={localization.new_project_title}
                 required
                 name="title"
               />
-              <Item label={localization.new_project_author} name="author" />
-              <Item label={localization.new_project_nation} name="nation" />
-              <Item
+              <FormItem label={localization.new_project_author} name="author" />
+              <FormItem
+                name="image"
+                type="file"
+                label={localization.new_project_image}
+              />
+              <FormItem label={localization.new_project_nation} name="nation" />
+              <FormItem
                 label={localization.new_project_community}
                 name="community"
               />
-              <Item
+              <FormItem
                 label={localization.new_project_credits}
                 name="description"
               />
@@ -49,14 +55,5 @@ export default function NewProject({ accountInfo, onCreate }) {
         )}
       </Formik>
     </PageContainer>
-  );
-}
-
-function Item({ children, label, ...props }) {
-  return (
-    <label className={styles.label}>
-      {label}
-      <Field className={styles.input} {...props} />
-    </label>
   );
 }

@@ -87,7 +87,8 @@ export default class Account {
 
     const projects = await this.getProjects();
 
-    const { title } = info;
+    const { title, image: imagePath } = info;
+    const opts = info;
     // Slugify the name
     const key = slugify(`${this.key}  ${title}`);
 
@@ -104,7 +105,16 @@ export default class Account {
     // Initialize the project for it
     const project = await this.projectStore.get(key);
 
-    await project.updateInfo(info);
+    if (imagePath) {
+      const { base: imageName } = parsePath(imagePath);
+
+      const destination = `/${imageName}`;
+
+      await project.saveFromFS(imagePath, destination);
+      opts.image = `hyper://${archive.key.toString('hex')}/${imageName}`;
+    }
+
+    await project.updateInfo(opts);
 
     projects.push(project);
 

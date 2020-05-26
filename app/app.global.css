@@ -38,3 +38,7 @@ button {
   font-family: inherit;
   font-size: inherit;
 }
+
+p {
+  margin: 0.4em 0;
+}

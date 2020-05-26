@@ -14,6 +14,7 @@
   "new_project_share": "Share",
   "new_project_title": "Title",
   "new_project_author": "Author",
+  "new_project_image": "Image",
   "new_project_nation": "Nation",
   "new_project_community": "Community",
   "new_project_credits": "Credits",
@@ -26,5 +27,7 @@
   "register_name": "Name",
   "register_about": "About",
   "register_button": "Register",
-  "register_image": "Picture"
+  "register_image": "Picture",
+
+  "header_online": "See who's online"
 }

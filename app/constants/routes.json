@@ -8,5 +8,6 @@
   "PROJECT": "/project/:project/view/:subpath*",
   "ACCOUNT": "/account/:account/projects/",
   "REGISTER": "/register/",
-  "ACCOUNT_LIST": "/account/list/"
+  "ACCOUNT_LIST": "/account/list/",
+  "ACCOUNTS_ONLINE": "/account/online/"
 }

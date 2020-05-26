@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { once } from 'events';
 
 import getCore from '../core/get';
 import Account from '../components/Account';
@@ -16,41 +15,27 @@ export default function AccountPage() {
     push(`/account/${account}/projects/new`);
   }
 
-  function onGoAccount(key) {
-    push(`/account/${key}/projects/`);
-  }
-
   return (
     <AsyncGeneratorPage deps={[account]}>
       {async function* renderAccountPage() {
         const core = await getCore();
         const accountInstance = await core.accounts.get(account);
 
-        while (true) {
-          yield (<LoaderPage />);
+        yield (<LoaderPage />);
 
-          const accountInfo = await accountInstance.getInfo();
-          const projects = await accountInstance.getProjectsInfo();
-          const gossiped = await core.accounts.listGossipedInfo();
-          const filtered = gossiped.filter(({ key }) => {
-            return key !== account;
-          });
+        const accountInfo = await accountInstance.getInfo();
+        const projects = await accountInstance.getProjectsInfo();
 
-          console.log({ projects });
+        yield (
+          <Account
+            account={account}
+            accountInfo={accountInfo}
+            projects={projects}
+            onGoCreate={onGoCreate}
+          />
+        );
 
-          yield (
-            <Account
-              gossiped={filtered}
-              account={account}
-              accountInfo={accountInfo}
-              projects={projects}
-              onGoCreate={onGoCreate}
-              onGoAccount={onGoAccount}
-            />
-          );
-
-          await once(core.gossip, 'found');
-        }
+        // TODO: Listen on account changes
       }}
     </AsyncGeneratorPage>
   );

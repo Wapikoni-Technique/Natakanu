@@ -1,0 +1,32 @@
+.background {
+  background: var(--t-colorgradientredyellow);
+  overflow: hidden;
+}
+
+.mainContainer {
+  height: calc(var(--t-content-size) * 0.44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.accountContainer {
+  width: 15%;
+  padding-bottom: 15%;
+  position: relative;
+  left: 15%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.person {
+  position: absolute;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
