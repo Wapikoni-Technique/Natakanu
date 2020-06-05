@@ -3,8 +3,11 @@ import styles from './Login.css';
 
 import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
+import Button from './Button';
+
 import logoSrc from '../Natakanu.svg';
 import localization from '../localization';
+import { RECENT_PROJECTS } from '../constants/routes.json';
 
 export default function Login({ onLogin, onRegister, accounts }) {
   const accountsSections = accounts.map(({ name, image }) => (
@@ -14,8 +17,15 @@ export default function Login({ onLogin, onRegister, accounts }) {
     </button>
   ));
 
+  const recentProjectsButton = (
+    <Button to={RECENT_PROJECTS}>Recent Projects</Button>
+  );
+
   return (
-    <PageContainer backgroundClass={styles.container}>
+    <PageContainer
+      backgroundClass={styles.container}
+      headerContent={recentProjectsButton}
+    >
       <div className={styles.row}>
         <div className={styles.column}>
           <img alt="Natakanu" className={styles.logo} src={logoSrc} />

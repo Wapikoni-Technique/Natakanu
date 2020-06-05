@@ -286,6 +286,7 @@
     "history": "^4.10.1",
     "hypercore-really-ready": "^1.0.0",
     "levelup": "^4.3.2",
+    "minimist": "^1.2.5",
     "pump-promise": "^1.0.0",
     "react": "^16.12.0",
     "react-async": "^10.0.1",
@@ -304,7 +305,8 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.16",
-    "use-async-generator": "^0.2.4"
+    "use-async-generator": "^0.2.4",
+    "yargs": "^15.3.1"
   },
   "devEngines": {
     "node": ">=7.x",

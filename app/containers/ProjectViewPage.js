@@ -36,6 +36,13 @@ export default function ProjectViewPage() {
     push(`./${folder}/`);
   }
 
+  async function onSetSaved({ saved }) {
+    const core = await getCore();
+    const projectInstance = await core.projects.get(project);
+
+    await projectInstance.setSaved(saved);
+  }
+
   console.log('Viewing project', project, subpath);
 
   return (
@@ -43,6 +50,8 @@ export default function ProjectViewPage() {
       {async function* renderProjectViewPage() {
         const core = await getCore();
         const projectInstance = await core.projects.get(project);
+
+        core.projects.addRecent(project);
 
         while (true) {
           const projectInfo = await projectInstance.getInfo();
@@ -57,6 +66,7 @@ export default function ProjectViewPage() {
               onAddFiles={onAddFiles}
               onDeleteFile={onDeleteFile}
               onNavigateTo={onNavigateTo}
+              onSetSaved={onSetSaved}
             />
           );
           await once(projectInstance.archive, 'update');

@@ -14,7 +14,8 @@ export default function ProjectView({
   onDownloadFile,
   onAddFiles,
   onDeleteFile,
-  onNavigateTo
+  onNavigateTo,
+  onSetSaved
 }) {
   const {
     title,
@@ -22,7 +23,8 @@ export default function ProjectView({
     author,
     community,
     nation,
-    writable
+    writable,
+    isSaved
   } = projectInfo;
 
   const addButton = writable ? (
@@ -42,6 +44,17 @@ export default function ProjectView({
       </button>
     </div>
   ) : null;
+
+  const saveForm = writable ? null : (
+    <label>
+      <input
+        type="checkbox"
+        checked={!!isSaved}
+        onChange={({ target }) => onSetSaved(target.checked)}
+      />
+      Save Project Locally
+    </label>
+  );
 
   return (
     <PageContainer
@@ -89,6 +102,7 @@ export default function ProjectView({
           <dt>{localization.new_project_credits}</dt>
           <dd>{description}</dd>
         </dl>
+        {saveForm}
       </div>
     </PageContainer>
   );

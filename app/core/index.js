@@ -50,6 +50,11 @@ export default class NatakanuCore extends EventEmitter {
     const gossipCoreKey = hasha(this.gossipKey).slice(0, 64);
 
     this.gossipCore = this.sdk.Hypercore(gossipCoreKey);
+
+    console.log('Gossip Core', this.gossipKey, gossipCoreKey.length);
+
+    await this.gossipCore.ready();
+
     this.gossip = datGossip(this.gossipCore);
 
     this.database = new Database(this.db);
@@ -61,7 +66,13 @@ export default class NatakanuCore extends EventEmitter {
       this.gossip
     );
 
+    this.gossip.on('found', data => console.log('Gossiped data', data));
+
     await this.accounts.startGossip();
+
+    // Load up any projects we saved
+    // This should also start loading their latest data
+    await this.projects.getSaved();
   }
 
   async close() {

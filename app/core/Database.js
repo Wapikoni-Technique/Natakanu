@@ -1,7 +1,8 @@
 import {
   ACCOUNT_DB_PREFIX,
   RECENT_PROJECT_DB_PREFIX,
-  MAX_RECENT_PROJECTS
+  MAX_RECENT_PROJECTS,
+  SAVED_PROJECT_DB_PREFIX
 } from '../constants/core';
 
 export default class Database {
@@ -46,13 +47,48 @@ export default class Database {
 
   async addRecentProjectName(name) {
     const names = await this.getRecentProjectNames();
+    const finalNames = [name];
+
+    for (const existing of names) {
+      if (!finalNames.includes(existing)) finalNames.push(existing);
+    }
 
     console.log('loaded names', names);
 
-    names.unshift(name);
+    while (finalNames.length > MAX_RECENT_PROJECTS) finalNames.pop();
 
-    while (names.length > MAX_RECENT_PROJECTS) names.pop();
+    await this.setRecentProjectNames(finalNames);
+  }
 
-    await this.setRecentProjectNames(names);
+  async getSavedProjectNames() {
+    try {
+      return await this.db.get(SAVED_PROJECT_DB_PREFIX);
+    } catch {
+      return [];
+    }
+  }
+
+  async setSavedProjectNames(names) {
+    await this.db.put(SAVED_PROJECT_DB_PREFIX, names);
+  }
+
+  async addSavedProjectName(name) {
+    const names = await this.getSavedProjectNames();
+
+    if (names.includes(name)) return;
+
+    names.push(name);
+
+    await this.setSavedProjectNames(names);
+  }
+
+  async removeSavedProjectName(name) {
+    const names = await this.getSavedProjectNames();
+
+    const filtered = names.filter(existing => existing !== name);
+
+    if (filtered.length === names.length) return;
+
+    await this.setSavedProjectNames(filtered);
   }
 }

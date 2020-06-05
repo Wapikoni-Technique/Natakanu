@@ -6,29 +6,33 @@ import {
 } from 'path';
 import fs from 'fs-extra';
 import pump from 'pump-promise';
-import reallyReady from 'hypercore-really-ready';
 import readdir from 'readdir-enhanced';
 
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE } from '../constants/core';
 
 export default class Project {
-  static async load(key, Hyperdrive, db) {
-    const project = new Project(key, Hyperdrive, db);
+  static async load(key, Hyperdrive, database) {
+    const project = new Project(key, Hyperdrive, database);
 
     await project.init();
 
     return project;
   }
 
-  constructor(key, Hyperdrive, db) {
+  constructor(key, Hyperdrive, database) {
     this.key = key;
     this.Hyperdrive = Hyperdrive;
-    this.db = db;
+    this.database = database;
+    this.isDownloading = null;
   }
 
   get url() {
     return encodeProject(this.archive.key);
+  }
+
+  get writable() {
+    return this.archive.writable;
   }
 
   async init() {
@@ -36,20 +40,28 @@ export default class Project {
 
     await this.archive.ready();
 
-    await reallyReady(this.archive.metadata);
+    const isSaved = await this.isSaved();
+    const { writable } = this;
+
+    const shouldDownload = !writable && isSaved;
+
+    if (shouldDownload) {
+      this.startDownloading();
+    }
   }
 
   async getInfo() {
     const key = this.key.toString('hex');
     const { url } = this;
     const { writable } = this.archive;
+    const isSaved = await this.isSaved();
     try {
       const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      const final = { title: key, ...parsed, key, url, writable };
+      const final = { title: key, ...parsed, key, url, writable, isSaved };
       return final;
     } catch (e) {
-      return { title: key, key, url, writable };
+      return { title: key, key, url, writable, isSaved };
     }
   }
 
@@ -63,6 +75,42 @@ export default class Project {
     await this.archive.writeFile(PROJECT_INFO_FILE, stringified);
 
     return updated;
+  }
+
+  async isSaved() {
+    const { url, writable } = this;
+
+    if (writable) return true;
+    const saved = await this.database.getSavedProjectNames();
+
+    return saved.includes(url);
+  }
+
+  async setSaved(saved) {
+    const { url, writable } = this;
+
+    if (writable) return;
+
+    if (saved) {
+      await this.database.addSavedProjectName(url);
+      this.startDownloading();
+    } else {
+      await this.database.removeSavedProjectName(url);
+      this.stopDownloading();
+    }
+  }
+
+  startDownloading() {
+    if (this.isDownloading) return;
+    this.isDownloading = () => this.archive.download('/');
+    this.archive.on('update', this.isDownloading);
+    this.isDownloading();
+  }
+
+  stopDownloading() {
+    if (!this.isDownloading) return;
+    this.archive.removeListener(this.isDownloading);
+    this.isDownloading = null;
   }
 
   async getFileList(path = '/') {

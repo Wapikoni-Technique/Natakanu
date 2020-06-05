@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import Carousel from 'react-spring-3d-carousel';
+import React from 'react';
 
-import Link from './Link';
 import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
+import Projects from './Projects';
 
 import localization from '../localization';
 
@@ -12,7 +11,6 @@ import styles from './Account.css';
 
 export default function Account({ accountInfo, projects, onGoCreate }) {
   const { name, image, writable } = accountInfo;
-  const [currentSlide, setSlide] = useState(Math.floor(0));
 
   console.log({ projects });
 
@@ -22,29 +20,9 @@ export default function Account({ accountInfo, projects, onGoCreate }) {
     </div>
   ) : null;
 
-  const slides = projects.map(
-    ({ key: projectKey, url, title, image: projectImage }, index) => ({
-      key: projectKey,
-      content: (
-        <Project
-          key={projectKey}
-          image={projectImage}
-          url={url}
-          title={title}
-          isCurrent={currentSlide === index}
-          setActive={() => setSlide(index)}
-        />
-      )
-    })
-  );
-
   let mainContent = null;
   if (projects.length) {
-    mainContent = (
-      <div className={styles.projects}>
-        <Carousel offsetRadius={3} goToSlide={currentSlide} slides={slides} />
-      </div>
-    );
+    mainContent = <Projects projects={projects} />;
   } else if (writable) {
     mainContent = (
       <section className={styles.noProjects}>
@@ -69,30 +47,5 @@ export default function Account({ accountInfo, projects, onGoCreate }) {
       {mainContent}
       {newProjectButton}
     </PageContainer>
-  );
-}
-
-function Project({ url, title, image, isCurrent, setActive }) {
-  const style = {};
-  if (image) {
-    style.backgroundImage = `url(${image})`;
-  }
-  if (isCurrent) {
-    return (
-      <Link
-        autoFocus
-        className={styles.project}
-        style={style}
-        to={`${url}view/`}
-      >
-        {title}
-      </Link>
-    );
-  }
-
-  return (
-    <button className={styles.project} style={style} onClick={setActive}>
-      {title}
-    </button>
   );
 }

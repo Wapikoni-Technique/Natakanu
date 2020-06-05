@@ -4,6 +4,10 @@
   font-weight: bold;
   border: none;
   border-radius: var(--t-radius);
+  background: #ccc;
+  margin: 0 0.1em;
+  text-decoration: none;
+  color: inherit;
 }
 
 .big {

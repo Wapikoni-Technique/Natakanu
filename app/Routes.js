@@ -12,6 +12,7 @@ import ProjectViewPage from './containers/ProjectViewPage';
 import NewProjectContainer from './containers/NewProjectContainer';
 import RegisterPage from './containers/RegisterPage';
 import OnlinePage from './containers/OnlinePage';
+import RecentProjectsPage from './containers/RecentProjectsPage';
 
 export default () => (
   <App>
@@ -19,6 +20,7 @@ export default () => (
       <Route path={routes.NEW_PROJECT} component={NewProjectContainer} />
       <Route path={routes.ACCOUNTS_ONLINE} component={OnlinePage} />
       <Route path={routes.ACCOUNT} component={AccountPage} />
+      <Route path={routes.RECENT_PROJECTS} component={RecentProjectsPage} />
       <Route path={routes.PROJECT} component={ProjectViewPage} />
       <Route path={routes.LOGIN} component={LoginPage} />
       <Route path={routes.REGISTER} component={RegisterPage} />

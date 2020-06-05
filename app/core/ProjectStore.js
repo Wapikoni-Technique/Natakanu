@@ -15,7 +15,7 @@ export default class ProjectStore {
 
     if (this.projects.has(key)) return this.projects.get(key);
 
-    const project = await Project.load(name, this.Hyperdrive, this.db);
+    const project = await Project.load(name, this.Hyperdrive, this.database);
 
     this.projects.set(name, project);
     this.projects.set(project.url, project);
@@ -31,10 +31,20 @@ export default class ProjectStore {
   async getRecent() {
     const names = await this.getRecentNames();
 
-    return Promise.all(names.map(name => this.getProject(name)));
+    return Promise.all(names.map(name => this.get(name)));
   }
 
   async getRecentNames() {
     return this.database.getRecentProjectNames();
+  }
+
+  async getSaved() {
+    const names = await this.getSavedNames();
+
+    return Promise.all(names.map(name => this.get(name)));
+  }
+
+  async getSavedNames() {
+    return this.database.getSavedProjectNames();
   }
 }
