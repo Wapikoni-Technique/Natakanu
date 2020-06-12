@@ -36,7 +36,8 @@ export default function ProjectViewPage() {
     push(`./${folder}/`);
   }
 
-  async function onSetSaved({ saved }) {
+  async function onSetSaved(saved) {
+    console.log('Setting saved', saved);
     const core = await getCore();
     const projectInstance = await core.projects.get(project);
 
@@ -69,7 +70,7 @@ export default function ProjectViewPage() {
               onSetSaved={onSetSaved}
             />
           );
-          await once(projectInstance.archive, 'update');
+          await once(projectInstance, 'update');
         }
       }}
     </AsyncGeneratorPage>

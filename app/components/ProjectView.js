@@ -37,13 +37,14 @@ export default function ProjectView({
     onNavigateTo('..');
   }
 
-  const upButton = subpath ? (
-    <div className={styles.filecontainer}>
-      <button className={styles.file} onClick={goUp}>
-        📁 ../
-      </button>
-    </div>
-  ) : null;
+  const upButton =
+    subpath && subpath !== '/' ? (
+      <div className={styles.filecontainer}>
+        <button className={styles.file} onClick={goUp}>
+          📁 ../
+        </button>
+      </div>
+    ) : null;
 
   const saveForm = writable ? null : (
     <label>

@@ -272,7 +272,6 @@
     "core-js": "^3.5.0",
     "dat-fetch": "^2.2.0",
     "dat-gossip": "^1.0.0",
-    "dat-sdk": "^2.0.0",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
     "electron-log": "^4.0.0",

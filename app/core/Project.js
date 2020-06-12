@@ -7,11 +7,12 @@ import {
 import fs from 'fs-extra';
 import pump from 'pump-promise';
 import readdir from 'readdir-enhanced';
+import EventEmitter from 'events';
 
 import { encodeProject } from './urlParser';
-import { PROJECT_INFO_FILE } from '../constants/core';
+import { PROJECT_INFO_FILE, PROJECT_INFO_FILE_BACKUP } from '../constants/core';
 
-export default class Project {
+export default class Project extends EventEmitter {
   static async load(key, Hyperdrive, database) {
     const project = new Project(key, Hyperdrive, database);
 
@@ -21,6 +22,7 @@ export default class Project {
   }
 
   constructor(key, Hyperdrive, database) {
+    super();
     this.key = key;
     this.Hyperdrive = Hyperdrive;
     this.database = database;
@@ -40,6 +42,8 @@ export default class Project {
 
     await this.archive.ready();
 
+    this.archive.on('update', () => this.emit('update'));
+
     const isSaved = await this.isSaved();
     const { writable } = this;
 
@@ -56,9 +60,21 @@ export default class Project {
     const { writable } = this.archive;
     const isSaved = await this.isSaved();
     try {
-      const raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
+      let raw = null;
+      try {
+        raw = await this.archive.readFile(PROJECT_INFO_FILE, 'utf8');
+      } catch {
+        raw = await this.archive.readFile(PROJECT_INFO_FILE_BACKUP, 'utf8');
+      }
       const parsed = JSON.parse(raw);
-      const final = { title: key, ...parsed, key, url, writable, isSaved };
+      const final = {
+        title: key,
+        ...parsed,
+        key,
+        url,
+        writable,
+        isSaved
+      };
       return final;
     } catch (e) {
       return { title: key, key, url, writable, isSaved };
@@ -98,6 +114,8 @@ export default class Project {
       await this.database.removeSavedProjectName(url);
       this.stopDownloading();
     }
+
+    this.emit('update');
   }
 
   startDownloading() {
@@ -109,7 +127,7 @@ export default class Project {
 
   stopDownloading() {
     if (!this.isDownloading) return;
-    this.archive.removeListener(this.isDownloading);
+    this.archive.removeListener('update', this.isDownloading);
     this.isDownloading = null;
   }
 
