@@ -53,9 +53,11 @@ export default class NatakanuCore extends EventEmitter {
 
     console.log('Gossip Core', this.gossipKey, gossipCoreKey.length);
 
+    const { publicKey: id } = await this.sdk.getIdentity();
+
     await this.gossipCore.ready();
 
-    this.gossip = datGossip(this.gossipCore);
+    this.gossip = datGossip(this.gossipCore, { id });
 
     this.database = new Database(this.db);
     this.projects = new ProjectStore(this.sdk.Hyperdrive, this.database);
@@ -65,8 +67,6 @@ export default class NatakanuCore extends EventEmitter {
       this.projects,
       this.gossip
     );
-
-    this.gossip.on('found', data => console.log('Gossiped data', data));
 
     await this.accounts.startGossip();
 

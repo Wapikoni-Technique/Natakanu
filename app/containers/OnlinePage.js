@@ -27,7 +27,7 @@ export default function OnlinePage() {
 
           yield (<Online gossiped={gossiped} onGoAccount={onGoAccount} />);
 
-          await once(core.gossip, 'found');
+          await once(core.gossip, 'changed');
         }
       }}
     </AsyncGeneratorPage>
