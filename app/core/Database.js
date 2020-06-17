@@ -2,7 +2,8 @@ import {
   ACCOUNT_DB_PREFIX,
   RECENT_PROJECT_DB_PREFIX,
   MAX_RECENT_PROJECTS,
-  SAVED_PROJECT_DB_PREFIX
+  SAVED_PROJECT_DB_PREFIX,
+  PREFERENCES_DB_KEY
 } from '../constants/core';
 
 export default class Database {
@@ -90,5 +91,32 @@ export default class Database {
     if (filtered.length === names.length) return;
 
     await this.setSavedProjectNames(filtered);
+  }
+
+  async getPreference(name, defaultValue) {
+    const preferences = await this.getPreferences();
+
+    if (name in preferences) return preferences[name];
+    return defaultValue;
+  }
+
+  async updatePreference(name, value) {
+    const preferences = await this.getPreferences();
+
+    const final = { ...preferences, [name]: value };
+
+    await this.savePreferences(final);
+  }
+
+  async getPreferences() {
+    try {
+      return this.db.get(PREFERENCES_DB_KEY);
+    } catch {
+      return {};
+    }
+  }
+
+  async savePreferences(preferences) {
+    await this.db.put(PREFERENCES_DB_KEY, preferences);
   }
 }
