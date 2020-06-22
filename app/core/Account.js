@@ -2,12 +2,13 @@ import slugify from '@sindresorhus/slugify';
 import { parse as parsePath, posix as posixPath } from 'path';
 import fs from 'fs';
 import pump from 'pump';
+import EventEmitter from 'events';
 
 import { encodeAccount } from './urlParser';
 
 import { PROJECT_FOLDER, ACCOUNT_INFO_FILE } from '../constants/core';
 
-export default class Account {
+export default class Account extends EventEmitter {
   static async load(key, Hyperdrive, database, projectStore) {
     const account = new Account(key, Hyperdrive, database, projectStore);
 
@@ -17,6 +18,7 @@ export default class Account {
   }
 
   constructor(key, Hyperdrive, database, projectStore) {
+    super();
     this.key = key;
     this.Hyperdrive = Hyperdrive;
     this.database = database;
@@ -31,8 +33,16 @@ export default class Account {
     return this.archive.writable;
   }
 
+  get peers() {
+    return this.archive.peers || [];
+  }
+
   async init() {
     this.archive = this.Hyperdrive(this.key);
+
+    this.archive.on('update', () => this.emit('update', 'update'));
+    this.archive.on('peer-open', () => this.emit('update', 'peer-open'));
+    this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
 
     await this.archive.ready();
   }

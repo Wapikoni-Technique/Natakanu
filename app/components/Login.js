@@ -18,7 +18,7 @@ export default function Login({ onLogin, onRegister, accounts }) {
   ));
 
   const recentProjectsButton = (
-    <Button to={RECENT_PROJECTS}>Recent Projects</Button>
+    <Button to={RECENT_PROJECTS}>{localization.login_recent_projects}</Button>
   );
 
   return (

@@ -2,6 +2,7 @@
   "example": "Hello World!",
 
   "login_add": "Add",
+  "login_recent_projects": "Recent Projects",
 
   "account_new_project": "New Project",
   "account_no_projects_self_1": "Natakanu helps you share files with your community. This is where you'll be able to see all the projects you have been working on.",
@@ -20,6 +21,7 @@
   "new_project_credits": "Credits",
 
   "project_view_add_files": "Add Files",
+  "project_view_save_locally": "Save project locally",
 
   "register_title": "Natakanu",
   "register_intro_1": "Please enter some basic information about yourself to get started",
@@ -29,5 +31,7 @@
   "register_button": "Register",
   "register_image": "Picture",
 
-  "header_online": "See who's online"
+  "header_online": "See who's online",
+
+  "preferences_superpeer": "Automatically save everyone's data"
 }

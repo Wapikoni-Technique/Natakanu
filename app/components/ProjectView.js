@@ -11,6 +11,7 @@ export default function ProjectView({
   projectInfo,
   files,
   subpath,
+  numPeers,
   onDownloadFile,
   onAddFiles,
   onDeleteFile,
@@ -53,9 +54,11 @@ export default function ProjectView({
         checked={!!isSaved}
         onChange={({ target }) => onSetSaved(target.checked)}
       />
-      Save Project Locally
+      {localization.project_view_save_locally}
     </label>
   );
+
+  const peersLabel = numPeers ? `(${numPeers})` : '';
 
   return (
     <PageContainer
@@ -64,7 +67,7 @@ export default function ProjectView({
     >
       <div className={styles.files}>
         <h3>
-          {title} /{subpath}
+          {title} /{subpath} {peersLabel}
         </h3>
         {upButton}
         {files.map(({ stat, name }) => {
@@ -81,12 +84,15 @@ export default function ProjectView({
                 🗑
               </button>
             ) : null;
+          const downloadIndicator =
+            stat.isDownloaded && !writable ? '💾' : null;
           return (
             <div key={name} className={styles.filecontainer}>
               <button className={styles.file} onClick={onClick}>
                 {`${icon} /${name}${endSlash}`}
               </button>
               {deleteButton}
+              {downloadIndicator}
             </div>
           );
         })}

@@ -57,12 +57,14 @@ export default function ProjectViewPage() {
         while (true) {
           const projectInfo = await projectInstance.getInfo();
           const files = await projectInstance.getFileList(subpath || '/');
+          const numPeers = projectInstance.peers.length;
 
           yield (
             <ProjectView
               projectInfo={projectInfo}
               files={files}
               subpath={subpath}
+              numPeers={numPeers}
               onDownloadFile={onDownloadFile}
               onAddFiles={onAddFiles}
               onDeleteFile={onDeleteFile}
@@ -70,6 +72,7 @@ export default function ProjectViewPage() {
               onSetSaved={onSetSaved}
             />
           );
+
           await once(projectInstance, 'update');
         }
       }}

@@ -9,7 +9,12 @@ import localization from '../localization';
 
 import styles from './Account.css';
 
-export default function Account({ accountInfo, projects, onGoCreate }) {
+export default function Account({
+  accountInfo,
+  projects,
+  numPeers,
+  onGoCreate
+}) {
   const { name, image, writable } = accountInfo;
 
   console.log({ projects });
@@ -38,11 +43,15 @@ export default function Account({ accountInfo, projects, onGoCreate }) {
     );
   }
 
+  const peersLabel = numPeers ? `(${numPeers})` : '';
+
   return (
     <PageContainer backgroundClass={styles.background}>
       <div className={styles.accountInfo}>
         <AccountIcon image={image} name={name} />
-        <div className={styles.accountName}>{name}</div>
+        <div className={styles.accountName}>
+          {name} {peersLabel}
+        </div>
       </div>
       {mainContent}
       {newProjectButton}

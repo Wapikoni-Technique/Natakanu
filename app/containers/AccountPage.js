@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { once } from 'events';
 
 import getCore from '../core/get';
 import Account from '../components/Account';
@@ -21,21 +22,25 @@ export default function AccountPage() {
         const core = await getCore();
         const accountInstance = await core.accounts.get(account);
 
-        yield (<LoaderPage />);
+        while (true) {
+          yield (<LoaderPage />);
 
-        const accountInfo = await accountInstance.getInfo();
-        const projects = await accountInstance.getProjectsInfo();
+          const accountInfo = await accountInstance.getInfo();
+          const projects = await accountInstance.getProjectsInfo();
+          const numPeers = accountInstance.peers.length;
 
-        yield (
-          <Account
-            account={account}
-            accountInfo={accountInfo}
-            projects={projects}
-            onGoCreate={onGoCreate}
-          />
-        );
+          yield (
+            <Account
+              account={account}
+              accountInfo={accountInfo}
+              projects={projects}
+              numPeers={numPeers}
+              onGoCreate={onGoCreate}
+            />
+          );
 
-        // TODO: Listen on account changes
+          once(accountInstance, 'update');
+        }
       }}
     </AsyncGeneratorPage>
   );

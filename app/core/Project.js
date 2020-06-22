@@ -8,6 +8,7 @@ import fs from 'fs-extra';
 import pump from 'pump-promise';
 import readdir from 'readdir-enhanced';
 import EventEmitter from 'events';
+import isDownloaded from 'hyperdrive-is-downloaded';
 
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE, PROJECT_INFO_FILE_BACKUP } from '../constants/core';
@@ -37,12 +38,18 @@ export default class Project extends EventEmitter {
     return this.archive.writable;
   }
 
+  get peers() {
+    return this.archive.peers || [];
+  }
+
   async init() {
     this.archive = this.Hyperdrive(this.key);
 
     await this.archive.ready();
 
-    this.archive.on('update', () => this.emit('update'));
+    this.archive.on('update', () => this.emit('update', 'update'));
+    this.archive.on('peer-open', () => this.emit('update', 'peer-open'));
+    this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
 
     const isSaved = await this.isSaved();
     const { writable } = this;
@@ -118,6 +125,15 @@ export default class Project extends EventEmitter {
     this.emit('update');
   }
 
+  async isDownloaded(path) {
+    return new Promise((resolve, reject) => {
+      isDownloaded(this.archive, path, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  }
+
   startDownloading() {
     if (this.isDownloading) return;
     this.isDownloading = () => this.archive.download('/');
@@ -132,7 +148,17 @@ export default class Project extends EventEmitter {
   }
 
   async getFileList(path = '/') {
-    return this.archive.readdir(path, { includeStats: true });
+    const stats = await this.archive.readdir(path, { includeStats: true });
+
+    return Promise.all(
+      stats.map(async ({ stat, name }) => {
+        const downloaded = await this.isDownloaded(joinPaths(path, name));
+        const newStat = Object.create(stat);
+        newStat.isDownloaded = downloaded;
+
+        return { stat: newStat, name };
+      })
+    );
   }
 
   async deleteFile(path) {
