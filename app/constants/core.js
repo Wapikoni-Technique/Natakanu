@@ -7,6 +7,7 @@ export const PROJECT_INFO_FILE = '/index.json';
 export const PROJECT_INFO_FILE_BACKUP = '/dat.json';
 
 export const ACCOUNT_DB_PREFIX = 'accounts::ALL';
+export const ACCOUNT_SEEN_DB_PREFIX = 'accounts:SEEN';
 
 export const RECENT_PROJECT_DB_PREFIX = 'projects::RECENT';
 export const MAX_RECENT_PROJECTS = 32;

@@ -7,6 +7,8 @@ import getCore from '../core/get';
 import ProjectView from '../components/ProjectView';
 import AsyncGeneratorPage from './AsyncGeneratorPage';
 
+import LoaderPage from '../components/LoaderPage';
+
 export default function ProjectViewPage() {
   const { project, subpath = '/' } = useParams();
   const { push } = useHistory();
@@ -55,6 +57,7 @@ export default function ProjectViewPage() {
         core.projects.addRecent(project);
 
         while (true) {
+          yield (<LoaderPage />);
           const projectInfo = await projectInstance.getInfo();
           const files = await projectInstance.getFileList(subpath || '/');
           const numPeers = projectInstance.peers.length;

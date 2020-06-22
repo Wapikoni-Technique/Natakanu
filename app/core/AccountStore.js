@@ -71,6 +71,17 @@ export default class AccountStore extends EventEmitter {
         await account.updateInfo({ name: key });
         await this.database.addAccountName(key);
       }
+    } else {
+      // Add the account to recents after loading their info
+      // This shouldn't block the rest of the loading
+      account
+        .getInfo()
+        .then(() => {
+          return this.database.addSeenAccount(account.url);
+        })
+        .catch(e => {
+          console.error('Error saving account to saved', e.stack);
+        });
     }
 
     this.accounts.set(name, account);
@@ -94,6 +105,11 @@ export default class AccountStore extends EventEmitter {
         return info;
       })
     );
+  }
+
+  async listSeen() {
+    const urls = await this.database.getSeenAccounts();
+    return Promise.all(urls.map(url => this.get(url)));
   }
 
   async list() {

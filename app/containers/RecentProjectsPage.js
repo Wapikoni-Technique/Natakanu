@@ -9,7 +9,9 @@ import RecentProjects from '../components/RecentProjects';
 export default function RecentProjectsPage() {
   return (
     <AsyncPage promiseFn={load}>
-      {projects => <RecentProjects projects={projects} />}
+      {({ recent, saved, seen }) => (
+        <RecentProjects recent={recent} saved={saved} seen={seen} />
+      )}
     </AsyncPage>
   );
 }
@@ -17,11 +19,17 @@ export default function RecentProjectsPage() {
 async function load() {
   const core = await getCore();
 
-  const projects = await core.projects.getRecent();
+  const [rawRecent, rawSaved, rawSeen] = await Promise.all([
+    await core.projects.getRecent(),
+    await core.projects.getSaved(),
+    await core.accounts.listSeen()
+  ]);
 
-  const infos = await Promise.all(projects.map(project => project.getInfo()));
+  const [recent, saved, seen] = await Promise.all([
+    await Promise.all(rawRecent.map(project => project.getInfo())),
+    await Promise.all(rawSaved.map(project => project.getInfo())),
+    await Promise.all(rawSeen.map(account => account.getInfo()))
+  ]);
 
-  console.log({ infos });
-
-  return infos;
+  return { recent, saved, seen };
 }

@@ -39,7 +39,7 @@ export default function AccountPage() {
             />
           );
 
-          once(accountInstance, 'update');
+          await once(accountInstance, 'update');
         }
       }}
     </AsyncGeneratorPage>

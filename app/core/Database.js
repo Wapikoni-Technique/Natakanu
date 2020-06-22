@@ -1,5 +1,6 @@
 import {
   ACCOUNT_DB_PREFIX,
+  ACCOUNT_SEEN_DB_PREFIX,
   RECENT_PROJECT_DB_PREFIX,
   MAX_RECENT_PROJECTS,
   SAVED_PROJECT_DB_PREFIX,
@@ -22,6 +23,29 @@ export default class Database {
 
   async setAccountNames(names) {
     await this.db.put(ACCOUNT_DB_PREFIX, names);
+  }
+
+  async addSeenAccount(url) {
+    const seen = await this.getSeenAccounts();
+
+    const dedupled = new Set(seen.concat(url));
+
+    const final = [...dedupled];
+
+    await this.setAccountNames(final);
+  }
+
+  async getSeenAccounts() {
+    try {
+      return await this.db.get(ACCOUNT_SEEN_DB_PREFIX);
+    } catch (e) {
+      console.log('Seen Accounts error', e);
+      return [];
+    }
+  }
+
+  async setSeenAccounts(seen) {
+    await this.db.put(ACCOUNT_SEEN_DB_PREFIX, seen);
   }
 
   async addAccountName(name) {
