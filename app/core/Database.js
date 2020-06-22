@@ -110,7 +110,8 @@ export default class Database {
 
   async getPreferences() {
     try {
-      return this.db.get(PREFERENCES_DB_KEY);
+      const preferences = await this.db.get(PREFERENCES_DB_KEY);
+      return preferences;
     } catch {
       return {};
     }

@@ -13,6 +13,7 @@ import NewProjectContainer from './containers/NewProjectContainer';
 import RegisterPage from './containers/RegisterPage';
 import OnlinePage from './containers/OnlinePage';
 import RecentProjectsPage from './containers/RecentProjectsPage';
+import PreferencesPage from './containers/PreferencesPage';
 
 export default () => (
   <App>
@@ -24,6 +25,7 @@ export default () => (
       <Route path={routes.PROJECT} component={ProjectViewPage} />
       <Route path={routes.LOGIN} component={LoginPage} />
       <Route path={routes.REGISTER} component={RegisterPage} />
+      <Route path={routes.PREFERENCES} component={PreferencesPage} />
       <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>

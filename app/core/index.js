@@ -14,6 +14,8 @@ import { APPLICATION_NAME, GOSSIP_KEY } from '../constants/core';
 import Database from './Database';
 import ProjectStore from './ProjectStore';
 import AccountStore from './AccountStore';
+import Preferences from './Preferences';
+import SuperPeer from './SuperPeer';
 
 export default class NatakanuCore extends EventEmitter {
   constructor({
@@ -60,13 +62,25 @@ export default class NatakanuCore extends EventEmitter {
     this.gossip = datGossip(this.gossipCore, { id });
 
     this.database = new Database(this.db);
+
     this.projects = new ProjectStore(this.sdk.Hyperdrive, this.database);
+
     this.accounts = new AccountStore(
       this.sdk.Hyperdrive,
       this.database,
       this.projects,
       this.gossip
     );
+
+    this.preferences = new Preferences(this.database);
+
+    this.superpeer = new SuperPeer(
+      this.accounts,
+      this.gossip,
+      this.preferences
+    );
+
+    await this.superpeer.init();
 
     await this.accounts.startGossip();
 

@@ -10,5 +10,6 @@
   "REGISTER": "/register/",
   "RECENT_PROJECTS": "/project/recent",
   "ACCOUNT_LIST": "/account/list/",
-  "ACCOUNTS_ONLINE": "/account/online/"
+  "ACCOUNTS_ONLINE": "/account/online/",
+  "PREFERENCES": "/preferences/"
 }
