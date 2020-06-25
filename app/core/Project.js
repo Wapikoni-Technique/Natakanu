@@ -91,7 +91,12 @@ export default class Project extends EventEmitter {
   async updateInfo(info) {
     const existing = await this.getInfo();
 
-    const updated = { ...existing, ...info };
+    const updated = {
+      ...existing,
+      ...info,
+      writable: undefined,
+      isSaved: undefined
+    };
 
     const stringified = JSON.stringify(updated, null, '\t');
 

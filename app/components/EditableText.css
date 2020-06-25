@@ -1,0 +1,13 @@
+.input {
+  background: none;
+  border: none;
+  display: inline;
+  min-width: 1em;
+}
+
+.button {
+  background: none;
+  border: none;
+  min-height: 1em;
+  min-width: 3em;
+}

@@ -4,6 +4,8 @@ import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
 import Projects from './Projects';
+import EditableText from './EditableText';
+import EditableAccountIcon from './EditableAccountIcon';
 
 import localization from '../localization';
 
@@ -13,11 +15,11 @@ export default function Account({
   accountInfo,
   projects,
   numPeers,
-  onGoCreate
+  onGoCreate,
+  onUpdateName,
+  onUpdateImage
 }) {
   const { name, image, writable } = accountInfo;
-
-  console.log({ projects });
 
   const newProjectButton = writable ? (
     <div className={styles.newProjectButton}>
@@ -45,13 +47,31 @@ export default function Account({
 
   const peersLabel = numPeers ? `(${numPeers})` : '';
 
+  const accountIcon = writable ? (
+    <EditableAccountIcon image={image} name={name} onChange={onUpdateImage} />
+  ) : (
+    <AccountIcon image={image} name={name} />
+  );
+
+  const accountName = writable ? (
+    <EditableText
+      value={name}
+      onUpdate={onUpdateName}
+      className={styles.accountName}
+    >
+      {peersLabel}
+    </EditableText>
+  ) : (
+    <div className={styles.accountName}>
+      {name} {peersLabel}
+    </div>
+  );
+
   return (
     <PageContainer backgroundClass={styles.background}>
       <div className={styles.accountInfo}>
-        <AccountIcon image={image} name={name} />
-        <div className={styles.accountName}>
-          {name} {peersLabel}
-        </div>
+        {accountIcon}
+        {accountName}
       </div>
       {mainContent}
       {newProjectButton}

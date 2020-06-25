@@ -33,16 +33,11 @@ export default class AccountStore extends EventEmitter {
     }
     const account = await this.get(name);
 
-    const { image: imagePath } = opts;
+    const { image: imagePath, info } = opts;
 
-    if (imagePath) {
-      const imageName = await account.saveFromFS(imagePath);
-      opts.image = `hyper://${account.archive.key.toString(
-        'hex'
-      )}/${imageName}`;
-    }
+    await account.updateInfo(info);
 
-    await account.updateInfo(opts);
+    await account.updateImage(imagePath);
 
     await this.database.addAccountName(name);
 

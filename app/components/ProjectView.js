@@ -3,6 +3,7 @@ import React from 'react';
 
 import PageContainer from './PageContainer';
 import Button from './Button';
+import EditableText from './EditableText';
 
 import styles from './ProjectView.css';
 import localization from '../localization';
@@ -16,7 +17,8 @@ export default function ProjectView({
   onAddFiles,
   onDeleteFile,
   onNavigateTo,
-  onSetSaved
+  onSetSaved,
+  onUpdateInfo
 }) {
   const {
     title,
@@ -100,17 +102,52 @@ export default function ProjectView({
       </div>
       <div className={styles.info}>
         <dl>
-          <dt>{localization.new_project_author}</dt>
-          <dd>{author}</dd>
-          <dt>{localization.new_project_community}</dt>
-          <dd>{community}</dd>
-          <dt>{localization.new_project_nation}</dt>
-          <dd>{nation}</dd>
-          <dt>{localization.new_project_credits}</dt>
-          <dd>{description}</dd>
+          <InfoItem
+            writable={writable}
+            label={localization.new_project_author}
+            value={author}
+            onUpdate={value => onUpdateInfo('author', value)}
+          />
+          <InfoItem
+            writable={writable}
+            label={localization.new_project_community}
+            value={community}
+            onUpdate={value => onUpdateInfo('community', value)}
+          />
+          <InfoItem
+            writable={writable}
+            label={localization.new_project_nation}
+            value={nation}
+            onUpdate={value => onUpdateInfo('nation', value)}
+          />
+          <InfoItem
+            writable={writable}
+            label={localization.new_project_credits}
+            value={description}
+            onUpdate={value => onUpdateInfo('description', value)}
+          />
         </dl>
         {saveForm}
       </div>
     </PageContainer>
+  );
+}
+
+function InfoItem({ label, value, onUpdate, writable }) {
+  if (writable)
+    return (
+      <>
+        <dt>{label}</dt>
+        <dd>
+          <EditableText value={value} onUpdate={onUpdate} />
+        </dd>
+      </>
+    );
+
+  return (
+    <>
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+    </>
   );
 }

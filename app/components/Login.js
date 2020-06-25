@@ -10,8 +10,8 @@ import localization from '../localization';
 import { RECENT_PROJECTS } from '../constants/routes.json';
 
 export default function Login({ onLogin, onRegister, accounts }) {
-  const accountsSections = accounts.map(({ name, image }) => (
-    <button key={name} className={styles.account} onClick={() => onLogin(name)}>
+  const accountsSections = accounts.map(({ name, key, image }) => (
+    <button key={key} className={styles.account} onClick={() => onLogin(key)}>
       <AccountIcon image={image} name={name} />
       <div>{name}</div>
     </button>

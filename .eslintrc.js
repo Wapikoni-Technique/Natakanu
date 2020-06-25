@@ -21,6 +21,7 @@ module.exports = {
         allowedStrings: ['/', '📁', '📁 ../', '🔙', '🗑', '➕']
       }
     ],
+    'jsx-a11y/no-autofocus': 0,
     'jsx-a11y/label-has-associated-control': 'warn',
     'jsx-a11y/accessible-emoji': 'warn'
   }

@@ -22,6 +22,14 @@ export default function AccountPage() {
         const core = await getCore();
         const accountInstance = await core.accounts.get(account);
 
+        async function onUpdateName(name) {
+          await accountInstance.updateInfo({ name });
+        }
+
+        async function onUpdateImage(filePath) {
+          await accountInstance.updateImage(filePath);
+        }
+
         while (true) {
           yield (<LoaderPage />);
 
@@ -36,6 +44,8 @@ export default function AccountPage() {
               projects={projects}
               numPeers={numPeers}
               onGoCreate={onGoCreate}
+              onUpdateName={onUpdateName}
+              onUpdateImage={onUpdateImage}
             />
           );
 

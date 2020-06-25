@@ -152,13 +152,21 @@ export default class Account extends EventEmitter {
       // Whatever
     }
 
-    const updated = { ...existing, ...info };
+    const updated = { ...existing, ...info, writable: undefined };
 
     const stringified = JSON.stringify(updated, null, '\t');
 
     await this.archive.writeFile(ACCOUNT_INFO_FILE, stringified);
 
     return updated;
+  }
+
+  async updateImage(filePath) {
+    const imagePath = await this.saveFromFS(filePath);
+
+    const image = `hyper://${this.archive.key.toString('hex')}/${imagePath}`;
+
+    await this.updateInfo({ image });
   }
 
   async saveFromFS(filePath) {

@@ -38,16 +38,6 @@ export default function ProjectViewPage() {
     push(`./${folder}/`);
   }
 
-  async function onSetSaved(saved) {
-    console.log('Setting saved', saved);
-    const core = await getCore();
-    const projectInstance = await core.projects.get(project);
-
-    await projectInstance.setSaved(saved);
-  }
-
-  console.log('Viewing project', project, subpath);
-
   return (
     <AsyncGeneratorPage deps={[project, subpath]}>
       {async function* renderProjectViewPage() {
@@ -55,6 +45,14 @@ export default function ProjectViewPage() {
         const projectInstance = await core.projects.get(project);
 
         core.projects.addRecent(project);
+
+        async function onSetSaved(saved) {
+          await projectInstance.setSaved(saved);
+        }
+
+        async function onUpdateInfo(name, value) {
+          await projectInstance.updateInfo({ [name]: value });
+        }
 
         while (true) {
           yield (<LoaderPage />);
@@ -73,6 +71,7 @@ export default function ProjectViewPage() {
               onDeleteFile={onDeleteFile}
               onNavigateTo={onNavigateTo}
               onSetSaved={onSetSaved}
+              onUpdateInfo={onUpdateInfo}
             />
           );
 
