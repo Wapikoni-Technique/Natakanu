@@ -54,6 +54,10 @@ export default function ProjectViewPage() {
           await projectInstance.updateInfo({ [name]: value });
         }
 
+        async function onUpdateImage(image) {
+          await projectInstance.updateImage(image);
+        }
+
         while (true) {
           yield (<LoaderPage />);
           const projectInfo = await projectInstance.getInfo();
@@ -72,6 +76,7 @@ export default function ProjectViewPage() {
               onNavigateTo={onNavigateTo}
               onSetSaved={onSetSaved}
               onUpdateInfo={onUpdateInfo}
+              onUpdateImage={onUpdateImage}
             />
           );
 

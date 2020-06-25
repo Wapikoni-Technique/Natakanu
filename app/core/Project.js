@@ -105,6 +105,18 @@ export default class Project extends EventEmitter {
     return updated;
   }
 
+  async updateImage(imagePath) {
+    const { base: imageName } = parsePath(imagePath);
+
+    const destination = `/${imageName}`;
+
+    await this.saveFromFS(imagePath, destination);
+
+    const image = `hyper://${this.archive.key.toString('hex')}/${imageName}`;
+
+    await this.updateInfo({ image });
+  }
+
   async isSaved() {
     const { url, writable } = this;
 

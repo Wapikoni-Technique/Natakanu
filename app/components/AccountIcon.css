@@ -6,4 +6,5 @@
   align-self: center;
   margin-bottom: 1em;
   overflow: hidden;
+  object-fit: cover;
 }

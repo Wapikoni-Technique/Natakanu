@@ -4,6 +4,8 @@ import React from 'react';
 import PageContainer from './PageContainer';
 import Button from './Button';
 import EditableText from './EditableText';
+import EditableAccountIcon from './EditableAccountIcon';
+import AccountIcon from './AccountIcon';
 
 import styles from './ProjectView.css';
 import localization from '../localization';
@@ -18,7 +20,8 @@ export default function ProjectView({
   onDeleteFile,
   onNavigateTo,
   onSetSaved,
-  onUpdateInfo
+  onUpdateInfo,
+  onUpdateImage
 }) {
   const {
     title,
@@ -26,6 +29,7 @@ export default function ProjectView({
     author,
     community,
     nation,
+    image,
     writable,
     isSaved
   } = projectInfo;
@@ -127,6 +131,11 @@ export default function ProjectView({
             onUpdate={value => onUpdateInfo('description', value)}
           />
         </dl>
+        <ImageInfoItem
+          image={image}
+          onUpdate={onUpdateImage}
+          writable={writable}
+        />
         {saveForm}
       </div>
     </PageContainer>
@@ -150,4 +159,14 @@ function InfoItem({ label, value, onUpdate, writable }) {
       <dd>{value}</dd>
     </>
   );
+}
+
+function ImageInfoItem({ image, onUpdate, writable }) {
+  if (writable) {
+    return <EditableAccountIcon image={image} onChange={onUpdate} />;
+  }
+
+  if (!image) return null;
+
+  return <AccountIcon image={image} />;
 }

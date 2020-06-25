@@ -97,8 +97,9 @@ export default class Account extends EventEmitter {
 
     const projects = await this.getProjects();
 
-    const { title, image: imagePath } = info;
-    const opts = info;
+    const { title } = info;
+    const { image, ...opts } = info;
+
     // Slugify the name
     const key = slugify(`${this.key}  ${title}`);
 
@@ -115,16 +116,11 @@ export default class Account extends EventEmitter {
     // Initialize the project for it
     const project = await this.projectStore.get(key);
 
-    if (imagePath) {
-      const { base: imageName } = parsePath(imagePath);
-
-      const destination = `/${imageName}`;
-
-      await project.saveFromFS(imagePath, destination);
-      opts.image = `hyper://${archive.key.toString('hex')}/${imageName}`;
-    }
-
     await project.updateInfo(opts);
+
+    if (image) {
+      await project.updateImage(image);
+    }
 
     projects.push(project);
 

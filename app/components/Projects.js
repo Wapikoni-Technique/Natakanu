@@ -34,7 +34,7 @@ export default function Projects({ projects }) {
 function Project({ url, title, image, isCurrent, setActive }) {
   const style = {};
   if (image) {
-    style.backgroundImage = `url(${image})`;
+    style.backgroundImage = `url("${image}")`;
   }
   if (isCurrent) {
     return (

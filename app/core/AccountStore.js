@@ -37,8 +37,9 @@ export default class AccountStore extends EventEmitter {
 
     await account.updateInfo(info);
 
-    await account.updateImage(imagePath);
-
+    if (imagePath) {
+      await account.updateImage(imagePath);
+    }
     await this.database.addAccountName(name);
 
     return account;
