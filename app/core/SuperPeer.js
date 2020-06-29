@@ -14,7 +14,7 @@ export default class SuperPeer {
 
   async init() {
     // Get preference from DB
-    const enabled = this.preferences.getSuperPeer();
+    const enabled = await this.preferences.getSuperPeer();
 
     this.gossip.on('changed', this.crawlAndSave);
     this.preferences.on(CHANGE_EVENT, this.reactEnabled);
