@@ -36,7 +36,7 @@ export function parseURL(url) {
 }
 
 export function encodeProject(key, path = '/') {
-  return `${PROTOCOL_SCHEME}+project/${key.toString('hex')}${path}`;
+  return `${PROTOCOL_SCHEME}project/${key.toString('hex')}${path}`;
 }
 
 export function encodeAccount(key, path = '/') {
