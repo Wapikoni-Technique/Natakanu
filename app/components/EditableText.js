@@ -26,6 +26,7 @@ export default function EditableText({ value, onUpdate, className, children }) {
 
   return (
     <button
+      type="button"
       className={`${styles.button} ${className}`}
       onClick={() => setEditing(true)}
     >

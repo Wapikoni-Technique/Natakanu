@@ -18,7 +18,7 @@ module.exports = {
       'warn',
       {
         ignoreProps: true,
-        allowedStrings: ['/', '📁', '📁 ../', '🔙', '🗑', '➕']
+        allowedStrings: ['/', '📁', '📁 ../', '🔙', '🗑', '➕', '⚙']
       }
     ],
     'jsx-a11y/no-autofocus': 0,

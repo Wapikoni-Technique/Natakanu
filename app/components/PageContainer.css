@@ -8,6 +8,7 @@
   padding: 0.5em;
   min-height: 3em;
   background: var(--t-color-yellow);
+  display: flex;
 }
 
 .content {

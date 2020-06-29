@@ -1,8 +1,7 @@
 {
   "example": "Hello World!",
 
-  "login_add": "Add",
-  "login_recent_projects": "Recent Projects",
+  "login_add": "Add Account",
 
   "account_new_project": "New Project",
   "account_no_projects_self_1": "Natakanu helps you share files with your community. This is where you'll be able to see all the projects you have been working on.",
@@ -32,6 +31,11 @@
   "register_image": "Picture",
 
   "header_online": "See who's online",
+  "header_recent_projects": "Recent Projects",
 
-  "preferences_superpeer": "Automatically save everyone's data"
+  "preferences_superpeer": "Automatically save everyone's data",
+
+  "recent_recent": "Projects you have recently seen.",
+  "recent_saved": "Projects you have saved locally.",
+  "recent_seen": "People you have seen."
 }

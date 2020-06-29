@@ -47,15 +47,16 @@ export default function ProjectView({
   const upButton =
     subpath && subpath !== '/' ? (
       <div className={styles.filecontainer}>
-        <button className={styles.file} onClick={goUp}>
+        <button type="button" className={styles.file} onClick={goUp}>
           📁 ../
         </button>
       </div>
     ) : null;
 
   const saveForm = writable ? null : (
-    <label>
+    <label htmlFor="save_project_checkbox">
       <input
+        id="save_project_checkbox"
         type="checkbox"
         checked={!!isSaved}
         onChange={({ target }) => onSetSaved(target.checked)}
@@ -86,7 +87,11 @@ export default function ProjectView({
           const onClickDelete = () => onDeleteFile(name);
           const deleteButton =
             !isDirectory && writable ? (
-              <button className={styles.filedelete} onClick={onClickDelete}>
+              <button
+                type="button"
+                className={styles.filedelete}
+                onClick={onClickDelete}
+              >
                 🗑
               </button>
             ) : null;
@@ -94,7 +99,7 @@ export default function ProjectView({
             stat.isDownloaded && !writable ? '💾' : null;
           return (
             <div key={name} className={styles.filecontainer}>
-              <button className={styles.file} onClick={onClick}>
+              <button type="button" className={styles.file} onClick={onClick}>
                 {`${icon} /${name}${endSlash}`}
               </button>
               {deleteButton}

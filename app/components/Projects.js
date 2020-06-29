@@ -50,7 +50,12 @@ function Project({ url, title, image, isCurrent, setActive }) {
   }
 
   return (
-    <button className={styles.project} style={style} onClick={setActive}>
+    <button
+      type="button"
+      className={styles.project}
+      style={style}
+      onClick={setActive}
+    >
       {title}
     </button>
   );

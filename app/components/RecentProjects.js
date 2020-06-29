@@ -7,26 +7,27 @@ import Projects from './Projects';
 // import localization from '../localization';
 
 import styles from './Account.css';
+import localization from '../localization';
 
 export default function Account({ recent, saved, seen }) {
   const renderRecent = recent.length ? (
     <div>
       <Projects projects={recent} />
-      <p>Projects you have recently seen</p>
+      <p>{localization.recent_recent}</p>
     </div>
   ) : null;
 
   const renderSaved = saved.length ? (
     <div>
       <Projects projects={saved} />
-      <p>Projects you have saved locally</p>
+      <p>{localization.recent_saved}</p>
     </div>
   ) : null;
 
   const renderSeen = seen.length ? (
     <div>
       <Projects projects={seen} />
-      <p>People you have seen</p>
+      <p>{localization.recent_seen}</p>
     </div>
   ) : null;
   return (

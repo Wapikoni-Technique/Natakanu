@@ -17,7 +17,7 @@ export default function UrlBar() {
 
   return (
     <section className={styles.urlbar}>
-      <button className={styles.backbutton} onClick={goBack}>
+      <button type="button" className={styles.backbutton} onClick={goBack}>
         🔙
       </button>
       <Formik onSubmit={navigateTo} initialValues={initialValues}>

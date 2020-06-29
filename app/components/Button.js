@@ -16,7 +16,7 @@ export default function({ className = '', children, big, to, ...props }) {
     );
 
   return (
-    <button className={classList.join(' ')} {...props}>
+    <button type="button" className={classList.join(' ')} {...props}>
       {children}
     </button>
   );

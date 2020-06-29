@@ -1,10 +1,9 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import styles from './PageContainer.css';
 
 import UrlBar from './UrlBar';
 import Button from './Button';
-import routes from '../constants/routes.json';
+import { ACCOUNTS_ONLINE, RECENT_PROJECTS } from '../constants/routes.json';
 import localization from '../localization';
 
 export default function PageContainer({
@@ -13,13 +12,12 @@ export default function PageContainer({
   headerContent,
   children
 }) {
-  const { push } = useHistory();
-
   return (
     <div className={`${styles.wrapper} ${backgroundClass}`}>
       <header className={styles.header}>
-        <Button onClick={() => push(routes.ACCOUNTS_ONLINE)}>
-          {localization.header_online}
+        <Button to={ACCOUNTS_ONLINE}>{localization.header_online}</Button>
+        <Button to={RECENT_PROJECTS}>
+          {localization.header_recent_projects}
         </Button>
         {headerContent}
       </header>

@@ -40,6 +40,7 @@ function Person({ info, position, onGoAccount }) {
         top: `${top}%`,
         left: `${left}%`
       }}
+      type="button"
     >
       <AccountIcon image={image} name={name} />
       {name}

@@ -7,8 +7,6 @@ import AsyncPage from './AsyncPage';
 
 import Login from '../components/Login';
 
-import { REGISTER } from '../constants/routes.json';
-
 export default function LoginPage() {
   const { push } = useHistory();
 
@@ -17,15 +15,9 @@ export default function LoginPage() {
     push(`/account/${username}/projects/`);
   }
 
-  function onRegister() {
-    push(REGISTER);
-  }
-
   return (
     <AsyncPage promiseFn={load}>
-      {accounts => (
-        <Login onLogin={onLogin} onRegister={onRegister} accounts={accounts} />
-      )}
+      {accounts => <Login onLogin={onLogin} accounts={accounts} />}
     </AsyncPage>
   );
 }
