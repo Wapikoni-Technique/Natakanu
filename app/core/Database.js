@@ -32,7 +32,7 @@ export default class Database {
 
     const final = [...dedupled];
 
-    await this.setAccountNames(final);
+    await this.setSeenAccounts(final);
   }
 
   async getSeenAccounts() {

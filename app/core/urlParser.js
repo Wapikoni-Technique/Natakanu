@@ -1,9 +1,9 @@
 export const PROTOCOL_SCHEME = 'natakanu://';
 export const PROJECT_PATH = new RegExp(
-  `^${PROTOCOL_SCHEME}project/([^/]+)(.*)`
+  `^${PROTOCOL_SCHEME}+project/([^/]+)(.*)`
 );
 export const ACCOUNT_PATH = new RegExp(
-  `^${PROTOCOL_SCHEME}account/([^/]+)(.*)`
+  `^${PROTOCOL_SCHEME}+account/([^/]+)(.*)`
 );
 
 export function parseURL(url) {
@@ -36,9 +36,9 @@ export function parseURL(url) {
 }
 
 export function encodeProject(key, path = '/') {
-  return `${PROTOCOL_SCHEME}project/${key.toString('hex')}${path}`;
+  return `${PROTOCOL_SCHEME}+project/${key.toString('hex')}${path}`;
 }
 
 export function encodeAccount(key, path = '/') {
-  return `${PROTOCOL_SCHEME}/account/${key.toString('hex')}${path}`;
+  return `${PROTOCOL_SCHEME}account/${key.toString('hex')}${path}`;
 }
