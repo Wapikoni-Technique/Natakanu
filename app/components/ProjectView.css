@@ -13,7 +13,6 @@
 }
 
 .files {
-  background: var(--t-color-green);
   flex: 1;
   margin: 0.5em;
 }
