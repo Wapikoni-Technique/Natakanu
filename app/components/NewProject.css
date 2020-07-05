@@ -1,35 +1,7 @@
 .background {
-  background: var(--t-colorgradientredyellow);
-}
-
-.label {
-  display: flex;
-  flex-direction: row;
-  margin: 1em 0;
-  align-items: center;
-}
-
-.input {
-  flex: 1;
-  margin-left: 0.5em;
+  background: var(--t-color-beige);
 }
 
 .form {
-  display: flex;
-  flex-direction: row;
-}
-
-.inputs {
-  flex: 1;
-  background: var(--t-color-yellow);
-  border-radius: var(--t-radius);
-  padding: 0.5em;
-}
-
-.sharecontainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-left: 2em;
+  margin: 1em 0;
 }

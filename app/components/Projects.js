@@ -44,7 +44,7 @@ function Project({ url, title, image, isCurrent, setActive }) {
         style={style}
         to={`${url}view/`}
       >
-        {title}
+        <div className={styles.projectText}>{title}</div>
       </Link>
     );
   }
@@ -56,7 +56,7 @@ function Project({ url, title, image, isCurrent, setActive }) {
       style={style}
       onClick={setActive}
     >
-      {title}
+      <div className={styles.projectText}>{title}</div>
     </button>
   );
 }

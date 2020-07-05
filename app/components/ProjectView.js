@@ -6,9 +6,15 @@ import Button from './Button';
 import EditableText from './EditableText';
 import EditableAccountIcon from './EditableAccountIcon';
 import AccountIcon from './AccountIcon';
+import Box from './Box';
 
 import styles from './ProjectView.css';
 import localization from '../localization';
+import backgroundSrc from '../../resources/dimmig_skog_svartvit_display.jpg';
+
+const BACKGROUND_STYLE = {
+  backgroundImage: `url(${backgroundSrc})`
+};
 
 export default function ProjectView({
   projectInfo,
@@ -48,7 +54,8 @@ export default function ProjectView({
     subpath && subpath !== '/' ? (
       <div className={styles.filecontainer}>
         <button type="button" className={styles.file} onClick={goUp}>
-          📁 ../
+          <i className="fas fa-folder" />
+          ../
         </button>
       </div>
     ) : null;
@@ -68,11 +75,8 @@ export default function ProjectView({
   const peersLabel = numPeers ? `(${numPeers})` : '';
 
   return (
-    <PageContainer
-      backgroundClass={styles.background}
-      contentClass={styles.content}
-    >
-      <div className={styles.files}>
+    <PageContainer style={BACKGROUND_STYLE} contentClass={styles.content}>
+      <Box className={styles.files}>
         <h3>
           {title} /{subpath} {peersLabel}
         </h3>
@@ -80,7 +84,11 @@ export default function ProjectView({
         {files.map(({ stat, name }) => {
           const isDirectory = stat.isDirectory();
           const endSlash = isDirectory ? '/' : '';
-          const icon = isDirectory ? '📁' : '📃';
+          const icon = isDirectory ? (
+            <i className="fas fa-folder" />
+          ) : (
+            <i className="fas fa-file" />
+          );
           const onClick = isDirectory
             ? () => onNavigateTo(name)
             : () => onDownloadFile(name);
@@ -92,15 +100,18 @@ export default function ProjectView({
                 className={styles.filedelete}
                 onClick={onClickDelete}
               >
-                🗑
+                <i className="fas fa-trash" />
               </button>
             ) : null;
           const downloadIndicator =
-            stat.isDownloaded && !writable ? '💾' : null;
+            stat.isDownloaded && !writable ? (
+              <i className="fas fa-file-download" />
+            ) : null;
           return (
             <div key={name} className={styles.filecontainer}>
               <button type="button" className={styles.file} onClick={onClick}>
-                {`${icon} /${name}${endSlash}`}
+                {icon}
+                {` /${name}${endSlash}`}
               </button>
               {deleteButton}
               {downloadIndicator}
@@ -108,8 +119,8 @@ export default function ProjectView({
           );
         })}
         <div>{addButton}</div>
-      </div>
-      <div className={styles.info}>
+      </Box>
+      <Box className={styles.info}>
         <dl>
           <InfoItem
             writable={writable}
@@ -142,7 +153,7 @@ export default function ProjectView({
           writable={writable}
         />
         {saveForm}
-      </div>
+      </Box>
     </PageContainer>
   );
 }

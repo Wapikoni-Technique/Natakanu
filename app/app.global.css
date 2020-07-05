@@ -10,6 +10,10 @@
   --t-color-yellow: #f4d30b;
   --t-color-greygreen: #9ec77b;
   --t-color-lightgreen: #a9cc41;
+  --t-color-beige: #fef3e3;
+  --t-color-darkgreen: #3c8787;
+  --t-color-grey: #f0eff4;
+  --t-color-darkgrey: #ababab;
   --t-radius: 8px;
   --t-content-size: 666px;
   --t-colorgradientgreen: linear-gradient(to right, #256d44, #7bd685);
@@ -30,7 +34,7 @@ body {
 
 body {
   height: 100vh;
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  font-family: 'Baton', Arial, Helvetica, Helvetica Neue, serif;
 }
 
 input,

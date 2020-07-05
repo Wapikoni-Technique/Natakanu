@@ -1,13 +1,11 @@
 .button {
   padding: 0.5em;
-  min-width: 8em;
   font-weight: bold;
   border: none;
-  border-radius: var(--t-radius);
-  background: #ccc;
+  background: var(--t-color-darkgreen);
   margin: 0 0.1em;
   text-decoration: none;
-  color: inherit;
+  color: white;
 }
 
 .big {

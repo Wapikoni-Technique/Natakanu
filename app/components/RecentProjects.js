@@ -3,24 +3,22 @@ import React from 'react';
 import PageContainer from './PageContainer';
 
 import Projects from './Projects';
+import styles from './RecentProjects.css';
 
-// import localization from '../localization';
-
-import styles from './Account.css';
 import localization from '../localization';
 
-export default function Account({ recent, saved, seen }) {
+export default function RecentProjects({ recent, saved, seen }) {
   const renderRecent = recent.length ? (
     <div>
       <Projects projects={recent} />
-      <p>{localization.recent_recent}</p>
+      <p className={styles.label}>{localization.recent_recent}</p>
     </div>
   ) : null;
 
   const renderSaved = saved.length ? (
     <div>
       <Projects projects={saved} />
-      <p>{localization.recent_saved}</p>
+      <p className={styles.label}>{localization.recent_saved}</p>
     </div>
   ) : null;
 

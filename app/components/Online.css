@@ -1,5 +1,5 @@
 .background {
-  background: var(--t-colorgradientredyellow);
+  background: var(--t-color-beige);
   overflow: hidden;
 }
 
@@ -26,7 +26,7 @@
   background: none;
   border: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }

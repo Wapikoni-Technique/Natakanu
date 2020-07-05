@@ -1,5 +1,5 @@
 .project {
-  background: var(--t-color-yellow);
+  background: var(--t-color-darkgreen);
   background-size: cover;
   width: 150px;
   height: 150px;
@@ -9,11 +9,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  border-radius: var(--t-radius);
   color: inherit;
   text-decoration: none;
 }
 
+.projectText {
+  transform: translateY(1.5em);
+}
+
 .projects {
-  height: 155px;
+  height: 180px;
+  width: 60%;
+  margin: 0 auto;
 }

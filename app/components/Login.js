@@ -6,8 +6,12 @@ import AccountIcon from './AccountIcon';
 import Button from './Button';
 
 import logoSrc from '../Natakanu.svg';
-import localization from '../localization';
 import { REGISTER, PREFERENCES } from '../constants/routes.json';
+import backgroundSrc from '../../resources/dimmig_skog_svartvit_display.jpg';
+
+const BACKGROUND_STYLE = {
+  backgroundImage: `url(${backgroundSrc})`
+};
 
 export default function Login({ onLogin, accounts }) {
   const accountsSections = accounts.map(({ name, key, image }) => (
@@ -22,21 +26,24 @@ export default function Login({ onLogin, accounts }) {
     </button>
   ));
 
+  const headerContent = (
+    <Button to={REGISTER}>
+      <i className="fas fa-user-plus" />
+    </Button>
+  );
+
   return (
-    <PageContainer backgroundClass={styles.container}>
+    <PageContainer style={BACKGROUND_STYLE} headerContent={headerContent}>
       <div className={styles.row}>
         <div className={styles.column}>
           <img alt="Natakanu" className={styles.logo} src={logoSrc} />
         </div>
         <div className={`${styles.column} ${styles.accounts}`}>
           {accountsSections}
-          <Button className={styles.account} to={REGISTER}>
-            ➕<div>{localization.login_add}</div>
-          </Button>
         </div>
       </div>
       <Button className={styles.preferences} to={PREFERENCES}>
-        ⚙
+        <i className="fas fa-cogs" />
       </Button>
     </PageContainer>
   );

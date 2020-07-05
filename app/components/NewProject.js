@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import PageContainer from './PageContainer';
 import Button from './Button';
 import FormItem from './FormItem';
+import Box from './Box';
 
 import styles from './NewProject.css';
 import localization from '../localization';
@@ -23,10 +24,10 @@ export default function NewProject({ accountInfo, onCreate }) {
 
   return (
     <PageContainer backgroundClass={styles.background}>
-      <Formik onSubmit={onCreate} initialValues={initialValues}>
-        {() => (
-          <Form className={styles.form}>
-            <div className={styles.inputs}>
+      <Box className={styles.form}>
+        <Formik onSubmit={onCreate} initialValues={initialValues}>
+          {() => (
+            <Form>
               <FormItem
                 label={localization.new_project_title}
                 required
@@ -47,13 +48,11 @@ export default function NewProject({ accountInfo, onCreate }) {
                 label={localization.new_project_credits}
                 name="description"
               />
-            </div>
-            <div className={styles.sharecontainer}>
               <Button type="submit">{localization.new_project_share}</Button>
-            </div>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
+      </Box>
     </PageContainer>
   );
 }

@@ -22,9 +22,9 @@ export default function Account({
   const { name, image, writable } = accountInfo;
 
   const newProjectButton = writable ? (
-    <div className={styles.newProjectButton}>
-      <Button onClick={onGoCreate}>{localization.account_new_project}</Button>
-    </div>
+    <Button onClick={onGoCreate}>
+      <i className="fas fa-folder-plus" />
+    </Button>
   ) : null;
 
   let mainContent = null;
@@ -68,13 +68,15 @@ export default function Account({
   );
 
   return (
-    <PageContainer backgroundClass={styles.background}>
+    <PageContainer
+      backgroundClass={styles.background}
+      headerContent={newProjectButton}
+    >
       <div className={styles.accountInfo}>
         {accountIcon}
         {accountName}
       </div>
       {mainContent}
-      {newProjectButton}
     </PageContainer>
   );
 }

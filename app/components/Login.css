@@ -1,7 +1,3 @@
-.container {
-  background: var(--t-colorgradientgreen);
-}
-
 .column {
   display: flex;
   flex-direction: column;
@@ -91,10 +87,9 @@
 }
 
 .account {
-  text-align: center;
-  margin: 0.5em;
-  padding: 0.5em;
-  background: var(--t-color-yellow);
+  justify-content: center;
+  align-items: center;
+  background: none;
   border: none;
-  border-radius: var(--t-radius);
+  display: flex;
 }

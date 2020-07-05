@@ -4,24 +4,28 @@ import styles from './PageContainer.css';
 import UrlBar from './UrlBar';
 import Button from './Button';
 import { ACCOUNTS_ONLINE, RECENT_PROJECTS } from '../constants/routes.json';
-import localization from '../localization';
 
 export default function PageContainer({
   contentClass = '',
   backgroundClass = '',
   headerContent,
+  style,
   children
 }) {
   return (
-    <div className={`${styles.wrapper} ${backgroundClass}`}>
+    <div className={`${styles.wrapper} ${backgroundClass}`} style={style}>
       <header className={styles.header}>
-        <Button to={ACCOUNTS_ONLINE}>{localization.header_online}</Button>
-        <Button to={RECENT_PROJECTS}>
-          {localization.header_recent_projects}
-        </Button>
-        {headerContent}
+        <section className={styles.headercontent}>
+          <UrlBar />
+          <Button to={ACCOUNTS_ONLINE}>
+            <i className="fas fa-users" />
+          </Button>
+          <Button to={RECENT_PROJECTS}>
+            <i className="fas fa-history" />
+          </Button>
+          {headerContent}
+        </section>
       </header>
-      <UrlBar />
       <main className={`${styles.content} ${contentClass}`}>{children}</main>
     </div>
   );

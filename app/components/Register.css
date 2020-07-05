@@ -13,6 +13,8 @@
   flex-direction: row;
   justify-content: stretch;
   flex: 1;
+  background: var(--t-color-beige);
+  padding: 1em;
 }
 
 .header {
@@ -82,6 +84,7 @@
   font-size: 1.2em;
 }
 
-.red {
-  background: var(--t-color-red);
+.title {
+  height: 4em;
+  align-self: flex-start;
 }

@@ -1,8 +1,8 @@
 .urlbar {
   max-width: var(--t-content-size);
-  margin: 0.5em auto;
-  margin-bottom: 0.5em;
+  margin: 0 auto;
   display: flex;
+  flex: 1;
 }
 
 .urlbarform {
@@ -13,6 +13,9 @@
 .urlbarinput {
   flex: 1;
   display: block;
+  border: none;
+  background-color: var(--t-color-grey);
+  padding: 0.5em;
 }
 
 .backbutton {

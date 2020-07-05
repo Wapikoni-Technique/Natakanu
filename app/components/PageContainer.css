@@ -2,12 +2,13 @@
   height: 100vh;
   overflow: auto;
   transition: background 1s ease-out;
+  background-size: cover;
 }
 
 .header {
   padding: 0.5em;
   min-height: 3em;
-  background: var(--t-color-yellow);
+  background: var(--t-color-darkgreen);
   display: flex;
 }
 
@@ -15,4 +16,12 @@
   max-width: var(--t-content-size);
   margin: 0 auto;
   padding: 0 1em;
+}
+
+.headercontent {
+  max-width: var(--t-content-size);
+  margin: 0 auto;
+  padding: 0 1em;
+  flex: 1;
+  display: flex;
 }

@@ -1,11 +1,17 @@
 .label {
   display: flex;
-  flex-direction: row;
-  margin: 1em 0;
-  align-items: center;
+  flex-direction: column;
+  margin: 0.5em 0;
+  align-items: flex-start;
+  color: var(--t-color-darkgrey);
 }
 
 .input {
   flex: 1;
-  margin-left: 0.5em;
+  border: none;
+  background: var(--t-color-grey);
+  margin: 0;
+  padding: 0.5em;
+  align-self: stretch;
+  margin-top: 0.2em;
 }

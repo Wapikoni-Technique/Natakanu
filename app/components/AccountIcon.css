@@ -2,9 +2,8 @@
   width: 3em;
   height: 3em;
   border-radius: 50%;
-  background: magenta;
   align-self: center;
-  margin-bottom: 1em;
+  margin: 1em;
   overflow: hidden;
   object-fit: cover;
 }
