@@ -21,7 +21,7 @@ export default function Register({ onRegister }) {
   return (
     <PageContainer style={BACKGROUND_STYLE}>
       <div className={styles.row}>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.intro}`}>
           <img
             src={logoSrc}
             className={styles.title}

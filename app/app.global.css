@@ -26,6 +26,11 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: Baton;
+  src: url('../resources/Baton-Regular.woff') format('woff');
+}
+
 html,
 body {
   margin: 0;
@@ -34,7 +39,7 @@ body {
 
 body {
   height: 100vh;
-  font-family: 'Baton', Arial, Helvetica, Helvetica Neue, serif;
+  font-family: Baton, Arial, Helvetica, Helvetica Neue, serif;
 }
 
 input,

@@ -17,6 +17,11 @@
   padding: 1em;
 }
 
+.intro {
+  padding-right: 1em;
+  text-align: justify;
+}
+
 .header {
   height: 3em;
   background: var(--t-color-yellow);
