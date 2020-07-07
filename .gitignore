@@ -26,7 +26,6 @@ yarn-error.log*
 package-lock.json
 .eslint-cache
 .eslintcache
-yarn.lock
 
 dist/
 app/main.prod.**
