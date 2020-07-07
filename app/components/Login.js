@@ -27,9 +27,14 @@ export default function Login({ onLogin, accounts }) {
   ));
 
   const headerContent = (
-    <Button to={REGISTER}>
-      <i className="fas fa-user-plus" />
-    </Button>
+    <>
+      <Button to={REGISTER}>
+        <i className="fas fa-user-plus" />
+      </Button>
+      <Button className={styles.preferences} to={PREFERENCES}>
+        <i className="fas fa-cogs" />
+      </Button>
+    </>
   );
 
   return (
@@ -42,9 +47,6 @@ export default function Login({ onLogin, accounts }) {
           {accountsSections}
         </div>
       </div>
-      <Button className={styles.preferences} to={PREFERENCES}>
-        <i className="fas fa-cogs" />
-      </Button>
     </PageContainer>
   );
 }
