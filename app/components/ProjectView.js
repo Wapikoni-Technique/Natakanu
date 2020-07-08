@@ -78,7 +78,7 @@ export default function ProjectView({
     <PageContainer style={BACKGROUND_STYLE} contentClass={styles.content}>
       <Box className={styles.files}>
         <h3>
-          {title} /{subpath} {peersLabel}
+          {title} {subpath} {peersLabel}
         </h3>
         {upButton}
         {files.map(({ stat, name }) => {

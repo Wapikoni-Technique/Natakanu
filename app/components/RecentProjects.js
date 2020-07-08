@@ -25,9 +25,10 @@ export default function RecentProjects({ recent, saved, seen }) {
   const renderSeen = seen.length ? (
     <div>
       <Projects projects={seen} />
-      <p>{localization.recent_seen}</p>
+      <p className={styles.label}>{localization.recent_seen}</p>
     </div>
   ) : null;
+
   return (
     <PageContainer backgroundClass={styles.background}>
       {renderRecent}
