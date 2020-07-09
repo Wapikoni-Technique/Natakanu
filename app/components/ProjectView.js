@@ -74,11 +74,20 @@ export default function ProjectView({
 
   const peersLabel = numPeers ? `(${numPeers})` : '';
 
+  const titleElement = writable ? (
+    <EditableText
+      value={title}
+      onUpdate={value => onUpdateInfo('title', value)}
+    />
+  ) : (
+    title
+  );
+
   return (
     <PageContainer style={BACKGROUND_STYLE} contentClass={styles.content}>
       <Box className={styles.files}>
         <h3>
-          {title} {subpath} {peersLabel}
+          {titleElement} {subpath} {peersLabel}
         </h3>
         {upButton}
         {files.map(({ stat, name }) => {

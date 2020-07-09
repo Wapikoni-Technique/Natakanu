@@ -81,6 +81,7 @@ export default function ProjectViewPage() {
           );
 
           await once(projectInstance, 'update');
+          console.log('Project updated');
         }
       }}
     </AsyncGeneratorPage>

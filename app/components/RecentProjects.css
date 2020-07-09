@@ -3,3 +3,19 @@
   margin-top: 2em;
   margin-bottom: 0;
 }
+
+.person {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2em;
+}

@@ -3,6 +3,9 @@ import React from 'react';
 import PageContainer from './PageContainer';
 
 import Projects from './Projects';
+import AccountIcon from './AccountIcon';
+import Link from './Link';
+
 import styles from './RecentProjects.css';
 
 import localization from '../localization';
@@ -24,7 +27,11 @@ export default function RecentProjects({ recent, saved, seen }) {
 
   const renderSeen = seen.length ? (
     <div>
-      <Projects projects={seen} />
+      <div className={styles.people}>
+        {seen.map(({ key, ...person }) => (
+          <Person key={key} {...person} />
+        ))}
+      </div>
       <p className={styles.label}>{localization.recent_seen}</p>
     </div>
   ) : null;
@@ -35,5 +42,14 @@ export default function RecentProjects({ recent, saved, seen }) {
       {renderSaved}
       {renderSeen}
     </PageContainer>
+  );
+}
+
+function Person({ image, name, url }) {
+  return (
+    <Link to={`${url}projects`} className={styles.person}>
+      <AccountIcon name={name} image={image} />
+      {name}
+    </Link>
   );
 }

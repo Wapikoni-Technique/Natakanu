@@ -43,6 +43,9 @@ export default class Account extends EventEmitter {
     this.archive.on('update', () => this.emit('update', 'update'));
     this.archive.on('peer-open', () => this.emit('update', 'peer-open'));
     this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
+    this.archive.on('remote-update', () =>
+      this.emit('remote-update', 'remote-update')
+    );
 
     await this.archive.ready();
   }
@@ -129,14 +132,14 @@ export default class Account extends EventEmitter {
 
   async getInfo() {
     const key = this.key.toString('hex');
-    const { writable } = this;
+    const { writable, url } = this;
     try {
       const raw = await this.archive.readFile(ACCOUNT_INFO_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      return { name: key, ...parsed, key, writable };
+      return { name: key, ...parsed, key, writable, url };
     } catch (e) {
       console.error(e);
-      return { name: key, key, writable };
+      return { name: key, key, writable, url };
     }
   }
 
@@ -148,7 +151,13 @@ export default class Account extends EventEmitter {
       // Whatever
     }
 
-    const updated = { ...existing, ...info, writable: undefined };
+    const updated = {
+      ...existing,
+      ...info,
+      writable: undefined,
+      url: undefined,
+      key: undefined
+    };
 
     const stringified = JSON.stringify(updated, null, '\t');
 

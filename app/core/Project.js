@@ -50,6 +50,9 @@ export default class Project extends EventEmitter {
     this.archive.on('update', () => this.emit('update', 'update'));
     this.archive.on('peer-open', () => this.emit('update', 'peer-open'));
     this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
+    this.archive.metadata.on('remote-update', () =>
+      this.emit('update', 'remote-update')
+    );
 
     const isSaved = await this.isSaved();
     const { writable } = this;

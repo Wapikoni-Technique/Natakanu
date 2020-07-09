@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "dat-sdk": "^2.1.0",
+    "dat-sdk": "^2.3.0",
     "leveldown": "^5.5.1"
   }
 }
