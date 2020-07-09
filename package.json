@@ -283,7 +283,7 @@
     "fs-extra": "^8.1.0",
     "hasha": "^5.2.0",
     "history": "^4.10.1",
-    "hyper-presence": "^1.1.0",
+    "hyper-presence": "^1.1.1",
     "hypercore-really-ready": "^1.0.0",
     "hyperdrive-is-downloaded": "^1.0.0",
     "levelup": "^4.3.2",

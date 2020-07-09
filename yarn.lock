@@ -8738,10 +8738,10 @@ hyper-presence@^1.0.1:
     jsnetworkx "^0.3.4"
     protocol-buffers-encodings "^1.1.0"
 
-hyper-presence@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hyper-presence/-/hyper-presence-1.1.0.tgz#e682e28933241cb39bbfe91c2764dc893f6827f2"
-  integrity sha512-d/9kQpEO8vV2etZplbo+YqAO9dG9qaXiBtW9Y8XPtNjdla/P801Fo6ux2+akbz+diF8zUyu3eyAxGDZfaQeCBA==
+hyper-presence@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hyper-presence/-/hyper-presence-1.1.1.tgz#8221647b954c25743c1c47acce6ae3e79e2460d1"
+  integrity sha512-wJnzdjluhdotmRswoLeTiSIRyhMJ5NcAJID4r3S3JMxYp1WOUFkhEtYUitb/2DaZssdfWtpyN6rg3q/SxiOLGw==
   dependencies:
     codecs "^2.1.0"
     hyper-flood "^1.0.1"
