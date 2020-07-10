@@ -49,7 +49,7 @@ function Person({ image, name, url }) {
   return (
     <Link to={`${url}projects`} className={styles.person}>
       <AccountIcon name={name} image={image} />
-      {name}
+      <span>{name}</span>
     </Link>
   );
 }

@@ -43,7 +43,7 @@ function Person({ info, position, onGoAccount }) {
       type="button"
     >
       <AccountIcon image={image} name={name} />
-      {name}
+      <span>{name}</span>
     </button>
   );
 }
