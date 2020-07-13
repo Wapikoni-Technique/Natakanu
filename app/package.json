@@ -2,6 +2,7 @@
   "name": "Natakanu",
   "productName": "Natakanu",
   "version": "0.0.3",
+  "private": true,
   "description": "Local-first file transfer app for indigenous communities.",
   "main": "./main.prod.js",
   "author": {
@@ -13,7 +14,7 @@
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
     "postinstall": "yarn electron-rebuild"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "dependencies": {
     "dat-sdk": "^2.3.0",
     "leveldown": "^5.5.1"
