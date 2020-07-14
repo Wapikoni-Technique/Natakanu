@@ -1,55 +1,56 @@
-First, you need to install node.js. Goto: https://nodejs.org/en/
-Then, install yarn. https://yarnpkg.com/lang/en/docs/install/#windows-stable
-Then, call yarn from root folder.
-Finally, call yarn dev to start the application in dev mode.
+# [Natakanu](https://www.facebook.com/projetnatakanu/)
 
----
+<center>
+  ![Natakanu Logo](logos/natakanu.svg)
+</center>
 
-## Milestones / Deliverables
+## About / L’informatiq
 
-### 1. Basic file sharing
+Natakanu est un outil de création collaboratif.
 
-- [ ] Have structure for localizing the app
-  - Initially have an English version, maybe start translations to french right away?
-- [ ] Look into existing component framework to customize or start our own?
-- [] Figure out how the Node.js part with the Dat code will interface with the front-end window - Custom RPC over the existing electron stuff?
-  - Is there a library to proxy objects?
-  - Will this run in the background or only while the main window is open?
-  - Will there be a system tray icon?
-  - What will we use to store data related to the project (indexeddb?)
-- [ ] Have profile creation - Create root Dat archive using hyperdrive 10, store username in dat.json
-  - Persist this archvie between reboots
-- [ ] Navigation with URL bar at the top?
-  - Should be able to copy-paste URls, navigate to project page on invalid URL
-  - Update URL as you navigate
-  - Back / forward button?
-  - Have custom URL scheme (natakanu://?) and register the app for it so it'll auto-open
-  - Refresh button? Maybe the top level view has a `key` which is an integer that the refresh button increments to force a component reload
-- [ ] Basic project list with own projects
-  - Populated from archives mounted within your profile archive
-- [ ] Basic project creation / Project view
-  - Basic info about the project
-  - Use default image or have a file selection?
-  - Image should be saved as `thumbnail.png` or whatever in the project root.
-  - Creates a new archive and mounts it on your main archive
-  - All your projects should be mounted in `/projects/`
-- [ ] File view for archive
-  - Navigate through folders (updating the URL) - Basic file-add feature (navigate FS and add it to the folder)
+Ce logiciel a été conçu pour permettre le transfert de fichiers (de tout type) selon une architecture pair-à-pair (Hypercore et dat:// protocoles).
 
-## Internal APIs
+Il a pour objectif la création, la diffusion et la valorisation de ressources audiovisuelles autochtones (données, sons-images, vidéos, code, etc.)
 
-- `const has = await hasAccount()`
-- `const account = await accounts.create([name], {name})`
-- `const account = await accounts.get([name])`
-- `for (let account of await accounts.list())`
-- `for (let project of await account.getProjects())`
-- `const { name, description } = await project.getInfo()`
-- `const archive = project.archive` `archive` is a Hyperdrive or `multi-hyperdrive` instance
-- `for await (let project of core.findProjects())`
-- `on('found-project', (project) => {})`
-- `const projects = await core.projects.getRecent()`
-- `const project = await account.createProject({name, description})`
-- `await project.updateInfo({name, description})`
-- `const project = await core.projects.get(url)`
-- `for await (let peer of core.findPeers())`
-- `const account = await peer.getAccount()`
+Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche de déhiérarchisation du cyberespace.
+
+——————
+
+Natakanu is a collaborative tool. This file transfer software is built on the Hypercore and dat:// peer to peer protocols.
+
+It aims to increase accessibility to tools for sharing, collaboration and transmission of Indigenous cultures, knowledge and artistic expressions.
+
+Natakanu works offline and online. This local first software embodies our approach of de-colonized cyberspace.
+
+## [Download](https://github.com/Wapikoni-Technique/Natakanu/releases)
+
+## Credits
+
+Ce logiciel est une réalisation de Wapikoni Mobile, Uhu Labos Nomades et du Bureau de l’engagement communautaire de l’université Concordia.
+Projet financé dans le cadre de l’Entente sur le développement culturel de Montréal conclue entre la Ville de Montréal et gouvernement du Québec.
+
+This project was funded under the Montreal cultural development agreement between the city of Montreal and the government of Quebec.
+
+[![Wapikoni Mobile](logos/wapikoni.png)](http://www.wapikoni.ca/home)
+[![Uhu](logos/uhu.jpg)](https://www.facebook.com/uhulabosnomades/)
+[![Concordia University](logos/concordia.png)](http://www.concordia.ca/)
+![Quebec](logos/quebec.png)
+![Montreal](logos/montreal.jpg)
+[![Mauve Software Inc.](logos/mauvesoftwareinc.png)](https://software.mauve.moe/)
+
+## Contributing
+
+- Clone the repo
+- Use `yarn` to install dependencies
+- Use `yarn dev` to start up dev folder.
+- This project uses [React](https://reactjs.org/) and [Electron](https://www.electronjs.org/) for it's user interface
+- Please open a [GitHub issue](https://github.com/Wapikoni-Technique/Natakanu/issues/new/choose) if you want to propose a change to the app before working on a pull request
+- `/app/` contains all the application code
+- `/app/core` contains the main p2p code
+- `/app/containers` contains React container components which load data and provide actions to child components
+- `/app/components` contains React components that are made to be purely UI focused. Most of them don't have state. Use individual CSS files for components
+- `/app/Routes.js` is where the top level of the navigation lives if you want to add a page
+
+## Code of Conduct
+
+Please abide by the guidelines of the [Contributor Covenant 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) when engaging with this community.
