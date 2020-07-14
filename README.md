@@ -29,6 +29,7 @@ Natakanu works offline and online. This local first software embodies our approa
 Ce logiciel est une réalisation de Wapikoni Mobile, Uhu Labos Nomades et du Bureau de l’engagement communautaire de l’université Concordia.
 Projet financé dans le cadre de l’Entente sur le développement culturel de Montréal conclue entre la Ville de Montréal et gouvernement du Québec.
 
+This project is made possible thanks to the collaboration of Wapikoni mobile and its technical team, Uhu Labos Nomades (Indigenous media arts training project working with Indigenous youth) and Concordia University’s Office of Community Engagement. 
 This project was funded under the Montreal cultural development agreement between the city of Montreal and the government of Quebec.
 
 [![Wapikoni Mobile](logos/wapikoni.png)](http://www.wapikoni.ca/home)
