@@ -8,7 +8,7 @@
 
 Natakanu est un outil de création collaboratif.
 
-Ce logiciel a été conçu pour permettre le transfert de fichiers (de tout type) selon une architecture pair-à-pair (Hypercore et dat:// protocoles).
+Ce logiciel a été conçu pour permettre le transfert de fichiers (de tout type) selon une architecture pair-à-pair ([Hypercore](https://hypercore-protocol.org/) et [dat://](https://dat.foundation/) protocoles).
 
 Il a pour objectif la création, la diffusion et la valorisation de ressources audiovisuelles autochtones (données, sons-images, vidéos, code, etc.)
 
@@ -16,7 +16,7 @@ Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche 
 
 ——————
 
-Natakanu is a collaborative tool. This file transfer software is built on the Hypercore and dat:// peer to peer protocols.
+Natakanu is a collaborative tool. This file transfer software is built on the [Hypercore](https://hypercore-protocol.org/) and [dat://](https://dat.foundation/) peer to peer protocols.
 
 It aims to increase accessibility to tools for sharing, collaboration and transmission of Indigenous cultures, knowledge and artistic expressions.
 
@@ -31,12 +31,16 @@ Projet financé dans le cadre de l’Entente sur le développement culturel de M
 
 This project was funded under the Montreal cultural development agreement between the city of Montreal and the government of Quebec.
 
+<div>
 [![Wapikoni Mobile](logos/wapikoni.png)](http://www.wapikoni.ca/home)
 [![Uhu](logos/uhu.jpg)](https://www.facebook.com/uhulabosnomades/)
 [![Concordia University](logos/concordia.png)](http://www.concordia.ca/)
+[![Mauve Software Inc.](logos/mauvesoftwareinc.png)](https://software.mauve.moe/)
+</div>
+<div>
 ![Quebec](logos/quebec.png)
 ![Montreal](logos/montreal.jpg)
-[![Mauve Software Inc.](logos/mauvesoftwareinc.png)](https://software.mauve.moe/)
+</div>
 
 ## Contributing
 
