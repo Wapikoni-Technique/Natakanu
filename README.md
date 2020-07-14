@@ -4,7 +4,7 @@
 	<img src="logos/natakanu.png" title="Natakanu Logo" />
 </center>
 
-## About / L’informatiq
+## À propos / About
 
 Natakanu est un outil de création collaboratif.
 
@@ -12,7 +12,7 @@ Ce logiciel a été conçu pour permettre le transfert de fichiers (de tout type
 
 Il a pour objectif la création, la diffusion et la valorisation de ressources audiovisuelles autochtones (données, sons-images, vidéos, code, etc.)
 
-Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche de déhiérarchisation du cyberespace.
+Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche de décolonisation du cyberespace.
 
 ——————
 
@@ -29,6 +29,7 @@ Natakanu works offline and online. This local first software embodies our approa
 Ce logiciel est une réalisation de Wapikoni Mobile, Uhu Labos Nomades et du Bureau de l’engagement communautaire de l’université Concordia.
 Projet financé dans le cadre de l’Entente sur le développement culturel de Montréal conclue entre la Ville de Montréal et gouvernement du Québec.
 
+This project is made possible thanks to the collaboration of Wapikoni mobile and its technical team, Uhu Labos Nomades (Indigenous media arts training project working with Indigenous youth) and Concordia University’s Office of Community Engagement. 
 This project was funded under the Montreal cultural development agreement between the city of Montreal and the government of Quebec.
 
 <div>
