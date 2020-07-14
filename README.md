@@ -1,7 +1,7 @@
 # [Natakanu](https://www.facebook.com/projetnatakanu/)
 
 <center>
-  ![Natakanu Logo](logos/natakanu.svg)
+	<img src="logos/natakanu.png" title="Natakanu Logo" />
 </center>
 
 ## About / L’informatiq
