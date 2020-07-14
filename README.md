@@ -4,7 +4,7 @@
 	<img src="logos/natakanu.png" title="Natakanu Logo" />
 </center>
 
-## About / L’informatiq
+## À propos / About
 
 Natakanu est un outil de création collaboratif.
 
@@ -12,7 +12,7 @@ Ce logiciel a été conçu pour permettre le transfert de fichiers (de tout type
 
 Il a pour objectif la création, la diffusion et la valorisation de ressources audiovisuelles autochtones (données, sons-images, vidéos, code, etc.)
 
-Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche de déhiérarchisation du cyberespace.
+Natakanu fonctionne en ligne comme hors ligne et s’inscrit dans une démarche de décolonisation du cyberespace.
 
 ——————
 
