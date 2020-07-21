@@ -26,7 +26,7 @@ Natakanu works offline and online. This local first software embodies our approa
 
 ![Demo Gif of Natakanu](natakanu-demo.gif)
 
-### [Clique here for video description](https://www.facebook.com/projetnatakanu/videos/634186250638330/)
+### [Click here for video description](https://www.facebook.com/projetnatakanu/videos/634186250638330/)
 
 ## Credits
 
