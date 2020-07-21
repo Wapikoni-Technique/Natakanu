@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './UrlBar.css';
 import { PROTOCOL_SCHEME } from '../core/urlParser';
 import Button from './Button';
+import localization from '../localization';
 
 export default function UrlBar() {
   const history = useHistory();
@@ -18,7 +19,7 @@ export default function UrlBar() {
 
   return (
     <section className={styles.urlbar}>
-      <Button onClick={goBack}>
+      <Button onClick={goBack} label={localization.urlbar_back}>
         <i className="fas fa-arrow-left" />
       </Button>
       <Formik onSubmit={navigateTo} initialValues={initialValues}>

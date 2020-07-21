@@ -1,7 +1,10 @@
 {
   "example": "Kuei!",
 
+  "urlbar_back": "**Go Back**",
+
   "login_add": "Ajouter un compte",
+  "login_preferences": "**View Preferences**",
 
   "account_new_project": "Nouveau Projet",
   "account_no_projects_self_1": "Natakanu vous aide à partager des fichiers avec votre communauté. C'est ici que vous pourrez voir tous les projets sur lesquels vous avez travaillé.",
@@ -21,6 +24,10 @@
 
   "project_view_add_files": "Ajoutter des fichiers",
   "project_view_save_locally": "Enregistrer le projet localement",
+  "project_view_go_up": "**Go to parent folder**",
+  "project_view_delete_file": "**Delete this file**",
+  "project_view_open_file": "**Open**",
+  "project_view_downloaded": "**This file has been downloaded locally**",
 
   "register_title": "Natakanu",
   "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",

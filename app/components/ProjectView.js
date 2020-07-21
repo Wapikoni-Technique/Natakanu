@@ -53,10 +53,15 @@ export default function ProjectView({
   const upButton =
     subpath && subpath !== '/' ? (
       <div className={styles.filecontainer}>
-        <button type="button" className={styles.file} onClick={goUp}>
+        <Button
+          flat
+          className={styles.file}
+          onClick={goUp}
+          label={localization.project_view_go_up}
+        >
           <i className="fas fa-folder" />
-          ../
-        </button>
+          {` ../`}
+        </Button>
       </div>
     ) : null;
 
@@ -104,24 +109,36 @@ export default function ProjectView({
           const onClickDelete = () => onDeleteFile(name);
           const deleteButton =
             !isDirectory && writable ? (
-              <button
+              <Button
+                flat
                 type="button"
                 className={styles.filedelete}
                 onClick={onClickDelete}
+                label={localization.project_view_delete_file}
               >
                 <i className="fas fa-trash" />
-              </button>
+              </Button>
             ) : null;
           const downloadIndicator =
             stat.isDownloaded && !writable ? (
-              <i className="fas fa-file-download" />
+              <i
+                className="fas fa-file-download"
+                title={localization.project_view_downloaded}
+                aria-label={localization.project_view_downloaded}
+              />
             ) : null;
+
           return (
             <div key={name} className={styles.filecontainer}>
-              <button type="button" className={styles.file} onClick={onClick}>
+              <Button
+                flat
+                className={styles.file}
+                onClick={onClick}
+                label={`${localization.project_view_open_file} ${name}`}
+              >
                 {icon}
                 {` /${name}${endSlash}`}
-              </button>
+              </Button>
               {deleteButton}
               {downloadIndicator}
             </div>

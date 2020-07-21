@@ -30,7 +30,7 @@ export default function EditableText({ value, onUpdate, className, children }) {
       className={`${styles.button} ${className}`}
       onClick={() => setEditing(true)}
     >
-      {value} {children}
+      {value} {children} <i className={`fas fa-edit ${styles.edit}`} />
     </button>
   );
 }

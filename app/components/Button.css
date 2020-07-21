@@ -1,11 +1,19 @@
 .button {
-  padding: 0.5em;
-  font-weight: bold;
   border: none;
-  background: var(--t-color-darkgreen);
-  margin: 0 0.1em;
   text-decoration: none;
+  font-weight: inherit;
+  background: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.styled {
+  font-weight: bold;
+  background: var(--t-color-darkgreen);
   color: white;
+  margin: 0 0.1em;
+  padding: 0.5em;
 }
 
 .big {

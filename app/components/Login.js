@@ -5,6 +5,8 @@ import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
 import Button from './Button';
 
+import localization from '../localization';
+
 import logoSrc from '../Natakanu.svg';
 import { REGISTER, PREFERENCES } from '../constants/routes.json';
 import backgroundSrc from '../../resources/dimmig_skog_svartvit_display.jpg';
@@ -28,10 +30,14 @@ export default function Login({ onLogin, accounts }) {
 
   const headerContent = (
     <>
-      <Button to={REGISTER}>
+      <Button to={REGISTER} label={localization.login_add}>
         <i className="fas fa-user-plus" />
       </Button>
-      <Button className={styles.preferences} to={PREFERENCES}>
+      <Button
+        className={styles.preferences}
+        to={PREFERENCES}
+        label={localization.login_preferences}
+      >
         <i className="fas fa-cogs" />
       </Button>
     </>

@@ -10,4 +10,12 @@
   border: none;
   min-height: 1em;
   min-width: 3em;
+  position: relative;
+}
+
+.edit {
+  position: absolute;
+  font-size: 0.5em;
+  left: -0.5em;
+  top: 0.5em;
 }

@@ -22,7 +22,7 @@ export default function Account({
   const { name, image, writable } = accountInfo;
 
   const newProjectButton = writable ? (
-    <Button onClick={onGoCreate}>
+    <Button onClick={onGoCreate} label={localization.account_new_project}>
       <i className="fas fa-folder-plus" />
     </Button>
   ) : null;

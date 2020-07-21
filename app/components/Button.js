@@ -4,19 +4,41 @@ import Link from './Link';
 
 import styles from './Button.css';
 
-export default function({ className = '', children, big, to, ...props }) {
+export default function({
+  className = '',
+  label,
+  children,
+  big,
+  flat,
+  to,
+  ...props
+}) {
   const classList = [styles.button];
-  if (className) classList.push(className);
+  if (!flat) classList.push(styles.styled);
   if (big) classList.push(styles.big);
+  if (className) classList.push(className);
+
   if (to)
     return (
-      <Link className={classList.join(' ')} to={to} {...props}>
+      <Link
+        aria-label={label}
+        title={label}
+        className={classList.join(' ')}
+        to={to}
+        {...props}
+      >
         {children}
       </Link>
     );
 
   return (
-    <button type="button" className={classList.join(' ')} {...props}>
+    <button
+      aria-label={label}
+      title={label}
+      type="button"
+      className={classList.join(' ')}
+      {...props}
+    >
       {children}
     </button>
   );
