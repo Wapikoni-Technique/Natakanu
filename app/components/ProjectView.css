@@ -37,3 +37,11 @@
   display: block;
   color: var(--t-color-red);
 }
+
+.title {
+  margin-top: 0;
+}
+
+.infoitems {
+  margin: 0;
+}

@@ -17,7 +17,8 @@ export default function Account({
   numPeers,
   onGoCreate,
   onUpdateName,
-  onUpdateImage
+  onUpdateImage,
+  onDestroyAccount
 }) {
   const { name, image, writable } = accountInfo;
 
@@ -67,10 +68,23 @@ export default function Account({
     </div>
   );
 
+  const destroyButton = writable ? (
+    <Button red onClick={onDestroyAccount} label="Delete this account">
+      <i className="fas fa-trash" />
+    </Button>
+  ) : null;
+
+  const headerContent = (
+    <>
+      {newProjectButton}
+      {destroyButton}
+    </>
+  );
+
   return (
     <PageContainer
       backgroundClass={styles.background}
-      headerContent={newProjectButton}
+      headerContent={headerContent}
     >
       <div className={styles.accountInfo}>
         {accountIcon}

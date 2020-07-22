@@ -88,6 +88,10 @@ export default class AccountStore extends EventEmitter {
 
     if (account.writable) this.gossip.advertise(account.archive.key, true);
 
+    account.on('destroyed', () =>
+      this.gossip.delete(account.archive.key, true)
+    );
+
     return account;
   }
 

@@ -19,3 +19,7 @@
 .big {
   font-size: 1.2em;
 }
+
+.red {
+  background: var(--t-color-red);
+}

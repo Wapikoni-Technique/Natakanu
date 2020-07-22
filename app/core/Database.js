@@ -58,6 +58,14 @@ export default class Database {
     await this.setAccountNames(final);
   }
 
+  async removeAccountName(name) {
+    const names = await this.getAccountNames();
+
+    const filtered = names.filter(existing => existing !== name);
+
+    await this.setAccountNames(filtered);
+  }
+
   async getRecentProjectNames() {
     try {
       return await this.db.get(RECENT_PROJECT_DB_PREFIX);

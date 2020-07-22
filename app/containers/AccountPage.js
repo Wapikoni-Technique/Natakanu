@@ -20,6 +20,7 @@ export default function AccountPage() {
     <AsyncGeneratorPage deps={[account]}>
       {async function* renderAccountPage() {
         const core = await getCore();
+
         const accountInstance = await core.accounts.get(account);
 
         async function onUpdateName(name) {
@@ -30,11 +31,19 @@ export default function AccountPage() {
           await accountInstance.updateImage(filePath);
         }
 
+        async function onDestroyAccount() {
+          const destroyed = await accountInstance.destroy();
+
+          if (destroyed) push('/');
+        }
+
         while (true) {
           yield (<LoaderPage />);
 
           const accountInfo = await accountInstance.getInfo();
+
           const projects = await accountInstance.getProjectsInfo();
+
           const numPeers = accountInstance.peers.length;
 
           yield (
@@ -46,6 +55,7 @@ export default function AccountPage() {
               onGoCreate={onGoCreate}
               onUpdateName={onUpdateName}
               onUpdateImage={onUpdateImage}
+              onDestroyAccount={onDestroyAccount}
             />
           );
 

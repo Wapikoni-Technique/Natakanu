@@ -15,11 +15,20 @@ export default class ProjectStore {
 
     if (this.projects.has(key)) return this.projects.get(key);
 
+    console.log('Getting project for', { name, key });
+
     const project = await Project.load(name, this.Hyperdrive, this.database);
 
     this.projects.set(name, project);
     this.projects.set(project.url, project);
     this.projects.set(key, project);
+
+    project.once('close', () => {
+      console.log('Project closed');
+      this.projects.delete(name);
+      this.projects.delete(project.url);
+      this.projects.delete(key);
+    });
 
     return project;
   }
@@ -31,7 +40,15 @@ export default class ProjectStore {
   async getRecent() {
     const names = await this.getRecentNames();
 
-    return Promise.all(names.map(name => this.get(name)));
+    const projects = await Promise.all(names.map(name => this.get(name)));
+
+    const isEmpty = await Promise.all(
+      projects.map(project => project.isEmpty())
+    );
+
+    const nonEmpty = projects.filter((project, index) => !isEmpty[index]);
+
+    return nonEmpty;
   }
 
   async getRecentNames() {

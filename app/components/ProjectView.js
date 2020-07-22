@@ -27,7 +27,8 @@ export default function ProjectView({
   onNavigateTo,
   onSetSaved,
   onUpdateInfo,
-  onUpdateImage
+  onUpdateImage,
+  onDestroyProject
 }) {
   const {
     title,
@@ -44,6 +45,14 @@ export default function ProjectView({
     <Button onClick={() => onAddFiles()}>
       {localization.project_view_add_files}
     </Button>
+  ) : null;
+
+  const destroyButton = writable ? (
+    <div>
+      <Button red onClick={onDestroyProject}>
+        Delete this project
+      </Button>
+    </div>
   ) : null;
 
   function goUp() {
@@ -91,7 +100,7 @@ export default function ProjectView({
   return (
     <PageContainer style={BACKGROUND_STYLE} contentClass={styles.content}>
       <Box className={styles.files}>
-        <h3>
+        <h3 className={styles.title}>
           {titleElement} {subpath} {peersLabel}
         </h3>
         {upButton}
@@ -147,7 +156,7 @@ export default function ProjectView({
         <div>{addButton}</div>
       </Box>
       <Box className={styles.info}>
-        <dl>
+        <dl className={styles.infoitems}>
           <InfoItem
             writable={writable}
             label={localization.new_project_author}
@@ -179,6 +188,7 @@ export default function ProjectView({
           writable={writable}
         />
         {saveForm}
+        {destroyButton}
       </Box>
     </PageContainer>
   );

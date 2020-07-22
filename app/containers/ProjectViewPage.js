@@ -58,8 +58,18 @@ export default function ProjectViewPage() {
           await projectInstance.updateImage(image);
         }
 
+        async function onDestroyProject() {
+          const destroyed = await projectInstance.destroy();
+
+          if (destroyed) push('/');
+        }
+
         while (true) {
           yield (<LoaderPage />);
+
+          if (projectInstance.closed)
+            throw new Error('Project has been closed');
+
           const projectInfo = await projectInstance.getInfo();
           const files = await projectInstance.getFileList(subpath || '/');
           const numPeers = projectInstance.peers.length;
@@ -77,6 +87,7 @@ export default function ProjectViewPage() {
               onSetSaved={onSetSaved}
               onUpdateInfo={onUpdateInfo}
               onUpdateImage={onUpdateImage}
+              onDestroyProject={onDestroyProject}
             />
           );
 

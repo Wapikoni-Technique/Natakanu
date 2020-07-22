@@ -3,6 +3,7 @@ import { parse as parsePath, posix as posixPath } from 'path';
 import fs from 'fs';
 import pump from 'pump';
 import EventEmitter from 'events';
+import { dialog } from 'electron';
 
 import { encodeAccount } from './urlParser';
 
@@ -51,32 +52,43 @@ export default class Account extends EventEmitter {
   }
 
   async getProjects() {
-    if (this.projects) return this.projects;
+    let projects = null;
 
     if (this.writable) {
       const projectNames = await this.archive.readdir(PROJECT_FOLDER);
 
-      this.projects = await Promise.all(
+      projects = await Promise.all(
         projectNames.map(async name => {
           return this.projectStore.get(name);
         })
       );
+    } else {
+      // This must be a remotely loaded archive
+      // Get the stats for all the subfolders
+      const stats = await this.archive.readdir(PROJECT_FOLDER, {
+        includeStats: true
+      });
 
-      return this.projects;
+      // Get the keys from the mount info and init the projects
+      projects = await Promise.all(
+        stats.map(({ stat }) => {
+          return this.projectStore.get(stat.mount.key.toString('hex'));
+        })
+      );
     }
 
-    // This must be a remotely loaded archive
-    // Get the stats for all the subfolders
-    const stats = await this.archive.readdir(PROJECT_FOLDER, {
-      includeStats: true
-    });
+    const notClosed = projects.filter(({ closed }) => !closed);
 
-    // Get the keys from the mount info and init the projects
-    return Promise.all(
-      stats.map(({ stat }) => {
-        return this.projectStore.get(stat.mount.key.toString('hex'));
-      })
+    // We should filter out any projects that are empty
+    const projectEmptiness = await Promise.all(
+      notClosed.map(project => project.isEmpty())
     );
+
+    const nonEmpty = notClosed.filter(
+      (project, index) => !project.closed && !projectEmptiness[index]
+    );
+
+    return nonEmpty;
   }
 
   async getProjectsInfo() {
@@ -95,7 +107,7 @@ export default class Account extends EventEmitter {
 
   async createProject(info) {
     if (!this.writable) {
-      throw new Error('Unable to create project: Not Writable');
+      throw new Error('Unable to create project: Account Not Writable');
     }
 
     const projects = await this.getProjects();
@@ -114,7 +126,14 @@ export default class Account extends EventEmitter {
     // Mount the archive in a folder with the slugified name
     const mountLocation = posixPath.join(PROJECT_FOLDER, key);
 
-    await this.archive.mount(mountLocation, archive.key);
+    try {
+      // Try reading the mount location
+      // Will error out if it hasn''t already been mounted
+      await this.archive.stat(mountLocation);
+    } catch (e) {
+      // Create the mount since it doesn't exist yet
+      await this.archive.mount(mountLocation, archive.key);
+    }
 
     // Initialize the project for it
     const project = await this.projectStore.get(key);
@@ -185,5 +204,67 @@ export default class Account extends EventEmitter {
     await pump(readStream, writeStream);
 
     return fileName;
+  }
+
+  async destroy(force) {
+    if (!force) {
+      const { response } = await dialog.showMessageBox({
+        type: 'question',
+        buttons: ['cancel', 'confirm'],
+        message: 'Are you sure you want to delete this account?'
+      });
+
+      // Confirm button was pressed, cancel destroy
+      if (!response) {
+        console.debug('Destroy cancelled');
+        return false;
+      }
+    }
+
+    const projects = await this.getProjects();
+
+    await Promise.all(
+      projects.map(async project => {
+        // Slugify the name
+        const { key } = project;
+
+        // Mount the archive in a folder with the slugified name
+        const mountLocation = posixPath.join(PROJECT_FOLDER, key);
+
+        await this.archive.unmount(mountLocation);
+
+        if (await project.isEmpty()) return;
+
+        await project.destroy(true);
+      })
+    );
+
+    const stats = await this.archive.readdir('/', { includeStats: true });
+
+    await Promise.all(
+      stats.map(async ({ name }) => {
+        return this.archive.unlink(name);
+      })
+    );
+
+    // Clear out all the hyperdrive-specific storage
+    await new Promise((resolve, reject) => {
+      // TODO: Get this merged into hyperdrive proper
+      /* eslint-disable no-underscore-dangle */
+      this.archive._getContent(this.archive.db.feed, (err1, contentState) => {
+        if (err1) return reject(err1);
+        const content = contentState.feed;
+        content.clear(0, content.length, err2 => {
+          if (err2) reject(err2);
+          else resolve();
+        });
+      });
+    });
+
+    await this.database.removeAccountName(this.key);
+
+    this.emit('destroyed');
+
+    return true;
   }
 }

@@ -10,12 +10,14 @@ export default function({
   children,
   big,
   flat,
+  red,
   to,
   ...props
 }) {
   const classList = [styles.button];
   if (!flat) classList.push(styles.styled);
   if (big) classList.push(styles.big);
+  if (red) classList.push(styles.red);
   if (className) classList.push(className);
 
   if (to)

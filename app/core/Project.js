@@ -42,6 +42,10 @@ export default class Project extends EventEmitter {
     return this.archive.peers || [];
   }
 
+  get closed() {
+    return this.archive.closed;
+  }
+
   async init() {
     this.archive = this.Hyperdrive(this.key);
 
@@ -53,6 +57,9 @@ export default class Project extends EventEmitter {
     this.archive.metadata.on('remote-update', () =>
       this.emit('update', 'remote-update')
     );
+    this.archive.on('close', () => {
+      this.emit('close');
+    });
 
     const isSaved = await this.isSaved();
     const { writable } = this;
@@ -62,6 +69,12 @@ export default class Project extends EventEmitter {
     if (shouldDownload) {
       this.startDownloading();
     }
+  }
+
+  async isEmpty() {
+    const files = await this.archive.readdir('/');
+
+    return files.length === 0;
   }
 
   async getInfo() {
@@ -185,6 +198,17 @@ export default class Project extends EventEmitter {
     return this.archive.unlink(path);
   }
 
+  async deleteFolder(path) {
+    const stats = await this.archive.readdir(path, { includeStats: true });
+
+    await Promise.all(
+      stats.map(async ({ stat, name }) => {
+        if (stat.isDirectory()) await this.deleteFolder(joinPaths(path, name));
+        await this.deleteFile(joinPaths(path, name));
+      })
+    );
+  }
+
   async showSaveFile(path) {
     const { base: defaultPath } = parsePath(path);
     const { canceled, filePath } = await dialog.showSaveDialog({
@@ -243,5 +267,39 @@ export default class Project extends EventEmitter {
     const readStream = fs.createReadStream(fsFile);
 
     await pump(readStream, writeStream);
+  }
+
+  async destroy(force) {
+    if (!force) {
+      const { response } = await dialog.showMessageBox({
+        type: 'question',
+        buttons: ['cancel', 'confirm'],
+        message: 'Are you sure you want to delete this project?'
+      });
+
+      // Confirm button was pressed, cancel destroy
+      if (!response) {
+        console.debug('Destroy cancelled');
+        return false;
+      }
+    }
+
+    await this.deleteFolder('/');
+
+    // Clear out all the hyperdrive-specific storage
+    await new Promise((resolve, reject) => {
+      // TODO: Get this merged into hyperdrive proper
+      /* eslint-disable no-underscore-dangle */
+      this.archive._getContent(this.archive.db.feed, (err1, contentState) => {
+        if (err1) return reject(err1);
+        const content = contentState.feed;
+        content.clear(0, content.length, err2 => {
+          if (err2) reject(err2);
+          else resolve();
+        });
+      });
+    });
+
+    return true;
   }
 }
