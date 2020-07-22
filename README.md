@@ -26,6 +26,8 @@ Natakanu works offline and online. This local first software embodies our approa
 
 ![Demo Gif of Natakanu](natakanu-demo.gif)
 
+### [Click here for video description](https://www.facebook.com/projetnatakanu/videos/634186250638330/)
+
 ## Credits
 
 Ce logiciel est une réalisation de Wapikoni Mobile, Uhu Labos Nomades et du Bureau de l’engagement communautaire de l’université Concordia.
