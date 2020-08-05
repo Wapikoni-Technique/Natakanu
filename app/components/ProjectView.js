@@ -21,6 +21,7 @@ export default function ProjectView({
   files,
   subpath,
   numPeers,
+  uploading,
   onDownloadFile,
   onAddFiles,
   onDeleteFile,
@@ -28,7 +29,8 @@ export default function ProjectView({
   onSetSaved,
   onUpdateInfo,
   onUpdateImage,
-  onDestroyProject
+  onDestroyProject,
+  onClearFile
 }) {
   const {
     title,
@@ -68,7 +70,7 @@ export default function ProjectView({
           onClick={goUp}
           label={localization.project_view_go_up}
         >
-          <i className="fas fa-folder" />
+          <i className="fas fa-folder fa-fw" />
           {` ../`}
         </Button>
       </div>
@@ -108,9 +110,9 @@ export default function ProjectView({
           const isDirectory = stat.isDirectory();
           const endSlash = isDirectory ? '/' : '';
           const icon = isDirectory ? (
-            <i className="fas fa-folder" />
+            <i className="fas fa-folder fa-fw" />
           ) : (
-            <i className="fas fa-file" />
+            <i className="fas fa-file fa-fw" />
           );
           const onClick = isDirectory
             ? () => onNavigateTo(name)
@@ -128,13 +130,17 @@ export default function ProjectView({
                 <i className="fas fa-trash" />
               </Button>
             ) : null;
+
+          const onClickClear = () => onClearFile(name);
+          const { isDownloaded } = stat;
+          const downloadPercent =
+            isDownloaded !== 1 ? `${Math.round(isDownloaded * 100)}%` : null;
           const downloadIndicator =
-            stat.isDownloaded && !writable ? (
-              <i
-                className="fas fa-file-download"
-                title={localization.project_view_downloaded}
-                aria-label={localization.project_view_downloaded}
-              />
+            isDownloaded && !writable ? (
+              <Button flat label="Clear downloaded data" onClick={onClickClear}>
+                <i className="fas fa-file-download fa-fw" />
+                {downloadPercent}
+              </Button>
             ) : null;
 
           return (
@@ -153,6 +159,19 @@ export default function ProjectView({
             </div>
           );
         })}
+        {uploading.map(name => (
+          <div key={name} className={styles.filecontainer}>
+            <div
+              flat
+              className={styles.file}
+              label={`${localization.project_view_open_file} ${name}`}
+            >
+              <i className="fa fa-upload fa-fw" />
+              {name}
+              <i className="fa fa-pulse fa-spinner fa-fw" />
+            </div>
+          </div>
+        ))}
         <div>{addButton}</div>
       </Box>
       <Box className={styles.info}>

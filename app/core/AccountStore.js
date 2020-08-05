@@ -58,6 +58,8 @@ export default class AccountStore extends EventEmitter {
       this.projectStore
     );
 
+    console.log('Loaded', name);
+
     // Check if the account is local
     if (account.writable) {
       try {

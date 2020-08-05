@@ -28,6 +28,7 @@ export default class Project extends EventEmitter {
     this.Hyperdrive = Hyperdrive;
     this.database = database;
     this.isDownloading = null;
+    this.uploading = new Set();
   }
 
   get url() {
@@ -59,6 +60,12 @@ export default class Project extends EventEmitter {
     );
     this.archive.on('close', () => {
       this.emit('close');
+    });
+
+    this.archive.getContent((err, feed) => {
+      feed.on('download', (index, block) => {
+        this.emit('update', 'download', index, block);
+      });
     });
 
     const isSaved = await this.isSaved();
@@ -185,7 +192,8 @@ export default class Project extends EventEmitter {
 
     return Promise.all(
       stats.map(async ({ stat, name }) => {
-        const downloaded = await this.isDownloaded(joinPaths(path, name));
+        const fullPath = joinPaths(path, name);
+        const downloaded = await this.getDownloadPercent(fullPath);
         const newStat = Object.create(stat);
         newStat.isDownloaded = downloaded;
 
@@ -194,8 +202,22 @@ export default class Project extends EventEmitter {
     );
   }
 
+  getUploading() {
+    return [...this.uploading];
+  }
+
   async deleteFile(path) {
+    await this.archive.clear(path);
     return this.archive.unlink(path);
+  }
+
+  async clear(path) {
+    try {
+      await this.archive.clear(path);
+    } catch (e) {
+      // Whatever
+    }
+    this.emit('update', 'cleared');
   }
 
   async deleteFolder(path) {
@@ -207,6 +229,12 @@ export default class Project extends EventEmitter {
         await this.deleteFile(joinPaths(path, name));
       })
     );
+  }
+
+  async getDownloadPercent(path) {
+    const { blocks, downloadedBlocks } = await this.archive.stats(path);
+
+    return downloadedBlocks / blocks;
   }
 
   async showSaveFile(path) {
@@ -266,7 +294,14 @@ export default class Project extends EventEmitter {
     const writeStream = this.archive.createWriteStream(destinationFile);
     const readStream = fs.createReadStream(fsFile);
 
+    this.uploading.add(destinationFile);
+    this.emit('update', 'uploaded', destinationFile);
+
     await pump(readStream, writeStream);
+
+    this.emit('update', 'uploaded', destinationFile);
+
+    delete this.uploading.delete(destinationFile);
   }
 
   async destroy(force) {

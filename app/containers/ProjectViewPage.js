@@ -34,6 +34,13 @@ export default function ProjectViewPage() {
     return projectInstance.deleteFile(join(subpath, name));
   }
 
+  async function onClearFile(name) {
+    const core = await getCore();
+    const projectInstance = await core.projects.get(project);
+
+    return projectInstance.clear(join(subpath, name));
+  }
+
   function onNavigateTo(folder) {
     push(`./${folder}/`);
   }
@@ -73,13 +80,16 @@ export default function ProjectViewPage() {
           const projectInfo = await projectInstance.getInfo();
           const files = await projectInstance.getFileList(subpath || '/');
           const numPeers = projectInstance.peers.length;
+          const uploading = projectInstance.getUploading();
 
+          console.log({ uploading, projectInstance });
           yield (
             <ProjectView
               projectInfo={projectInfo}
               files={files}
               subpath={subpath}
               numPeers={numPeers}
+              uploading={uploading}
               onDownloadFile={onDownloadFile}
               onAddFiles={onAddFiles}
               onDeleteFile={onDeleteFile}
@@ -88,6 +98,7 @@ export default function ProjectViewPage() {
               onUpdateInfo={onUpdateInfo}
               onUpdateImage={onUpdateImage}
               onDestroyProject={onDestroyProject}
+              onClearFile={onClearFile}
             />
           );
 

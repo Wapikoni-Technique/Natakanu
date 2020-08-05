@@ -48,7 +48,13 @@ export default class Account extends EventEmitter {
       this.emit('remote-update', 'remote-update')
     );
 
-    await this.archive.ready();
+    console.log('Waiting for ready');
+
+    await new Promise(resolve => {
+      this.archive.ready(resolve);
+    });
+
+    console.log('Ready!');
   }
 
   async getProjects() {
