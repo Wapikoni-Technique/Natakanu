@@ -22,6 +22,8 @@ It aims to increase accessibility to tools for sharing, collaboration and transm
 
 Natakanu works offline and online. This local first software embodies our approach of de-colonized cyberspace.
 
+### [Click here to learn more](http://blog.mauve.moe/posts/natakanu)
+
 ## [Download](https://github.com/Wapikoni-Technique/Natakanu/releases)
 
 ![Demo Gif of Natakanu](natakanu-demo.gif)
