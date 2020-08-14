@@ -28,6 +28,7 @@
   "project_view_delete_file": "**Delete this file**",
   "project_view_open_file": "**Open**",
   "project_view_downloaded": "**This file has been downloaded locally**",
+  "project_view_delete_project": "Delete this project",
 
   "register_title": "Natakanu",
   "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",
@@ -44,5 +45,6 @@
 
   "recent_recent": "Projets que vous avez vus récemment.",
   "recent_saved": "Projets que vous avez sauvegarder localement.",
-  "recent_seen": "Personnes que vous avez vues."
+  "recent_seen": "Personnes que vous avez vues.",
+  "recent_search": "**Search**"
 }

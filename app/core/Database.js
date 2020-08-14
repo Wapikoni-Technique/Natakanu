@@ -14,9 +14,10 @@ export default class Database {
 
   async getAccountNames() {
     try {
-      return await this.db.get(ACCOUNT_DB_PREFIX);
+      const list = await this.db.get(ACCOUNT_DB_PREFIX);
+
+      return list || [];
     } catch (e) {
-      console.log('Account names error', e);
       return [];
     }
   }
@@ -39,7 +40,6 @@ export default class Database {
     try {
       return await this.db.get(ACCOUNT_SEEN_DB_PREFIX);
     } catch (e) {
-      console.log('Seen Accounts error', e);
       return [];
     }
   }
@@ -85,8 +85,6 @@ export default class Database {
     for (const existing of names) {
       if (!finalNames.includes(existing)) finalNames.push(existing);
     }
-
-    console.log('loaded names', names);
 
     while (finalNames.length > MAX_RECENT_PROJECTS) finalNames.pop();
 

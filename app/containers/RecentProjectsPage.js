@@ -1,19 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import getCore from '../core/get';
 
 import AsyncPage from './AsyncPage';
 
 import RecentProjects from '../components/RecentProjects';
+import Search from '../components/Search';
 
 export default function RecentProjectsPage() {
-  return (
-    <AsyncPage promiseFn={load}>
-      {({ recent, saved, seen }) => (
-        <RecentProjects recent={recent} saved={saved} seen={seen} />
-      )}
-    </AsyncPage>
-  );
+  const [results, setResults] = useState([]);
+  const [search, setSearch] = useState('');
+
+  async function onSearch(query) {
+    setSearch(query);
+    const core = await getCore();
+    setResults([]);
+    let newResults = [];
+
+    // consume() is needed to turn fake async
+    for await (const item of consume(core.search(query))) {
+      newResults = newResults.concat(item);
+      setResults(newResults);
+    }
+  }
+
+  console.log(results, search);
+
+  if (!search) {
+    return (
+      <AsyncPage promiseFn={load} watch={results.length + search}>
+        {({ recent, saved, seen }) => (
+          <RecentProjects
+            recent={recent}
+            saved={saved}
+            seen={seen}
+            onSearch={onSearch}
+          />
+        )}
+      </AsyncPage>
+    );
+  }
+  return <Search search={search} results={results} onSearch={onSearch} />;
+}
+
+async function* consume(iterator) {
+  try {
+    while (true) {
+      const { value, done } = await iterator.next();
+
+      if (done) break;
+      yield value;
+    }
+  } finally {
+    if (iterator.return) iterator.return();
+  }
 }
 
 async function load() {

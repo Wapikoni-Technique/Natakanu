@@ -52,7 +52,7 @@ export default function ProjectView({
   const destroyButton = writable ? (
     <div>
       <Button red onClick={onDestroyProject}>
-        Delete this project
+        {localization.project_view_delete_project}
       </Button>
     </div>
   ) : null;

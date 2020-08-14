@@ -1,8 +1,9 @@
 import SDK from 'dat-sdk';
 import RAM from 'random-access-memory';
 import levelup from 'levelup';
+import encodingdown from 'encoding-down';
 import memdown from 'memdown';
-import { once } from 'events';
+import delay from 'delay';
 
 import Natakanu from '../../app/core';
 
@@ -18,13 +19,16 @@ describe('Basic natakanu core tests', () => {
     const sdk = await SDK({
       storage: RAM
     });
-    const db = levelup(memdown());
+    const db = levelup(
+      encodingdown(memdown(), {
+        valueEncoding: 'json'
+      })
+    );
     natakanu = await Natakanu.create({ db, sdk, gossipKey });
   });
   it('can create an account', async () => {
-    account = await natakanu.accounts.create({
-      name: 'Test User'
-    });
+    const name = 'Test User';
+    account = await natakanu.accounts.create(name, {});
   });
   it('Project listing when empty', async () => {
     const projects = await account.getProjects();
@@ -33,7 +37,7 @@ describe('Basic natakanu core tests', () => {
   });
   it('Able to create projects', async () => {
     project = await account.createProject({
-      name: 'Test Project'
+      title: 'Test Project'
     });
   });
   it('Able to write to created project', async () => {
@@ -52,14 +56,24 @@ describe('Basic natakanu core tests', () => {
 
     natakanu2 = await Natakanu.create({ db, sdk, gossipKey });
 
+    // Wait a bit for replication to happen
+    await delay(2000);
+
     const existing = natakanu2.gossip.list();
 
-    // Must have already gotten the advertisement
-    if (existing.length) expect(existing.length).toBe(1);
-    else {
-      // Must be the archive, woot!
-      const data = await once(natakanu2.gossip, 'found');
-      expect(data).toBeTruthy();
+    expect(existing.length).toBe(1);
+  });
+  it('Can track recently seen archives', async () => {
+    await natakanu.projects.addRecent(project.url);
+
+    const recent = await natakanu.projects.getRecentNames();
+
+    expect(recent.length).toBe(1);
+    expect(recent[0]).toBe(project.url);
+  });
+  it('Can search for recently seen archives', async () => {
+    for await (const { url } of natakanu.search('Test')) {
+      expect(url).toBe(project.url);
     }
   });
 

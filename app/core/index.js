@@ -16,6 +16,7 @@ import ProjectStore from './ProjectStore';
 import AccountStore from './AccountStore';
 import Preferences from './Preferences';
 import SuperPeer from './SuperPeer';
+import Search from './Search';
 
 export default class NatakanuCore extends EventEmitter {
   constructor({
@@ -80,6 +81,8 @@ export default class NatakanuCore extends EventEmitter {
       this.preferences
     );
 
+    this.searcher = new Search(this.projects, this.accounts);
+
     await this.superpeer.init();
 
     await this.accounts.startGossip();
@@ -87,6 +90,10 @@ export default class NatakanuCore extends EventEmitter {
     // Load up any projects we saved
     // This should also start loading their latest data
     await this.projects.getSaved();
+  }
+
+  search(query, opts = {}) {
+    return this.searcher.search(query, opts);
   }
 
   async close() {

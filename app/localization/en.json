@@ -28,6 +28,7 @@
   "project_view_delete_file": "Delete this file",
   "project_view_open_file": "Open",
   "project_view_downloaded": "This file has been downloaded locally",
+  "project_view_delete_project": "Delete this project",
 
   "register_title": "Natakanu",
   "register_intro_1": "Please enter some basic information about yourself to get started",
@@ -44,5 +45,6 @@
 
   "recent_recent": "Projects you have recently seen.",
   "recent_saved": "Projects you have saved locally.",
-  "recent_seen": "People you have seen."
+  "recent_seen": "People you have seen.",
+  "recent_search": "Search"
 }

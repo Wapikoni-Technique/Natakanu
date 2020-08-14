@@ -5,12 +5,19 @@ import PageContainer from './PageContainer';
 import Projects from './Projects';
 import AccountIcon from './AccountIcon';
 import Link from './Link';
+import SearchBar from './SearchBar';
 
 import styles from './RecentProjects.css';
 
 import localization from '../localization';
 
-export default function RecentProjects({ recent, saved, seen }) {
+export default function RecentProjects({
+  recent,
+  saved,
+  seen,
+  search,
+  onSearch
+}) {
   const renderRecent = recent.length ? (
     <div>
       <Projects projects={recent} />
@@ -36,8 +43,13 @@ export default function RecentProjects({ recent, saved, seen }) {
     </div>
   ) : null;
 
+  const renderSearch = recent.length ? (
+    <SearchBar search={search} onSearch={onSearch} />
+  ) : null;
+
   return (
     <PageContainer backgroundClass={styles.background}>
+      {renderSearch}
       {renderRecent}
       {renderSaved}
       {renderSeen}

@@ -48,13 +48,9 @@ export default class Account extends EventEmitter {
       this.emit('remote-update', 'remote-update')
     );
 
-    console.log('Waiting for ready');
-
     await new Promise(resolve => {
       this.archive.ready(resolve);
     });
-
-    console.log('Ready!');
   }
 
   async getProjects() {
@@ -163,7 +159,6 @@ export default class Account extends EventEmitter {
       const parsed = JSON.parse(raw);
       return { name: key, ...parsed, key, writable, url };
     } catch (e) {
-      console.error(e);
       return { name: key, key, writable, url };
     }
   }
@@ -222,7 +217,6 @@ export default class Account extends EventEmitter {
 
       // Confirm button was pressed, cancel destroy
       if (!response) {
-        console.debug('Destroy cancelled');
         return false;
       }
     }

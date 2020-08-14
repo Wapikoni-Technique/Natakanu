@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.searchbar {
+  flex: 1;
+  border: none;
+  background-color: var(--t-color-grey);
+  padding: 0.5em;
+  margin: 0.5em;
+}
