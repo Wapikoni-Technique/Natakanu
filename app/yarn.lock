@@ -38,10 +38,10 @@
   dependencies:
     hypercore "^9.0.0"
 
-"@geut/hyperdrive-promise@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@geut/hyperdrive-promise/-/hyperdrive-promise-3.0.2.tgz#bedb47a1596093ae20c4689decd967c90b3235a3"
-  integrity sha512-wkI3tZos3fkPiq6TIqYeyglTCKjngB4qbTAMu4nomw2DcqVgSeBF179ERqvclrAfZRWm+xA3CHVzbz42thVh0g==
+"@geut/hyperdrive-promise@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@geut/hyperdrive-promise/-/hyperdrive-promise-3.1.0.tgz#fb3ecd4fd31f40b5c9a4cadebc81e64aa97295c2"
+  integrity sha512-Yi6qrraicsf1bIOcksNUrQ6yObp0YVVXFRw65nQQDfGY2ySKVL3LngXbgyz2xS9f8WyG7RRb2AFk/XhwzHgquw==
   dependencies:
     hyperdrive "^10.17.0"
 
@@ -443,14 +443,14 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-sdk@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/dat-sdk/-/dat-sdk-2.7.0.tgz#530899330d1d82744bf83239973d1be5cafc0282"
-  integrity sha512-KMPNZx57qcgEgcn5ZEMUOUuKsuORD+Up8OYWUkn0NZ35/F/G1KnZSA3XQzTz7m+QxW7coi9/7oJq5JGV0HFrYg==
+dat-sdk@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/dat-sdk/-/dat-sdk-2.7.1.tgz#806d16321cb2e05d2acca7d626599e8acb356bf4"
+  integrity sha512-eJBjDOXAVZvWTkKmV+tjdSzsXdSHAo7EdiaQ4i06rwJUhKq1PKc8Zd6363YBsncIXxWbomc6nDNrLMvEpf9G6A==
   dependencies:
     "@corestore/networker" "^1.0.3"
     "@geut/hypercore-promise" "^2.1.1"
-    "@geut/hyperdrive-promise" "^3.0.1"
+    "@geut/hyperdrive-promise" "^3.1.0"
     "@geut/sodium-javascript-plus" "0.0.6"
     corestore "^5.7.3"
     dat-dns "^4.0.0"
@@ -458,7 +458,7 @@ dat-sdk@^2.7.0:
     hypercore "^9.5.0"
     hypercore-crypto "^2.1.1"
     hypercore-protocol "^8.0.1"
-    hyperdrive "^10.17.0"
+    hyperdrive "^10.17.2"
     hyperswarm "^2.15.0"
     hyperswarm-web "^1.0.2"
     random-access-application "^1.0.0"
@@ -840,6 +840,32 @@ hyperdrive@^10.17.0:
   version "10.17.0"
   resolved "https://registry.yarnpkg.com/hyperdrive/-/hyperdrive-10.17.0.tgz#003ce10953855e351c3a8a8e34064c97a564e195"
   integrity sha512-p9ySNjzM+dfPZW9CKDCPtGC/bkBdgHIyK2NcNF4gPyHg/6X7zJm70lv3cfKP8j52T1TxIHU++zMrwN8sLuEwXw==
+  dependencies:
+    byte-stream "^2.1.0"
+    corestore "^5.3.2"
+    custom-error-class "^1.0.0"
+    duplexify "^3.7.1"
+    filesystem-constants "^1.0.0"
+    hypercore-byte-stream "^1.0.2"
+    hypercore-protocol "^8.0.0"
+    hyperdrive-schemas "^2.0.0"
+    mountable-hypertrie "^2.6.0"
+    mutexify "^1.2.0"
+    nanoiterator "^1.2.0"
+    nanoresource "^1.3.0"
+    pump "^3.0.0"
+    pumpify "^2.0.1"
+    stream-collector "^1.0.1"
+    streamx "^2.6.3"
+    thunky "^1.0.3"
+    thunky-map "^1.0.0"
+    unixify "^1.0.0"
+    varint "^5.0.0"
+
+hyperdrive@^10.17.2:
+  version "10.17.2"
+  resolved "https://registry.yarnpkg.com/hyperdrive/-/hyperdrive-10.17.2.tgz#cf08f0e2be61834f4ae08e328b1a2423c7e2603f"
+  integrity sha512-MDgpugN1AgTdbJVH5L5tDiiKcqgGL9BV0zPFOLGUlNkIr3gv44brGL16Az5mbnO/BYdZXIMqfZH15Y7ZboBNlQ==
   dependencies:
     byte-stream "^2.1.0"
     corestore "^5.3.2"
