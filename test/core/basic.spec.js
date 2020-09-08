@@ -14,6 +14,7 @@ describe('Basic natakanu core tests', () => {
   let account = null;
   let project = null;
   let natakanu2 = null;
+  let project2 = null;
 
   it('can initialize natakanu', async () => {
     const sdk = await SDK({
@@ -39,6 +40,8 @@ describe('Basic natakanu core tests', () => {
     project = await account.createProject({
       title: 'Test Project'
     });
+
+    expect(project.writable).toBe(true);
   });
   it('Able to write to created project', async () => {
     await project.archive.writeFile('example.txt', 'Hello world!');
@@ -75,6 +78,31 @@ describe('Basic natakanu core tests', () => {
     for await (const { url } of natakanu.search('Test')) {
       expect(url).toBe(project.url);
     }
+  });
+  it('Can request authorization to write to an archive and be denied', async () => {
+    project2 = await natakanu2.projects.get(project.url);
+
+    await expect(project2.requestWrite()).rejects.toThrow(
+      'Authorization Denied'
+    );
+  });
+  it('Can request authorization to write to an archive and be granted', async () => {
+    await project.setWriterAuthStrategy('allow');
+
+    await project2.requestWrite();
+
+    await project2.archive.writeFile('/example2.txt', 'Hello Universe');
+
+    const contents = await project2.archive.readFile('/example2.txt', 'utf8');
+
+    expect(contents).toBe('Hello Universe');
+
+    const otherConents = await project.archive.readFile(
+      '/example2.txt',
+      'utf8'
+    );
+
+    expect(otherConents).toBe('Hello Universe');
   });
 
   afterAll(async () => {

@@ -71,6 +71,14 @@ export default function ProjectViewPage() {
           if (destroyed) push('/');
         }
 
+        async function onRequestWrite() {
+          await projectInstance.requestWrite();
+        }
+
+        async function onSetAuthStrategy(strategy) {
+          await projectInstance.setWriterAuthStrategy(strategy);
+        }
+
         while (true) {
           yield (<LoaderPage />);
 
@@ -99,6 +107,8 @@ export default function ProjectViewPage() {
               onUpdateImage={onUpdateImage}
               onDestroyProject={onDestroyProject}
               onClearFile={onClearFile}
+              onSetAuthStrategy={onSetAuthStrategy}
+              onRequestWrite={onRequestWrite}
             />
           );
 

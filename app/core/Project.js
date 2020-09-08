@@ -9,6 +9,8 @@ import pump from 'pump-promise';
 import readdir from 'readdir-enhanced';
 import EventEmitter from 'events';
 import isDownloaded from 'hyperdrive-is-downloaded';
+import coHyperdrive from 'co-hyperdrive';
+import hyperdrivePromise from '@geut/hyperdrive-promise';
 
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE, PROJECT_INFO_FILE_BACKUP } from '../constants/core';
@@ -47,26 +49,58 @@ export default class Project extends EventEmitter {
     return this.archive.closed;
   }
 
+  async onAuth(key, peer, sendAuthorization) {
+    try {
+      const authStrategy = await this.getWriterAuthStrategy();
+      sendAuthorization(authStrategy === 'allow');
+    } catch (e) {
+      sendAuthorization(false);
+    }
+  }
+
+  async requestWrite() {
+    if (this.writable) return;
+
+    const writer = this.Hyperdrive(`writer-${this.key.slice(-1)}`, {
+      announce: false,
+      lookup: false
+    });
+
+    await writer.ready();
+
+    const { key } = writer;
+
+    await new Promise((resolve, reject) => {
+      this.archive.requestAuthorization(key, (err, granted) => {
+        if (granted) return resolve(key);
+        reject(err || new Error('Authorization Denied'));
+      });
+    });
+  }
+
   async init() {
-    this.archive = this.Hyperdrive(this.key);
+    this.archive = hyperdrivePromise(
+      coHyperdrive(this.Hyperdrive, this.key, {
+        onAuth: (...args) => this.onAuth(...args)
+      })
+    );
 
     await this.archive.ready();
 
-    this.archive.on('update', () => this.emit('update', 'update'));
     this.archive.on('peer-open', () => this.emit('update', 'peer-open'));
     this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
-    this.archive.metadata.on('remote-update', () =>
-      this.emit('update', 'remote-update')
-    );
+    this.archive.watch('/', () => {
+      this.emit('update', 'update');
+    });
     this.archive.on('close', () => {
       this.emit('close');
     });
 
-    this.archive.getContent((err, feed) => {
-      feed.on('download', (index, block) => {
-        this.emit('update', 'download', index, block);
-      });
-    });
+    //    this.archive.getContent((err, feed) => {
+    //      feed.on('download', (index, block) => {
+    //        this.emit('update', 'download', index, block);
+    //      });
+    //    });
 
     const isSaved = await this.isSaved();
     const { writable } = this;
@@ -126,6 +160,16 @@ export default class Project extends EventEmitter {
     await this.archive.writeFile(PROJECT_INFO_FILE, stringified);
 
     return updated;
+  }
+
+  async getWriterAuthStrategy() {
+    const { authStrategy = 'deny' } = await this.getInfo();
+
+    return authStrategy;
+  }
+
+  async setWriterAuthStrategy(authStrategy) {
+    await this.updateInfo({ authStrategy });
   }
 
   async updateImage(imagePath) {

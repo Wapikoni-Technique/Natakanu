@@ -22,12 +22,14 @@ export default class ProjectStore {
     this.projects.set(name, project);
     this.projects.set(project.url, project);
     this.projects.set(key, project);
+    this.projects.set(project.archive.key.toString('hex'), project);
 
     project.once('close', () => {
       console.log('Project closed');
       this.projects.delete(name);
       this.projects.delete(project.url);
       this.projects.delete(key);
+      this.projects.delete(project.archive.key.toString('hex'));
     });
 
     return project;
