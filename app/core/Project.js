@@ -52,7 +52,9 @@ export default class Project extends EventEmitter {
   async onAuth(key, peer, sendAuthorization) {
     try {
       const authStrategy = await this.getWriterAuthStrategy();
-      sendAuthorization(authStrategy === 'allow');
+      const allowed = authStrategy === 'allow';
+      sendAuthorization(allowed);
+      this.emit('update', 'add-writer');
     } catch (e) {
       sendAuthorization(false);
     }
@@ -76,6 +78,8 @@ export default class Project extends EventEmitter {
         reject(err || new Error('Authorization Denied'));
       });
     });
+
+    this.emit('update', 'got-writer');
   }
 
   async init() {
@@ -91,6 +95,17 @@ export default class Project extends EventEmitter {
     this.archive.on('peer-remove', () => this.emit('update', 'peer-remove'));
     this.archive.watch('/', () => {
       this.emit('update', 'update');
+    });
+    this.archive.on('drive-add', drive => {
+      this.emit('update', 'drive-add');
+      console.log('Listening on new writer');
+      drive.watch('/', () => {
+        console.log('New writer updated');
+        this.emit('update', 'update');
+      });
+    });
+    this.archive.on('drive-remove', () => {
+      this.emit('update', 'drive-remove');
     });
     this.archive.on('close', () => {
       this.emit('close');
