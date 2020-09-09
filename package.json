@@ -271,7 +271,7 @@
     "@hot-loader/react-dom": "^16.11.0",
     "@sindresorhus/slugify": "^0.11.0",
     "abort-controller": "^3.0.0",
-    "co-hyperdrive": "^1.0.1",
+    "co-hyperdrive": "^1.0.2",
     "color-hash": "^1.0.3",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.5.0",

@@ -58,7 +58,6 @@ export default class Account extends EventEmitter {
 
     if (this.writable) {
       const projectNames = await this.archive.readdir(PROJECT_FOLDER);
-
       projects = await Promise.all(
         projectNames.map(async name => {
           return this.projectStore.get(name);
