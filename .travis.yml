@@ -1,74 +1,38 @@
-matrix:
-  include:
-    - os: osx
-      language: node_js
-      node_js:
-        - node
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-    - os: linux
-      language: node_js
-      node_js:
-        - node
-      services:
-        - xvfb
-      addons:
-        apt:
-          sources:
-            - sourceline: 'ppa:ubuntu-toolchain-r/test'
-          packages:
-            - gcc-multilib
-            - g++-8
-            - g++-multilib
-            - icnsutils
-            - graphicsmagick
-            - xz-utils
-            - xorriso
-            - rpm
+sudo: false
 
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+language: node_js
+node_js: "12.16.2"
 
 cache:
-  yarn: true
   directories:
-    - node_modules
-    - $(npm config get prefix)/lib/node_modules
-    - flow-typed
+#    - node_modules
+#    - app/node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
+#    - $HOME/.npm/_prebuilds
 
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-install:
-  - yarn --ignore-engines
-  # On Linux, initialize "virtual display". See before_script
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      /sbin/start-stop-daemon \
-      --start \
-      --quiet \
-      --pidfile /tmp/custom_xvfb_99.pid \
-      --make-pidfile \
-      --background \
-      --exec /usr/bin/Xvfb \
-      -- :99 -ac -screen 0 1280x1024x16
-    else
-      :
-    fi
-
-before_script:
-  # On Linux, create a "virtual display". This allows browsers to work properly
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
-
-script:
-  - yarn package-ci
-  - yarn lint
-  - yarn flow
-  # HACK: Temporarily ignore `yarn test` on linux
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn test; fi
-  - yarn build-e2e
-  - yarn test-e2e
+jobs:
+  include:
+    - stage: Test
+      script:
+        - npm test
+    - stage: Deploy Linux
+      #if: tag IS present
+      os: linux
+      dist: trusty
+      script:
+        - npm run package-ci -- --linux -p always
+    - stage: Deploy Mac and Windows
+      #if: tag IS present
+      os: osx
+      osx_image: xcode10.1
+      script:
+        - npm run package-ci -- --mac -p always
+        - npm run package-ci -- --win -p always
+      before_cache:
+        - rm -rf $HOME/.cache/electron-builder/wine
