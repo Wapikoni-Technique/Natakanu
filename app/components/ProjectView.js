@@ -30,7 +30,9 @@ export default function ProjectView({
   onUpdateInfo,
   onUpdateImage,
   onDestroyProject,
-  onClearFile
+  onClearFile,
+  onSetAuthStrategy,
+  onRequestWrite
 }) {
   const {
     title,
@@ -40,7 +42,8 @@ export default function ProjectView({
     nation,
     image,
     writable,
-    isSaved
+    isSaved,
+    authStrategy
   } = projectInfo;
 
   const addButton = writable ? (
@@ -98,6 +101,29 @@ export default function ProjectView({
   ) : (
     title
   );
+
+  const writeButton =
+    authStrategy === 'allow' && !writable ? (
+      <Button onClick={onRequestWrite}>
+        {localization.project_view_ask_save}
+      </Button>
+    ) : null;
+
+  const setAuthStrategy = writable ? (
+    <div>
+      <label htmlFor="set_auth_checkbox">
+        <input
+          id="set_auth_checkbox"
+          type="checkbox"
+          checked={authStrategy === 'allow'}
+          onChange={({ target }) =>
+            onSetAuthStrategy(target.checked ? 'allow' : 'deny')
+          }
+        />
+        {localization.project_view_allow_save}
+      </label>
+    </div>
+  ) : null;
 
   return (
     <PageContainer style={BACKGROUND_STYLE} contentClass={styles.content}>
@@ -172,7 +198,10 @@ export default function ProjectView({
             </div>
           </div>
         ))}
-        <div>{addButton}</div>
+        <div>
+          {addButton}
+          {writeButton}
+        </div>
       </Box>
       <Box className={styles.info}>
         <dl className={styles.infoitems}>
@@ -207,6 +236,7 @@ export default function ProjectView({
           writable={writable}
         />
         {saveForm}
+        {setAuthStrategy}
         {destroyButton}
       </Box>
     </PageContainer>
