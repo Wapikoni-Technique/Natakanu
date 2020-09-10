@@ -28,7 +28,9 @@
   "project_view_delete_file": "**Delete this file**",
   "project_view_open_file": "**Open**",
   "project_view_downloaded": "**This file has been downloaded locally**",
-  "project_view_delete_project": "Delete this project",
+  "project_view_delete_project": "**Delete this project",
+  "project_view_ask_save": "**Ask to write files",
+  "project_view_allow_save": "**Allow others to add files",
 
   "register_title": "Natakanu",
   "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",

@@ -104,7 +104,9 @@ export default function ProjectView({
 
   const writeButton =
     authStrategy === 'allow' && !writable ? (
-      <Button onClick={onRequestWrite}>Ask to write files</Button>
+      <Button onClick={onRequestWrite}>
+        {localization.project_view_ask_save}
+      </Button>
     ) : null;
 
   const setAuthStrategy = writable ? (
@@ -118,7 +120,7 @@ export default function ProjectView({
             onSetAuthStrategy(target.checked ? 'allow' : 'deny')
           }
         />
-        Allow others to add files
+        {localization.project_view_allow_save}
       </label>
     </div>
   ) : null;
