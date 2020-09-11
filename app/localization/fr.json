@@ -1,10 +1,10 @@
 {
   "example": "Kuei!",
 
-  "urlbar_back": "**Go Back**",
+  "urlbar_back": "Retour",
 
   "login_add": "Ajouter un compte",
-  "login_preferences": "**View Preferences**",
+  "login_preferences": "Préférences",
 
   "account_new_project": "Nouveau Projet",
   "account_no_projects_self_1": "Natakanu vous aide à partager des fichiers avec votre communauté. C'est ici que vous pourrez voir tous les projets sur lesquels vous avez travaillé.",
@@ -24,13 +24,13 @@
 
   "project_view_add_files": "Ajoutter des fichiers",
   "project_view_save_locally": "Enregistrer le projet localement",
-  "project_view_go_up": "**Go to parent folder**",
-  "project_view_delete_file": "**Delete this file**",
-  "project_view_open_file": "**Open**",
-  "project_view_downloaded": "**This file has been downloaded locally**",
-  "project_view_delete_project": "**Delete this project",
-  "project_view_ask_save": "**Ask to write files",
-  "project_view_allow_save": "**Allow others to add files",
+  "project_view_go_up": "Aller au dossier parent",
+  "project_view_delete_file": "Supprimer ce fichier",
+  "project_view_open_file": "Ouvrir",
+  "project_view_downloaded": "Ce fichier à été enregistré localement",
+  "project_view_delete_project": "Supprimer ce projet",
+  "project_view_ask_save": "Demander à modifier les fichiers",
+  "project_view_allow_save": "Autoriser d'autres personnes à ajouter des fichiers",
 
   "register_title": "Natakanu",
   "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",
@@ -48,5 +48,5 @@
   "recent_recent": "Projets que vous avez vus récemment.",
   "recent_saved": "Projets que vous avez sauvegarder localement.",
   "recent_seen": "Personnes que vous avez vues.",
-  "recent_search": "**Search**"
+  "recent_search": "Recherche"
 }
