@@ -4,6 +4,8 @@
 	<img src="logos/natakanu.png" title="Natakanu Logo" />
 </center>
 
+![Build Status](https://travis-ci.com/Wapikoni-Technique/Natakanu.svg?branch=master)](https://travis-ci.com/Wapikoni-Technique/Natakanu)
+
 ## À propos / About
 
 Natakanu est un outil de création collaboratif.
