@@ -18,21 +18,21 @@ env:
 
 jobs:
   include:
-    - stage: Test
-      script:
-        - npm test
+    #- stage: Test
+    #  script:
+    #    - yarn test-all
     - stage: Deploy Linux
       #if: tag IS present
       os: linux
       dist: trusty
       script:
-        - npm run package-ci -- --linux -p always
+        - yarn package-ci -- --linux -p always
     - stage: Deploy Mac and Windows
       #if: tag IS present
       os: osx
       osx_image: xcode10.1
       script:
-        - npm run package-ci -- --mac -p always
-        - npm run package-ci -- --win -p always
+        - yarn package-ci -- --mac -p always
+        - yarn package-ci -- --win -p always
       before_cache:
         - rm -rf $HOME/.cache/electron-builder/wine
