@@ -16,7 +16,11 @@
   },
   "license": "AGPL-3.0",
   "dependencies": {
+    "@geut/hyperdrive-promise": "^3.1.0",
+    "dat-fetch": "2.2",
+    "dat-gossip": "2.1",
     "dat-sdk": "^2.7.1",
-    "leveldown": "^5.5.1"
+    "leveldown": "^5.5.1",
+    "levelup": "^4.4.0"
   }
 }

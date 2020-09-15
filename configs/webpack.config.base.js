@@ -47,6 +47,6 @@ export default {
   ],
 
   node: {
-    __dirname: true
+    __dirname: false
   }
 };
