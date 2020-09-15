@@ -44,5 +44,9 @@ export default {
     }),
 
     new webpack.NamedModulesPlugin()
-  ]
+  ],
+
+  node: {
+    __dirname: true
+  }
 };
