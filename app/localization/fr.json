@@ -4,7 +4,7 @@
   "urlbar_back": "**Go Back**",
 
   "login_add": "Ajouter un compte",
-  "login_preferences": "Préférences**",
+  "login_preferences": "Préférences",
 
   "account_new_project": "Nouveau Projet",
   "account_no_projects_self_1": "Natakanu vous aide à partager des fichiers avec votre communauté. C'est ici que vous pourrez voir tous les projets sur lesquels vous avez travaillé.",
@@ -16,13 +16,14 @@
 
   "new_project_share": "Partager",
   "new_project_title": "Titre",
-  "new_project_author": "Auteur.rice",
+  "new_project_author": "Auteur.trice",
   "new_project_image": "Image",
   "new_project_nation": "Nation",
   "new_project_community": "Communauté",
   "new_project_credits": "Crédits",
 
-  "project_view_add_files": "Ajoutter des fichiers",
+  "project_view_add_files": "Ajouter des fichiers",
+  "project_view_add_folders": "**Add Folder**",
   "project_view_save_locally": "Enregistrer le projet localement",
   "project_view_go_up": "**Go to parent folder**",
   "project_view_delete_file": "Supprimer ce fichier",
@@ -31,6 +32,7 @@
   "project_view_delete_project": "Supprimer ce projet",
   "project_view_ask_save": "Demander à modifier les fichiers",
   "project_view_allow_save": "Autoriser d'autres personnes à ajouter des fichiers",
+  "project_view_connected": "**Connected To**",
 
   "register_title": "Natakanu",
   "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",

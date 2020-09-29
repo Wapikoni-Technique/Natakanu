@@ -20,11 +20,11 @@ export default function ProjectViewPage() {
     return projectInstance.showSaveFile(name);
   }
 
-  async function onAddFiles() {
+  async function onAddFiles(folders = false) {
     const core = await getCore();
     const projectInstance = await core.projects.get(project);
 
-    return projectInstance.showLoadFile(subpath);
+    return projectInstance.showLoadFile(subpath, folders);
   }
 
   async function onDeleteFile(name) {

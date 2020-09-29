@@ -46,7 +46,9 @@ export default function Account({
     );
   }
 
-  const peersLabel = numPeers ? `(${numPeers})` : '';
+  const peersLabel = numPeers
+    ? `(${localization.project_view_connected} ${numPeers})`
+    : '';
 
   const accountIcon = writable ? (
     <EditableAccountIcon image={image} name={name} onChange={onUpdateImage} />

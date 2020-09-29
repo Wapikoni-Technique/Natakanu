@@ -65,6 +65,8 @@ async function load() {
     await core.accounts.listSeen()
   ]);
 
+  console.log('Got raw recent, fetching info');
+
   const [recent, saved, seen] = await Promise.all([
     await Promise.all(rawRecent.map(project => project.getInfo())),
     await Promise.all(rawSaved.map(project => project.getInfo())),

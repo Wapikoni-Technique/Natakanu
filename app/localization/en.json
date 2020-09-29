@@ -23,6 +23,7 @@
   "new_project_credits": "Credits",
 
   "project_view_add_files": "Add Files",
+  "project_view_add_folders": "Add Folder",
   "project_view_save_locally": "Save project locally",
   "project_view_go_up": "Go to parent folder",
   "project_view_delete_file": "Delete this file",
@@ -31,6 +32,7 @@
   "project_view_delete_project": "Delete this project",
   "project_view_ask_save": "Ask to write files",
   "project_view_allow_save": "Allow others to add files",
+  "project_view_connected": "Connected To",
 
   "register_title": "Natakanu",
   "register_intro_1": "Please enter some basic information about yourself to get started",

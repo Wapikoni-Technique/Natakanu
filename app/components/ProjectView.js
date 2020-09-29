@@ -46,9 +46,14 @@ export default function ProjectView({
     authStrategy
   } = projectInfo;
 
-  const addButton = writable ? (
-    <Button onClick={() => onAddFiles()}>
+  const addFilesButton = writable ? (
+    <Button onClick={() => onAddFiles(false)}>
       {localization.project_view_add_files}
+    </Button>
+  ) : null;
+  const addFoldersButton = writable ? (
+    <Button onClick={() => onAddFiles(true)}>
+      {localization.project_view_add_folders}
     </Button>
   ) : null;
 
@@ -91,7 +96,9 @@ export default function ProjectView({
     </label>
   );
 
-  const peersLabel = numPeers ? `(${numPeers})` : '';
+  const peersLabel = numPeers
+    ? `(${localization.project_view_connected} ${numPeers})`
+    : '';
 
   const titleElement = writable ? (
     <EditableText
@@ -163,10 +170,25 @@ export default function ProjectView({
             isDownloaded !== 1 ? `${Math.round(isDownloaded * 100)}%` : null;
           const downloadIndicator =
             isDownloaded && !writable ? (
-              <Button flat label="Clear downloaded data" onClick={onClickClear}>
-                <i className="fas fa-file-download fa-fw" />
-                {downloadPercent}
-              </Button>
+              <>
+                <Button
+                  flat
+                  type="button"
+                  onClick={onClick}
+                  label="This file has been downloaded"
+                >
+                  <i className="fas fa-hdd fa-fw" />
+                  {downloadPercent}
+                </Button>
+                <Button
+                  flat
+                  className={styles.filedelete}
+                  label="Clear downloaded data"
+                  onClick={onClickClear}
+                >
+                  <i className="fas fa-eraser fa-fw" />
+                </Button>
+              </>
             ) : null;
 
           return (
@@ -199,7 +221,8 @@ export default function ProjectView({
           </div>
         ))}
         <div>
-          {addButton}
+          {addFilesButton}
+          {addFoldersButton}
           {writeButton}
         </div>
       </Box>

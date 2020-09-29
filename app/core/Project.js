@@ -103,6 +103,11 @@ export default class Project extends EventEmitter {
         console.log('New writer updated');
         this.emit('update', 'update');
       });
+      drive.getContent((err, feed) => {
+        feed.on('download', (index, block) => {
+          this.emit('update', 'download', index, block);
+        });
+      });
     });
     this.archive.on('drive-remove', () => {
       this.emit('update', 'drive-remove');
@@ -110,12 +115,6 @@ export default class Project extends EventEmitter {
     this.archive.on('close', () => {
       this.emit('close');
     });
-
-    //    this.archive.getContent((err, feed) => {
-    //      feed.on('download', (index, block) => {
-    //        this.emit('update', 'download', index, block);
-    //      });
-    //    });
 
     const isSaved = await this.isSaved();
     const { writable } = this;
@@ -156,6 +155,7 @@ export default class Project extends EventEmitter {
       };
       return final;
     } catch (e) {
+      console.error(e);
       return { title: key, key, url, writable, isSaved };
     }
   }
@@ -314,9 +314,12 @@ export default class Project extends EventEmitter {
     };
   }
 
-  async showLoadFile(basePath = '/') {
+  async showLoadFile(basePath = '/', folders = false) {
+    const properties = folders
+      ? ['openDirectory', 'multiSelections']
+      : ['openFile', 'multiSelections'];
     const { canceled, filePaths } = await dialog.showOpenDialog({
-      // properties: ['openFile', 'openDirectory', 'multiSelections']
+      properties
     });
 
     // If they cancelled, whatever
@@ -324,6 +327,8 @@ export default class Project extends EventEmitter {
 
     for (const filePath of filePaths) {
       const stat = await fs.stat(filePath);
+
+      console.log('Uploading', filePath, stat);
 
       if (stat.isDirectory()) {
         const folderName = pathBasename(filePath);
@@ -342,6 +347,8 @@ export default class Project extends EventEmitter {
         const destination = joinPaths(basePath, fileName);
         await this.saveFromFS(filePath, destination);
       }
+
+      console.log('Uploaded', filePath);
     }
 
     return {
