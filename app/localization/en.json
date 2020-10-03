@@ -50,5 +50,7 @@
   "recent_recent": "Projects you have recently seen.",
   "recent_saved": "Projects you have saved locally.",
   "recent_seen": "People you have seen.",
-  "recent_search": "Search"
+  "recent_search": "Search",
+
+  "online_circle_name": "Your circle name:"
 }

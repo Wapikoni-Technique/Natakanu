@@ -6,10 +6,8 @@ import encodingdown from 'encoding-down';
 import EventEmitter from 'events';
 import path from 'path';
 import fs from 'fs-extra';
-import datGossip from 'dat-gossip';
-import hasha from 'hasha';
 
-import { APPLICATION_NAME, GOSSIP_KEY } from '../constants/core';
+import { APPLICATION_NAME } from '../constants/core';
 
 import Database from './Database';
 import ProjectStore from './ProjectStore';
@@ -17,19 +15,15 @@ import AccountStore from './AccountStore';
 import Preferences from './Preferences';
 import SuperPeer from './SuperPeer';
 import Search from './Search';
+import Gossip from './Gossip';
 
 export default class NatakanuCore extends EventEmitter {
-  constructor({
-    applicationName = APPLICATION_NAME,
-    gossipKey = GOSSIP_KEY,
-    db,
-    sdk
-  }) {
+  constructor({ applicationName = APPLICATION_NAME, gossipKey, db, sdk }) {
     super();
     this.sdk = sdk;
     this.db = db;
     this.applicationName = applicationName || APPLICATION_NAME;
-    this.gossipKey = gossipKey || GOSSIP_KEY;
+    this.gossipKey = gossipKey;
   }
 
   async init() {
@@ -50,19 +44,20 @@ export default class NatakanuCore extends EventEmitter {
       });
     }
 
-    const gossipCoreKey = hasha(this.gossipKey).slice(0, 64);
-
-    this.gossipCore = this.sdk.Hypercore(gossipCoreKey);
-
-    console.log('Gossip Core', this.gossipKey, gossipCoreKey.length);
+    this.database = new Database(this.db);
 
     const { publicKey: id } = await this.sdk.getIdentity();
 
-    await this.gossipCore.ready();
+    this.gossip = new Gossip(
+      id,
+      this.sdk.Hypercore,
+      this.database,
+      this.gossipKey
+    );
 
-    this.gossip = datGossip(this.gossipCore, { id });
-
-    this.database = new Database(this.db);
+    console.log('Initializing gossip', this.gossipKey);
+    await this.gossip.init();
+    console.log('Done!');
 
     this.projects = new ProjectStore(this.sdk.Hyperdrive, this.database);
 

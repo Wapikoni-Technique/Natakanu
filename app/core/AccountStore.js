@@ -46,10 +46,10 @@ export default class AccountStore extends EventEmitter {
   }
 
   async get(name) {
-    console.log('Getting', name);
     const { key } = parseURL(name);
 
     if (this.accounts.has(key)) return this.accounts.get(key);
+    console.log('Getting', name);
 
     const account = await Account.load(
       key,
