@@ -6,6 +6,8 @@ import EditableText from './EditableText';
 
 import styles from './Online.css';
 
+import localization from '../localization';
+
 export default function Online({
   gossiped,
   gossipKey,
@@ -32,7 +34,9 @@ export default function Online({
         </section>
       </div>
       <div className={styles.channelContainer}>
-        <span className={styles.channelLabel}>Your circle name:</span>
+        <span className={styles.channelLabel}>
+          {localization.online_circle_name}
+        </span>
         <EditableText value={gossipKey} onUpdate={onUpdateGossipKey} />
       </div>
     </PageContainer>
