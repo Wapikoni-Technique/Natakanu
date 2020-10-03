@@ -17,10 +17,17 @@ export default function UrlBar() {
     url: `${PROTOCOL_SCHEME}${location.pathname.slice(1)}`
   };
 
+  function goHome() {
+    push('/login');
+  }
+
   return (
     <section className={styles.urlbar}>
       <Button onClick={goBack} label={localization.urlbar_back}>
         <i className="fas fa-arrow-left" />
+      </Button>
+      <Button onClick={goHome} label={localization.urlbar_home}>
+        <i className="fas fa-home" />
       </Button>
       <Formik onSubmit={navigateTo} initialValues={initialValues}>
         {() => (
