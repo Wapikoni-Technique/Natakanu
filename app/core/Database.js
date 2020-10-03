@@ -4,7 +4,9 @@ import {
   RECENT_PROJECT_DB_PREFIX,
   MAX_RECENT_PROJECTS,
   SAVED_PROJECT_DB_PREFIX,
-  PREFERENCES_DB_KEY
+  PREFERENCES_DB_KEY,
+  DEFAULT_GOSSIP_KEY,
+  GOSSIP_DB_KEY
 } from '../constants/core';
 
 export default class Database {
@@ -149,5 +151,20 @@ export default class Database {
 
   async savePreferences(preferences) {
     await this.db.put(PREFERENCES_DB_KEY, preferences);
+  }
+
+  async getGossipKey() {
+    console.log('Getting gossip key', GOSSIP_DB_KEY);
+    try {
+      const result = await this.db.get(GOSSIP_DB_KEY);
+      return result;
+    } catch (e) {
+      console.error(e);
+      return DEFAULT_GOSSIP_KEY;
+    }
+  }
+
+  async setGossipKey(key) {
+    await this.db.put(GOSSIP_DB_KEY, key);
   }
 }

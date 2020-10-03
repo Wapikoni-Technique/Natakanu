@@ -18,6 +18,7 @@ async function loadCore() {
 
     return coreInstance;
   } catch (e) {
+    console.error('Error loading core', e.stack);
     coreLoading = null;
     throw e;
   }

@@ -17,6 +17,7 @@ export const SAVED_PROJECT_DB_PREFIX = 'projects::SAVED';
 export const PREFERENCES_DB_KEY = 'preferences';
 
 // This is the key that will be used to discover peers on the network
-export const GOSSIP_KEY = 'Natakanu-Global';
+export const DEFAULT_GOSSIP_KEY = 'Natakanu-Global';
+export const GOSSIP_DB_KEY = 'gossip:key';
 
 export const SEARCH_LIMIT = 8;
