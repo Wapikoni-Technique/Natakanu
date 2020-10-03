@@ -25,7 +25,11 @@ describe('Basic natakanu core tests', () => {
         valueEncoding: 'json'
       })
     );
-    natakanu = await Natakanu.create({ db, sdk, gossipKey });
+    natakanu = await Natakanu.create({
+      db,
+      sdk,
+      gossipKey
+    });
   });
   it('can create an account', async () => {
     const name = 'Test User';
@@ -57,7 +61,11 @@ describe('Basic natakanu core tests', () => {
     });
     const db = levelup(memdown());
 
-    natakanu2 = await Natakanu.create({ db, sdk, gossipKey });
+    natakanu2 = await Natakanu.create({
+      db,
+      sdk,
+      gossipKey
+    });
 
     // Wait a bit for replication to happen
     await delay(2000);

@@ -55,19 +55,19 @@ export default class Gossip extends EventEmitter {
     await this.loadGossip();
   }
 
-  async advertise(key) {
+  advertise(key) {
     console.log('Advertising', key);
-    await this.gossip.advertise(key);
+    this.gossip.advertise(key);
     this.keys.add(key.toString('hex'));
   }
 
-  async delete(key) {
+  delete(key) {
     console.log('Unadvertising', key);
-    await this.gossip.delete(key);
+    this.gossip.delete(key);
     this.keys.delete(key.toString('hex'));
   }
 
-  async list() {
+  list() {
     return this.gossip.list();
   }
 }
