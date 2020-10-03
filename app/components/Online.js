@@ -2,10 +2,16 @@ import React from 'react';
 
 import PageContainer from './PageContainer';
 import AccountIcon from './AccountIcon';
+import EditableText from './EditableText';
 
 import styles from './Online.css';
 
-export default function Online({ gossiped, onGoAccount }) {
+export default function Online({
+  gossiped,
+  gossipKey,
+  onGoAccount,
+  onUpdateGossipKey
+}) {
   const gossipedAccounts = gossiped.map((info, index) => (
     <Person
       key={info.key}
@@ -20,7 +26,15 @@ export default function Online({ gossiped, onGoAccount }) {
       backgroundClass={styles.background}
       contentClass={styles.mainContainer}
     >
-      <section className={styles.accountContainer}>{gossipedAccounts}</section>
+      <div className={styles.circleContainer}>
+        <section className={styles.accountContainer}>
+          {gossipedAccounts}
+        </section>
+      </div>
+      <div className={styles.channelContainer}>
+        <span className={styles.channelLabel}>Your circle name:</span>
+        <EditableText value={gossipKey} onUpdate={onUpdateGossipKey} />
+      </div>
     </PageContainer>
   );
 }

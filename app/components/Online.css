@@ -1,14 +1,35 @@
 .background {
   background: var(--t-color-beige);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .mainContainer {
-  height: calc(var(--t-content-size) * 0.44);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  align-items: center;
+  max-width: 200vmin;
+}
+
+.channelContainer {
+  text-align: center;
+}
+
+.channelLabel {
+  margin-right: 1em;
+}
+
+.circleContainer {
+  height: calc(200vmin * 0.44);
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: stretch;
   padding: 0;
+  flex: 1;
 }
 
 .accountContainer {

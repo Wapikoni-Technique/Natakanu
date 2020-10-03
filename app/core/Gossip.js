@@ -34,7 +34,7 @@ export default class Gossip extends EventEmitter {
       id: this.id
     });
 
-    this.gossip.on('changed', keys => this.emit('changed', keys));
+    this.gossip.on('changed', () => this.emit('changed'));
 
     for (const key of this.keys) {
       await this.advertise(key);
@@ -53,6 +53,8 @@ export default class Gossip extends EventEmitter {
     this.gossipKey = gossipKey;
 
     await this.loadGossip();
+
+    this.emit('changed');
   }
 
   advertise(key) {

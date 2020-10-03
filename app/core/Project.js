@@ -109,6 +109,17 @@ export default class Project extends EventEmitter {
         });
       });
     });
+    this.archive.primary.ready(() => {
+      this.archive.primary.watch('/', () => {
+        console.log('New writer updated');
+        this.emit('update', 'update');
+      });
+      this.archive.primary.getContent((err, feed) => {
+        feed.on('download', (index, block) => {
+          this.emit('update', 'download', index, block);
+        });
+      });
+    });
     this.archive.on('drive-remove', () => {
       this.emit('update', 'drive-remove');
     });
