@@ -50,7 +50,14 @@ This project was funded under the Montreal cultural development agreement betwee
 
 ## Contributing
 
-- Clone the repo
+- Make sure you have the following installed:
+  - [Git](https://git-scm.com/)
+  - [Node.js](https://git-scm.com/)
+  - [node-gyp](https://github.com/nodejs/node-gyp)
+  - [Yarn](https://yarnpkg.com/)
+  - [GitHub](https://github.com/)
+- Clone the repo with `git clone git@github.com:Wapikoni-Technique/Natakanu.git`
+- Load the directory with `cd Natakanu`
 - Use `yarn` to install dependencies
 - Use `yarn dev` to start up dev folder.
 - This project uses [React](https://reactjs.org/) and [Electron](https://www.electronjs.org/) for it's user interface
@@ -60,6 +67,7 @@ This project was funded under the Montreal cultural development agreement betwee
 - `/app/containers` contains React container components which load data and provide actions to child components
 - `/app/components` contains React components that are made to be purely UI focused. Most of them don't have state. Use individual CSS files for components
 - `/app/Routes.js` is where the top level of the navigation lives if you want to add a page
+- `/app/localization` contains the translations for the app. If you see a translation or text that needs to change, find it in `en.json` or `fr.json`
 
 ## Code of Conduct
 
