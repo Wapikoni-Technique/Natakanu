@@ -2,7 +2,8 @@ import { dialog } from 'electron';
 import {
   parse as parsePath,
   join as joinPaths,
-  basename as pathBasename
+  basename as pathBasename,
+  sep
 } from 'path';
 import fs from 'fs-extra';
 import pump from 'pump-promise';
@@ -14,6 +15,8 @@ import hyperdrivePromise from '@geut/hyperdrive-promise';
 
 import { encodeProject } from './urlParser';
 import { PROJECT_INFO_FILE, PROJECT_INFO_FILE_BACKUP } from '../constants/core';
+
+const MATCH_SEP = /\\/g;
 
 export default class Project extends EventEmitter {
   static async load(key, Hyperdrive, database) {
@@ -315,7 +318,9 @@ export default class Project extends EventEmitter {
 
     if (canceled) throw new Error('Canceled file save');
 
-    const readStream = this.archive.createReadStream(path);
+    const normalizedPath = normalizePath(path);
+
+    const readStream = this.archive.createReadStream(normalizedPath);
     const writeStream = fs.createWriteStream(filePath);
 
     await pump(readStream, writeStream);
@@ -368,17 +373,18 @@ export default class Project extends EventEmitter {
   }
 
   async saveFromFS(fsFile, destinationFile) {
-    const writeStream = this.archive.createWriteStream(destinationFile);
+    const normalizedDest = normalizePath(destinationFile);
+    const writeStream = this.archive.createWriteStream(normalizedDest);
     const readStream = fs.createReadStream(fsFile);
 
-    this.uploading.add(destinationFile);
-    this.emit('update', 'uploaded', destinationFile);
+    this.uploading.add(normalizedDest);
+    this.emit('update', 'uploaded', normalizedDest);
 
     await pump(readStream, writeStream);
 
-    this.emit('update', 'uploaded', destinationFile);
+    this.emit('update', 'uploaded', normalizedDest);
 
-    delete this.uploading.delete(destinationFile);
+    delete this.uploading.delete(normalizedDest);
   }
 
   async destroy(force) {
@@ -414,4 +420,9 @@ export default class Project extends EventEmitter {
 
     return true;
   }
+}
+
+function normalizePath(path) {
+  if (sep === '/') return path;
+  return path.replace(MATCH_SEP, '/');
 }

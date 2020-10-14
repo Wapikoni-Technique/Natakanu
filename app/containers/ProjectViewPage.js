@@ -1,13 +1,15 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { once } from 'events';
-import { join } from 'path';
+import { posix } from 'path';
 
 import getCore from '../core/get';
 import ProjectView from '../components/ProjectView';
 import AsyncGeneratorPage from './AsyncGeneratorPage';
 
 import LoaderPage from '../components/LoaderPage';
+
+const { join } = posix;
 
 export default function ProjectViewPage() {
   const { project, subpath = '/' } = useParams();
