@@ -2,7 +2,7 @@
   "name": "natakanu-desktop",
   "productName": "Natakanu",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Desktop application for Natakanu - A local file transfer program",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
