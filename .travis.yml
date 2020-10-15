@@ -23,13 +23,13 @@ jobs:
     #  script:
     #    - yarn test-all
     - stage: Deploy Linux
-      #if: tag IS present
+      if: tag IS present
       os: linux
       dist: trusty
       script:
         - yarn package-ci -- --linux -p always
     - stage: Deploy Mac and Windows
-      #if: tag IS present
+      if: tag IS present
       os: osx
       osx_image: xcode10.1
       script:

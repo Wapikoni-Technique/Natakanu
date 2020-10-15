@@ -69,6 +69,17 @@ This project was funded under the Montreal cultural development agreement betwee
 - `/app/Routes.js` is where the top level of the navigation lives if you want to add a page
 - `/app/localization` contains the translations for the app. If you see a translation or text that needs to change, find it in `en.json` or `fr.json`
 
+### How to release a new version
+
+- Modify the `version` field inside `package.json` and `app/package.json` with your new version
+- Run `git commit -am "Version VERSION_HERE"` to save the changes. `VERSION_HERE` should be the version like `4.2.0`
+- Run `git tag vVERSION_HERE` to save the version in Git's history (this will be used by Travis to know when to make a new version). E.g. `git tag v4.2.0`
+- Run `git push && git push --tags` to send all your changes to github
+- Wait for the [Travis Build to finish](https://travis-ci.com/github/Wapikoni-Technique/Natakanu/builds/)
+- Go to the [Releases](https://github.
+  com/Wapikoni-Technique/Natakanu/releases) page and edit the text for the release / press "Publish release" to send it out.
+- You can manually build the executibles with `yarn package`
+
 ## Code of Conduct
 
 Please abide by the guidelines of the [Contributor Covenant 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) when engaging with this community.
