@@ -19,7 +19,7 @@ export default function ProjectViewPage() {
     const core = await getCore();
     const projectInstance = await core.projects.get(project);
 
-    return projectInstance.showSaveFile(name);
+    return projectInstance.showSaveFile(join(subpath, name));
   }
 
   async function onAddFiles(folders = false) {
