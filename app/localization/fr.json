@@ -1,16 +1,16 @@
 {
   "example": "Kuei!",
 
-  "urlbar_back": "**Go Back**",
-  "urlbar_home": "**Go Home**",
+  "urlbar_back": "Retour",
+  "urlbar_home": "Retour au point de départ",
 
   "login_add": "Ajouter un compte",
   "login_preferences": "Préférences",
 
   "account_new_project": "Nouveau Projet",
-  "account_no_projects_self_1": "Natakanu vous aide à partager des fichiers avec votre communauté. C'est ici que vous pourrez voir tous les projets sur lesquels vous avez travaillé.",
-  "account_no_projects_self_2": "Cliquez sur le bouton Nouveau Projet pour créer votre premier projet.",
-  "account_no_projects_other": "Cette personne n'a pas encore partagé de projet.",
+  "account_no_projects_self_1": "Natakanu est un logiciel local-first décentralisé et complètement off-grid. Il a été conçu pour vous aider à partager des fichiers avec votre communauté sans avoir recours à internet. C'est ici que seront répertoriés les fichiers que vous souhaitez partager. Natakanu les regroupe sous la forme de projets.",
+  "account_no_projects_self_2": "Cliquez sur le bouton Nouveau Projet pour créer votre premier dossier de partage",
+  "account_no_projects_other": "Cette personne ne partage rien pour l'instant",
 
   "error_page_error": "Erreur:",
   "error_page_go_back": "Revenir",
@@ -24,34 +24,34 @@
   "new_project_credits": "Crédits",
 
   "project_view_add_files": "Ajouter des fichiers",
-  "project_view_add_folders": "**Add Folder**",
-  "project_view_save_locally": "Enregistrer le projet localement",
-  "project_view_go_up": "**Go to parent folder**",
+  "project_view_add_folders": "Ajoutter un dossier",
+  "project_view_save_locally": "Enregistrer ce projet localement",
+  "project_view_go_up": "Aller au dossier parent",
   "project_view_delete_file": "Supprimer ce fichier",
   "project_view_open_file": "Ouvrir",
   "project_view_downloaded": "Ce fichier à été enregistré localement",
   "project_view_delete_project": "Supprimer ce projet",
-  "project_view_ask_save": "Demander à modifier les fichiers",
-  "project_view_allow_save": "Autoriser d'autres personnes à ajouter des fichiers",
-  "project_view_connected": "**Connected To**",
+  "project_view_ask_save": "Demander l'autorisation de modifier ce projet",
+  "project_view_allow_save": "Autoriser vos pairs à modifier ce projet",
+  "project_view_connected": "Nombre de pair.s connecté.s",
 
   "register_title": "Natakanu",
-  "register_intro_1": "Veuillez entrer quelques informations de base vous concernant pour commencer",
-  "register_intro_2": "Ces informations seront vu par d'autres personnes au fur et à mesure qu'elles découvriront vos projets",
+  "register_intro_1": "Pour commencer composer votre profil ",
+  "register_intro_2": "Votre profil sert à informer vos pairs pour qu'ils et elles découvrent vos projets",
   "register_name": "Nom",
   "register_about": "À propos",
-  "register_button": "S'inscrire",
+  "register_button": "Enregistrer",
   "register_image": "Photo",
 
-  "header_online": "Qui est en ligne",
-  "header_recent_projects": "Projets récents",
+  "header_online": "Cercle de partage",
+  "header_recent_projects": "Mémoire",
 
-  "preferences_superpeer": "Sauvegarder automatiquement les données de tout le monde",
+  "preferences_superpeer": "Sauvegarder automatiquement tout ce que je consulte",
 
   "recent_recent": "Projets que vous avez vus récemment.",
-  "recent_saved": "Projets que vous avez sauvegarder localement.",
-  "recent_seen": "Personnes que vous avez vues.",
+  "recent_saved": "Projets que vous avez sauvegardés localement.",
+  "recent_seen": "Personnes que vous avez rencontrées",
   "recent_search": "Recherche",
 
-  "online_circle_name": "**Your circle name:"
+  "online_circle_name": "Nom de votre cercle de partage:"
 }
