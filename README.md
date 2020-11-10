@@ -48,6 +48,12 @@ This project was funded under the Montreal cultural development agreement betwee
 ![Quebec](logos/quebec.png)
 ![Montreal](logos/montreal.jpg)
 
+## Error Installing on Mac OS?
+
+Please follow this guide to enable the app on Mac OS.
+
+https://www.howtogeek.com/205393/gatekeeper-101-why-your-mac-only-allows-apple-approved-software-by-default/
+
 ## Contributing
 
 - Make sure you have the following installed:
