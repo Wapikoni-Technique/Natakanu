@@ -1,4 +1,4 @@
-# [Natakanu](https://www.facebook.com/projetnatakanu/)
+# [Natakanu](https://www.facebook.com/projetnatakanu/) - Visit Each Other
 
 <center>
 	<img src="logos/natakanu.png" title="Natakanu Logo" />
